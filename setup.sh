@@ -2,6 +2,66 @@
 
 set -euo pipefail
 
+usage() {
+  cat <<'EOF'
+Usage:
+  sudo ./setup.sh [--threads N|auto]
+
+Options:
+  --threads N     Limit parallel build jobs for dependency installers.
+  --threads auto  Auto-detect jobs from CPU count (default).
+  -h, --help      Show this help.
+EOF
+}
+
+detect_cpu_threads() {
+  if command -v nproc >/dev/null 2>&1; then
+    nproc
+    return 0
+  fi
+  if command -v getconf >/dev/null 2>&1; then
+    getconf _NPROCESSORS_ONLN
+    return 0
+  fi
+  if command -v sysctl >/dev/null 2>&1; then
+    sysctl -n hw.ncpu
+    return 0
+  fi
+  echo 1
+}
+
+THREADS=""
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --threads)
+      THREADS="${2:?missing value for --threads}"
+      shift 2
+      ;;
+    -threads=*)
+      THREADS="${1#*=}"
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      usage >&2
+      exit 1
+      ;;
+  esac
+done
+
+if [[ -z "$THREADS" || "$THREADS" == "auto" || "$THREADS" == "nproc" ]]; then
+  THREADS="$(detect_cpu_threads)"
+fi
+
+if [[ ! "$THREADS" =~ ^[1-9][0-9]*$ ]]; then
+  echo "Invalid --threads value: $THREADS (must be a positive integer or 'auto')" >&2
+  exit 1
+fi
+
 # allow this script to be invoked from any folder
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$DIR"
@@ -31,7 +91,11 @@ git submodule sync --recursive
 git submodule status --recursive > "$tmpfile"
 
 if grep -q "^-" "$tmpfile"; then
-  sudo -u "$SUDO_USER" git submodule update --init --recursive
+  submodule_args=(--init --recursive)
+  if [[ -n "$THREADS" ]]; then
+    submodule_args+=(--jobs "$THREADS")
+  fi
+  sudo -u "$SUDO_USER" git submodule update "${submodule_args[@]}"
 elif grep -q "^+" "$tmpfile"; then
   # Make it easy for users who are not hacking ORFS to do the right thing,
   # run with current submodules, at the cost of having ORFS
@@ -51,5 +115,10 @@ for required_path in \
   fi
 done
 
-"$DIR/etc/DependencyInstaller.sh" -base
-sudo -u "$SUDO_USER" "$DIR/etc/DependencyInstaller.sh" -common -prefix="$DIR/dependencies"
+installer_threads_arg=()
+if [[ -n "$THREADS" ]]; then
+  installer_threads_arg=(-threads="$THREADS")
+fi
+
+"$DIR/etc/DependencyInstaller.sh" -base "${installer_threads_arg[@]}"
+sudo -u "$SUDO_USER" "$DIR/etc/DependencyInstaller.sh" -common -prefix="$DIR/dependencies" "${installer_threads_arg[@]}"

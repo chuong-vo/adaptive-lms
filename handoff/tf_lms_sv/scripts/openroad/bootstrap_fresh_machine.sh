@@ -18,7 +18,8 @@ Options:
   --deps          Run `sudo ./setup.sh`.
   --build         Run `./build_openroad.sh --local`.
   --rerun         Run `run_flow.sh rerun` after setup/build.
-  --threads N     Pass `--threads N` to `build_openroad.sh`.
+  --threads N     Parallel jobs for dependency setup, submodule update, and build.
+  --threads auto  Auto-detect jobs from CPU count (default).
   --check-only    Only validate repo layout and print next steps.
   --all           Equivalent to `--deps --build --rerun`.
   -h, --help      Show help.
@@ -40,6 +41,22 @@ DO_BUILD=0
 DO_RERUN=0
 CHECK_ONLY=0
 THREADS=""
+
+detect_cpu_threads() {
+  if command -v nproc >/dev/null 2>&1; then
+    nproc
+    return 0
+  fi
+  if command -v getconf >/dev/null 2>&1; then
+    getconf _NPROCESSORS_ONLN
+    return 0
+  fi
+  if command -v sysctl >/dev/null 2>&1; then
+    sysctl -n hw.ncpu
+    return 0
+  fi
+  echo 1
+}
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -80,6 +97,15 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
+
+if [[ -z "$THREADS" || "$THREADS" == "auto" || "$THREADS" == "nproc" ]]; then
+  THREADS="$(detect_cpu_threads)"
+fi
+
+if [[ ! "$THREADS" =~ ^[1-9][0-9]*$ ]]; then
+  echo "Invalid --threads value: $THREADS (must be a positive integer or 'auto')" >&2
+  exit 1
+fi
 
 assert_file() {
   local path="$1"
@@ -126,10 +152,14 @@ ensure_submodules() {
     return 0
   fi
   echo "[prep] Syncing and initializing git submodules"
+  local submodule_args=(--init --recursive)
+  if [[ -n "$THREADS" ]]; then
+    submodule_args+=(--jobs "$THREADS")
+  fi
   (
     cd "$REPO_ROOT"
     git submodule sync --recursive
-    git submodule update --init --recursive
+    git submodule update "${submodule_args[@]}"
   )
 }
 
@@ -164,7 +194,11 @@ run_deps() {
   }
   ensure_submodules
   assert_tool_sources
-  (cd "$REPO_ROOT" && sudo ./setup.sh)
+  local setup_args=()
+  if [[ -n "$THREADS" ]]; then
+    setup_args+=(--threads "$THREADS")
+  fi
+  (cd "$REPO_ROOT" && sudo ./setup.sh "${setup_args[@]}")
 }
 
 run_build() {
