@@ -1,0 +1,638 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -nets
+        -max_paths 10
+        -transition_time
+        -capacitance
+Design : tf_lms_sv
+Version: L-2016.03-SP1
+Date   : Thu Mar 26 01:26:00 2026
+****************************************
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary_typ
+Wire Load Model Mode: top
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[15]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: err[7] (output port clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  tf_lms_sv          5K_hvratio_1_1        NangateOpenCellLibrary_typ
+
+  Point                                       Fanout       Cap     Trans      Incr       Path
+  ----------------------------------------------------------------------------------------------
+  clock clk (rise edge)                                                       0.00       0.00
+  clock network delay (ideal)                                                 0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[15]/CK (DFF_X1)                   0.10      0.00       0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[15]/Q (DFF_X1)                    0.02      0.12       0.12 f
+  cflt/tap5/delayed_new_coeff_true[15] (net)
+                                                9        17.77                0.00       0.12 f
+  U169/ZN (NOR2_X1)                                                 0.04      0.07       0.19 r
+  n763 (net)                                    3         6.22                0.00       0.19 r
+  U170/ZN (INV_X1)                                                  0.01      0.04       0.23 f
+  n762 (net)                                    4         7.10                0.00       0.23 f
+  U172/ZN (NAND2_X1)                                                0.06      0.09       0.32 r
+  n765 (net)                                   13        24.06                0.00       0.32 r
+  U177/ZN (NAND2_X1)                                                0.05      0.10       0.42 f
+  n135 (net)                                   12        23.68                0.00       0.42 f
+  U178/ZN (INV_X1)                                                  0.06      0.11       0.52 r
+  intadd_3/B[8] (net)                          11        25.01                0.00       0.52 r
+  U225/ZN (AOI22_X1)                                                0.05      0.09       0.62 f
+  n128 (net)                                   11        21.35                0.00       0.62 f
+  U137/ZN (AOI221_X4)                                               0.01      0.16       0.77 r
+  n110 (net)                                    8        16.73                0.00       0.77 r
+  U297/ZN (OAI221_X1)                                               0.02      0.05       0.83 f
+  n112 (net)                                    1         1.83                0.00       0.83 f
+  U298/ZN (OAI21_X1)                                                0.03      0.04       0.87 r
+  n121 (net)                                    2         3.93                0.00       0.87 r
+  U299/ZN (NAND2_X1)                                                0.02      0.04       0.91 f
+  n120 (net)                                    2         5.62                0.00       0.91 f
+  U302/ZN (OAI21_X1)                                                0.03      0.05       0.96 r
+  intadd_22/A[0] (net)                          1         4.06                0.00       0.96 r
+  intadd_22/U6/S (FA_X1)                                            0.02      0.12       1.08 f
+  intadd_22/SUM[0] (net)                        2         3.64                0.00       1.08 f
+  U331/ZN (NOR2_X1)                                                 0.02      0.04       1.12 r
+  n158 (net)                                    1         1.88                0.00       1.12 r
+  U333/ZN (OAI21_X1)                                                0.02      0.03       1.16 f
+  intadd_22/B[1] (net)                          1         3.71                0.00       1.16 f
+  intadd_22/U5/CO (FA_X1)                                           0.01      0.11       1.26 f
+  intadd_22/n4 (net)                            1         2.97                0.00       1.26 f
+  intadd_22/U4/CO (FA_X1)                                           0.01      0.09       1.35 f
+  intadd_22/n3 (net)                            1         2.97                0.00       1.35 f
+  intadd_22/U3/CO (FA_X1)                                           0.01      0.09       1.44 f
+  intadd_22/n2 (net)                            1         2.97                0.00       1.44 f
+  intadd_22/U2/CO (FA_X1)                                           0.01      0.09       1.53 f
+  intadd_22/n1 (net)                            1         1.86                0.00       1.53 f
+  U334/ZN (INV_X1)                                                  0.01      0.03       1.56 r
+  intadd_21/B[2] (net)                          1         3.78                0.00       1.56 r
+  intadd_21/U4/S (FA_X1)                                            0.02      0.12       1.68 f
+  intadd_21/SUM[2] (net)                        1         1.86                0.00       1.68 f
+  U337/ZN (INV_X1)                                                  0.01      0.03       1.71 r
+  intadd_14/B[3] (net)                          1         3.78                0.00       1.71 r
+  intadd_14/U4/S (FA_X1)                                            0.02      0.12       1.84 f
+  intadd_14/SUM[3] (net)                        2         5.65                0.00       1.84 f
+  U399/CO (FA_X1)                                                   0.02      0.11       1.95 f
+  n173 (net)                                    2         3.64                0.00       1.95 f
+  U357/ZN (NOR2_X1)                                                 0.03      0.05       2.00 r
+  n185 (net)                                    2         4.06                0.00       2.00 r
+  U359/ZN (OAI21_X1)                                                0.01      0.04       2.04 f
+  n174 (net)                                    2         3.76                0.00       2.04 f
+  U360/ZN (NOR2_X1)                                                 0.03      0.06       2.09 r
+  n178 (net)                                    2         4.06                0.00       2.09 r
+  U362/ZN (OAI21_X1)                                                0.01      0.03       2.13 f
+  n175 (net)                                    1         2.72                0.00       2.13 f
+  U363/Z (XOR2_X1)                                                  0.03      0.06       2.19 r
+  n177 (net)                                    2         3.95                0.00       2.19 r
+  U364/ZN (OAI21_X1)                                                0.02      0.04       2.22 f
+  n176 (net)                                    1         1.85                0.00       2.22 f
+  U365/ZN (AOI21_X1)                                                0.08      0.12       2.35 r
+  err[7] (net)                                  8        15.14                0.00       2.35 r
+  err[7] (out)                                                      0.08      0.01       2.35 r
+  data arrival time                                                                      2.35
+
+  clock clk (rise edge)                                                      20.00      20.00
+  clock network delay (ideal)                                                 0.00      20.00
+  clock uncertainty                                                          -0.20      19.80
+  output external delay                                                      -2.00      17.80
+  data required time                                                                    17.80
+  ----------------------------------------------------------------------------------------------
+  data required time                                                                    17.80
+  data arrival time                                                                     -2.35
+  ----------------------------------------------------------------------------------------------
+  slack (MET)                                                                           15.45
+
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[15]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: err[6] (output port clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  tf_lms_sv          5K_hvratio_1_1        NangateOpenCellLibrary_typ
+
+  Point                                       Fanout       Cap     Trans      Incr       Path
+  ----------------------------------------------------------------------------------------------
+  clock clk (rise edge)                                                       0.00       0.00
+  clock network delay (ideal)                                                 0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[15]/CK (DFF_X1)                   0.10      0.00       0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[15]/Q (DFF_X1)                    0.02      0.12       0.12 f
+  cflt/tap5/delayed_new_coeff_true[15] (net)
+                                                9        17.77                0.00       0.12 f
+  U169/ZN (NOR2_X1)                                                 0.04      0.07       0.19 r
+  n763 (net)                                    3         6.22                0.00       0.19 r
+  U170/ZN (INV_X1)                                                  0.01      0.04       0.23 f
+  n762 (net)                                    4         7.10                0.00       0.23 f
+  U172/ZN (NAND2_X1)                                                0.06      0.09       0.32 r
+  n765 (net)                                   13        24.06                0.00       0.32 r
+  U177/ZN (NAND2_X1)                                                0.05      0.10       0.42 f
+  n135 (net)                                   12        23.68                0.00       0.42 f
+  U178/ZN (INV_X1)                                                  0.06      0.11       0.52 r
+  intadd_3/B[8] (net)                          11        25.01                0.00       0.52 r
+  U225/ZN (AOI22_X1)                                                0.05      0.09       0.62 f
+  n128 (net)                                   11        21.35                0.00       0.62 f
+  U137/ZN (AOI221_X4)                                               0.01      0.16       0.77 r
+  n110 (net)                                    8        16.73                0.00       0.77 r
+  U297/ZN (OAI221_X1)                                               0.02      0.05       0.83 f
+  n112 (net)                                    1         1.83                0.00       0.83 f
+  U298/ZN (OAI21_X1)                                                0.03      0.04       0.87 r
+  n121 (net)                                    2         3.93                0.00       0.87 r
+  U299/ZN (NAND2_X1)                                                0.02      0.04       0.91 f
+  n120 (net)                                    2         5.62                0.00       0.91 f
+  U302/ZN (OAI21_X1)                                                0.03      0.05       0.96 r
+  intadd_22/A[0] (net)                          1         4.06                0.00       0.96 r
+  intadd_22/U6/S (FA_X1)                                            0.02      0.12       1.08 f
+  intadd_22/SUM[0] (net)                        2         3.64                0.00       1.08 f
+  U331/ZN (NOR2_X1)                                                 0.02      0.04       1.12 r
+  n158 (net)                                    1         1.88                0.00       1.12 r
+  U333/ZN (OAI21_X1)                                                0.02      0.03       1.16 f
+  intadd_22/B[1] (net)                          1         3.71                0.00       1.16 f
+  intadd_22/U5/CO (FA_X1)                                           0.01      0.11       1.26 f
+  intadd_22/n4 (net)                            1         2.97                0.00       1.26 f
+  intadd_22/U4/CO (FA_X1)                                           0.01      0.09       1.35 f
+  intadd_22/n3 (net)                            1         2.97                0.00       1.35 f
+  intadd_22/U3/CO (FA_X1)                                           0.01      0.09       1.44 f
+  intadd_22/n2 (net)                            1         2.97                0.00       1.44 f
+  intadd_22/U2/CO (FA_X1)                                           0.01      0.09       1.53 f
+  intadd_22/n1 (net)                            1         1.86                0.00       1.53 f
+  U334/ZN (INV_X1)                                                  0.01      0.03       1.56 r
+  intadd_21/B[2] (net)                          1         3.78                0.00       1.56 r
+  intadd_21/U4/S (FA_X1)                                            0.02      0.12       1.68 f
+  intadd_21/SUM[2] (net)                        1         1.86                0.00       1.68 f
+  U337/ZN (INV_X1)                                                  0.01      0.03       1.71 r
+  intadd_14/B[3] (net)                          1         3.78                0.00       1.71 r
+  intadd_14/U4/S (FA_X1)                                            0.02      0.12       1.84 f
+  intadd_14/SUM[3] (net)                        2         5.65                0.00       1.84 f
+  U399/CO (FA_X1)                                                   0.02      0.11       1.95 f
+  n173 (net)                                    2         3.64                0.00       1.95 f
+  U357/ZN (NOR2_X1)                                                 0.03      0.05       2.00 r
+  n185 (net)                                    2         4.06                0.00       2.00 r
+  U359/ZN (OAI21_X1)                                                0.01      0.04       2.04 f
+  n174 (net)                                    2         3.76                0.00       2.04 f
+  U360/ZN (NOR2_X1)                                                 0.03      0.06       2.09 r
+  n178 (net)                                    2         4.06                0.00       2.09 r
+  U371/ZN (INV_X1)                                                  0.01      0.02       2.12 f
+  n179 (net)                                    1         1.81                0.00       2.12 f
+  U372/ZN (NAND2_X1)                                                0.01      0.03       2.15 r
+  n182 (net)                                    2         3.95                0.00       2.15 r
+  U373/ZN (OAI21_X1)                                                0.02      0.03       2.18 f
+  n181 (net)                                    1         1.85                0.00       2.18 f
+  U374/ZN (AOI21_X1)                                                0.07      0.11       2.29 r
+  err[6] (net)                                  7        12.74                0.00       2.29 r
+  err[6] (out)                                                      0.07      0.00       2.30 r
+  data arrival time                                                                      2.30
+
+  clock clk (rise edge)                                                      20.00      20.00
+  clock network delay (ideal)                                                 0.00      20.00
+  clock uncertainty                                                          -0.20      19.80
+  output external delay                                                      -2.00      17.80
+  data required time                                                                    17.80
+  ----------------------------------------------------------------------------------------------
+  data required time                                                                    17.80
+  data arrival time                                                                     -2.30
+  ----------------------------------------------------------------------------------------------
+  slack (MET)                                                                           15.50
+
+
+  Startpoint: adapt_en (input port clocked by clk)
+  Endpoint: err[0] (output port clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  tf_lms_sv          5K_hvratio_1_1        NangateOpenCellLibrary_typ
+
+  Point                        Fanout       Cap     Trans      Incr       Path
+  -------------------------------------------------------------------------------
+  clock clk (rise edge)                                        0.00       0.00
+  clock network delay (ideal)                                  0.00       0.00
+  input external delay                                         2.00       2.00 r
+  adapt_en (in)                                      0.10      0.00       2.00 r
+  adapt_en (net)                 6        12.69                0.00       2.00 r
+  U140/ZN (INV_X1)                                   0.03      0.05       2.05 f
+  n213 (net)                     3         7.42                0.00       2.05 f
+  U139/ZN (AOI221_X2)                                0.12      0.19       2.24 r
+  err[0] (net)                  13        25.58                0.00       2.24 r
+  err[0] (out)                                       0.12      0.01       2.25 r
+  data arrival time                                                       2.25
+
+  clock clk (rise edge)                                       20.00      20.00
+  clock network delay (ideal)                                  0.00      20.00
+  clock uncertainty                                           -0.20      19.80
+  output external delay                                       -2.00      17.80
+  data required time                                                     17.80
+  -------------------------------------------------------------------------------
+  data required time                                                     17.80
+  data arrival time                                                      -2.25
+  -------------------------------------------------------------------------------
+  slack (MET)                                                            15.55
+
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[15]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: err[5] (output port clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  tf_lms_sv          5K_hvratio_1_1        NangateOpenCellLibrary_typ
+
+  Point                                       Fanout       Cap     Trans      Incr       Path
+  ----------------------------------------------------------------------------------------------
+  clock clk (rise edge)                                                       0.00       0.00
+  clock network delay (ideal)                                                 0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[15]/CK (DFF_X1)                   0.10      0.00       0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[15]/Q (DFF_X1)                    0.02      0.12       0.12 f
+  cflt/tap5/delayed_new_coeff_true[15] (net)
+                                                9        17.77                0.00       0.12 f
+  U169/ZN (NOR2_X1)                                                 0.04      0.07       0.19 r
+  n763 (net)                                    3         6.22                0.00       0.19 r
+  U170/ZN (INV_X1)                                                  0.01      0.04       0.23 f
+  n762 (net)                                    4         7.10                0.00       0.23 f
+  U172/ZN (NAND2_X1)                                                0.06      0.09       0.32 r
+  n765 (net)                                   13        24.06                0.00       0.32 r
+  U177/ZN (NAND2_X1)                                                0.05      0.10       0.42 f
+  n135 (net)                                   12        23.68                0.00       0.42 f
+  U178/ZN (INV_X1)                                                  0.06      0.11       0.52 r
+  intadd_3/B[8] (net)                          11        25.01                0.00       0.52 r
+  U225/ZN (AOI22_X1)                                                0.05      0.09       0.62 f
+  n128 (net)                                   11        21.35                0.00       0.62 f
+  U137/ZN (AOI221_X4)                                               0.01      0.16       0.77 r
+  n110 (net)                                    8        16.73                0.00       0.77 r
+  U297/ZN (OAI221_X1)                                               0.02      0.05       0.83 f
+  n112 (net)                                    1         1.83                0.00       0.83 f
+  U298/ZN (OAI21_X1)                                                0.03      0.04       0.87 r
+  n121 (net)                                    2         3.93                0.00       0.87 r
+  U299/ZN (NAND2_X1)                                                0.02      0.04       0.91 f
+  n120 (net)                                    2         5.62                0.00       0.91 f
+  U302/ZN (OAI21_X1)                                                0.03      0.05       0.96 r
+  intadd_22/A[0] (net)                          1         4.06                0.00       0.96 r
+  intadd_22/U6/S (FA_X1)                                            0.02      0.12       1.08 f
+  intadd_22/SUM[0] (net)                        2         3.64                0.00       1.08 f
+  U331/ZN (NOR2_X1)                                                 0.02      0.04       1.12 r
+  n158 (net)                                    1         1.88                0.00       1.12 r
+  U333/ZN (OAI21_X1)                                                0.02      0.03       1.16 f
+  intadd_22/B[1] (net)                          1         3.71                0.00       1.16 f
+  intadd_22/U5/CO (FA_X1)                                           0.01      0.11       1.26 f
+  intadd_22/n4 (net)                            1         2.97                0.00       1.26 f
+  intadd_22/U4/CO (FA_X1)                                           0.01      0.09       1.35 f
+  intadd_22/n3 (net)                            1         2.97                0.00       1.35 f
+  intadd_22/U3/CO (FA_X1)                                           0.01      0.09       1.44 f
+  intadd_22/n2 (net)                            1         2.97                0.00       1.44 f
+  intadd_22/U2/CO (FA_X1)                                           0.01      0.09       1.53 f
+  intadd_22/n1 (net)                            1         1.86                0.00       1.53 f
+  U334/ZN (INV_X1)                                                  0.01      0.03       1.56 r
+  intadd_21/B[2] (net)                          1         3.78                0.00       1.56 r
+  intadd_21/U4/S (FA_X1)                                            0.02      0.12       1.68 f
+  intadd_21/SUM[2] (net)                        1         1.86                0.00       1.68 f
+  U337/ZN (INV_X1)                                                  0.01      0.03       1.71 r
+  intadd_14/B[3] (net)                          1         3.78                0.00       1.71 r
+  intadd_14/U4/S (FA_X1)                                            0.02      0.12       1.84 f
+  intadd_14/SUM[3] (net)                        2         5.65                0.00       1.84 f
+  U399/CO (FA_X1)                                                   0.02      0.11       1.95 f
+  n173 (net)                                    2         3.64                0.00       1.95 f
+  U357/ZN (NOR2_X1)                                                 0.03      0.05       2.00 r
+  n185 (net)                                    2         4.06                0.00       2.00 r
+  U382/ZN (INV_X1)                                                  0.01      0.02       2.02 f
+  n186 (net)                                    1         1.81                0.00       2.02 f
+  U383/ZN (NAND2_X1)                                                0.01      0.03       2.05 r
+  n189 (net)                                    2         3.95                0.00       2.05 r
+  U384/ZN (OAI21_X1)                                                0.02      0.03       2.09 f
+  n188 (net)                                    1         1.85                0.00       2.09 f
+  U385/ZN (AOI21_X1)                                                0.08      0.12       2.21 r
+  err[5] (net)                                  8        15.18                0.00       2.21 r
+  err[5] (out)                                                      0.08      0.01       2.22 r
+  data arrival time                                                                      2.22
+
+  clock clk (rise edge)                                                      20.00      20.00
+  clock network delay (ideal)                                                 0.00      20.00
+  clock uncertainty                                                          -0.20      19.80
+  output external delay                                                      -2.00      17.80
+  data required time                                                                    17.80
+  ----------------------------------------------------------------------------------------------
+  data required time                                                                    17.80
+  data arrival time                                                                     -2.22
+  ----------------------------------------------------------------------------------------------
+  slack (MET)                                                                           15.58
+
+
+  Startpoint: adapt_en (input port clocked by clk)
+  Endpoint: err[4] (output port clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  tf_lms_sv          5K_hvratio_1_1        NangateOpenCellLibrary_typ
+
+  Point                        Fanout       Cap     Trans      Incr       Path
+  -------------------------------------------------------------------------------
+  clock clk (rise edge)                                        0.00       0.00
+  clock network delay (ideal)                                  0.00       0.00
+  input external delay                                         2.00       2.00 r
+  adapt_en (in)                                      0.10      0.00       2.00 r
+  adapt_en (net)                 6        12.69                0.00       2.00 r
+  U140/ZN (INV_X1)                                   0.03      0.05       2.05 f
+  n213 (net)                     3         7.42                0.00       2.05 f
+  U400/ZN (NOR2_X1)                                  0.08      0.12       2.17 r
+  err[4] (net)                   8        15.32                0.00       2.17 r
+  err[4] (out)                                       0.08      0.01       2.17 r
+  data arrival time                                                       2.17
+
+  clock clk (rise edge)                                       20.00      20.00
+  clock network delay (ideal)                                  0.00      20.00
+  clock uncertainty                                           -0.20      19.80
+  output external delay                                       -2.00      17.80
+  data required time                                                     17.80
+  -------------------------------------------------------------------------------
+  data required time                                                     17.80
+  data arrival time                                                      -2.17
+  -------------------------------------------------------------------------------
+  slack (MET)                                                            15.63
+
+
+  Startpoint: adapt_en (input port clocked by clk)
+  Endpoint: err[3] (output port clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  tf_lms_sv          5K_hvratio_1_1        NangateOpenCellLibrary_typ
+
+  Point                        Fanout       Cap     Trans      Incr       Path
+  -------------------------------------------------------------------------------
+  clock clk (rise edge)                                        0.00       0.00
+  clock network delay (ideal)                                  0.00       0.00
+  input external delay                                         2.00       2.00 r
+  adapt_en (in)                                      0.10      0.00       2.00 r
+  adapt_en (net)                 6        12.69                0.00       2.00 r
+  U402/ZN (OAI21_X1)                                 0.02      0.05       2.05 f
+  n198 (net)                     1         1.85                0.00       2.05 f
+  U403/ZN (AOI21_X1)                                 0.07      0.11       2.16 r
+  err[3] (net)                   7        12.92                0.00       2.16 r
+  err[3] (out)                                       0.07      0.00       2.17 r
+  data arrival time                                                       2.17
+
+  clock clk (rise edge)                                       20.00      20.00
+  clock network delay (ideal)                                  0.00      20.00
+  clock uncertainty                                           -0.20      19.80
+  output external delay                                       -2.00      17.80
+  data required time                                                     17.80
+  -------------------------------------------------------------------------------
+  data required time                                                     17.80
+  data arrival time                                                      -2.17
+  -------------------------------------------------------------------------------
+  slack (MET)                                                            15.63
+
+
+  Startpoint: adapt_en (input port clocked by clk)
+  Endpoint: err[1] (output port clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  tf_lms_sv          5K_hvratio_1_1        NangateOpenCellLibrary_typ
+
+  Point                        Fanout       Cap     Trans      Incr       Path
+  -------------------------------------------------------------------------------
+  clock clk (rise edge)                                        0.00       0.00
+  clock network delay (ideal)                                  0.00       0.00
+  input external delay                                         2.00       2.00 r
+  adapt_en (in)                                      0.10      0.00       2.00 r
+  adapt_en (net)                 6        12.69                0.00       2.00 r
+  U140/ZN (INV_X1)                                   0.03      0.05       2.05 f
+  n213 (net)                     3         7.42                0.00       2.05 f
+  U429/ZN (NOR2_X1)                                  0.07      0.11       2.15 r
+  err[1] (net)                   7        12.63                0.00       2.15 r
+  err[1] (out)                                       0.07      0.00       2.16 r
+  data arrival time                                                       2.16
+
+  clock clk (rise edge)                                       20.00      20.00
+  clock network delay (ideal)                                  0.00      20.00
+  clock uncertainty                                           -0.20      19.80
+  output external delay                                       -2.00      17.80
+  data required time                                                     17.80
+  -------------------------------------------------------------------------------
+  data required time                                                     17.80
+  data arrival time                                                      -2.16
+  -------------------------------------------------------------------------------
+  slack (MET)                                                            15.64
+
+
+  Startpoint: adapt_en (input port clocked by clk)
+  Endpoint: err[2] (output port clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  tf_lms_sv          5K_hvratio_1_1        NangateOpenCellLibrary_typ
+
+  Point                        Fanout       Cap     Trans      Incr       Path
+  -------------------------------------------------------------------------------
+  clock clk (rise edge)                                        0.00       0.00
+  clock network delay (ideal)                                  0.00       0.00
+  input external delay                                         2.00       2.00 r
+  adapt_en (in)                                      0.10      0.00       2.00 r
+  adapt_en (net)                 6        12.69                0.00       2.00 r
+  U405/ZN (OAI21_X1)                                 0.02      0.05       2.05 f
+  n202 (net)                     1         1.85                0.00       2.05 f
+  U406/ZN (AOI21_X1)                                 0.06      0.10       2.15 r
+  err[2] (net)                   6        10.49                0.00       2.15 r
+  err[2] (out)                                       0.06      0.00       2.15 r
+  data arrival time                                                       2.15
+
+  clock clk (rise edge)                                       20.00      20.00
+  clock network delay (ideal)                                  0.00      20.00
+  clock uncertainty                                           -0.20      19.80
+  output external delay                                       -2.00      17.80
+  data required time                                                     17.80
+  -------------------------------------------------------------------------------
+  data required time                                                     17.80
+  data arrival time                                                      -2.15
+  -------------------------------------------------------------------------------
+  slack (MET)                                                            15.65
+
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[15]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: yout[7] (output port clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  tf_lms_sv          5K_hvratio_1_1        NangateOpenCellLibrary_typ
+
+  Point                                       Fanout       Cap     Trans      Incr       Path
+  ----------------------------------------------------------------------------------------------
+  clock clk (rise edge)                                                       0.00       0.00
+  clock network delay (ideal)                                                 0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[15]/CK (DFF_X1)                   0.10      0.00       0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[15]/Q (DFF_X1)                    0.02      0.12       0.12 f
+  cflt/tap5/delayed_new_coeff_true[15] (net)
+                                                9        17.77                0.00       0.12 f
+  U169/ZN (NOR2_X1)                                                 0.04      0.07       0.19 r
+  n763 (net)                                    3         6.22                0.00       0.19 r
+  U170/ZN (INV_X1)                                                  0.01      0.04       0.23 f
+  n762 (net)                                    4         7.10                0.00       0.23 f
+  U172/ZN (NAND2_X1)                                                0.06      0.09       0.32 r
+  n765 (net)                                   13        24.06                0.00       0.32 r
+  U177/ZN (NAND2_X1)                                                0.05      0.10       0.42 f
+  n135 (net)                                   12        23.68                0.00       0.42 f
+  U178/ZN (INV_X1)                                                  0.06      0.11       0.52 r
+  intadd_3/B[8] (net)                          11        25.01                0.00       0.52 r
+  U225/ZN (AOI22_X1)                                                0.05      0.09       0.62 f
+  n128 (net)                                   11        21.35                0.00       0.62 f
+  U137/ZN (AOI221_X4)                                               0.01      0.16       0.77 r
+  n110 (net)                                    8        16.73                0.00       0.77 r
+  U297/ZN (OAI221_X1)                                               0.02      0.05       0.83 f
+  n112 (net)                                    1         1.83                0.00       0.83 f
+  U298/ZN (OAI21_X1)                                                0.03      0.04       0.87 r
+  n121 (net)                                    2         3.93                0.00       0.87 r
+  U299/ZN (NAND2_X1)                                                0.02      0.04       0.91 f
+  n120 (net)                                    2         5.62                0.00       0.91 f
+  U302/ZN (OAI21_X1)                                                0.03      0.05       0.96 r
+  intadd_22/A[0] (net)                          1         4.06                0.00       0.96 r
+  intadd_22/U6/S (FA_X1)                                            0.02      0.12       1.08 f
+  intadd_22/SUM[0] (net)                        2         3.64                0.00       1.08 f
+  U331/ZN (NOR2_X1)                                                 0.02      0.04       1.12 r
+  n158 (net)                                    1         1.88                0.00       1.12 r
+  U333/ZN (OAI21_X1)                                                0.02      0.03       1.16 f
+  intadd_22/B[1] (net)                          1         3.71                0.00       1.16 f
+  intadd_22/U5/CO (FA_X1)                                           0.01      0.11       1.26 f
+  intadd_22/n4 (net)                            1         2.97                0.00       1.26 f
+  intadd_22/U4/CO (FA_X1)                                           0.01      0.09       1.35 f
+  intadd_22/n3 (net)                            1         2.97                0.00       1.35 f
+  intadd_22/U3/CO (FA_X1)                                           0.01      0.09       1.44 f
+  intadd_22/n2 (net)                            1         2.97                0.00       1.44 f
+  intadd_22/U2/CO (FA_X1)                                           0.01      0.09       1.53 f
+  intadd_22/n1 (net)                            1         1.86                0.00       1.53 f
+  U334/ZN (INV_X1)                                                  0.01      0.03       1.56 r
+  intadd_21/B[2] (net)                          1         3.78                0.00       1.56 r
+  intadd_21/U4/S (FA_X1)                                            0.01      0.08       1.64 r
+  intadd_21/SUM[2] (net)                        1         2.01                0.00       1.64 r
+  U337/ZN (INV_X1)                                                  0.01      0.02       1.66 f
+  intadd_14/B[3] (net)                          1         3.71                0.00       1.66 f
+  intadd_14/U4/CO (FA_X1)                                           0.01      0.10       1.76 f
+  intadd_14/n3 (net)                            1         2.97                0.00       1.76 f
+  intadd_14/U3/CO (FA_X1)                                           0.01      0.09       1.85 f
+  intadd_14/n2 (net)                            1         2.97                0.00       1.85 f
+  intadd_14/U2/CO (FA_X1)                                           0.01      0.09       1.94 f
+  intadd_14/n1 (net)                            1         2.68                0.00       1.94 f
+  U342/ZN (XNOR2_X1)                                                0.02      0.06       2.00 r
+  n165 (net)                                    1         2.88                0.00       2.00 r
+  U343/ZN (XNOR2_X1)                                                0.02      0.06       2.06 r
+  n169 (net)                                    1         2.54                0.00       2.06 r
+  U345/ZN (XNOR2_X1)                                                0.03      0.06       2.13 r
+  yout[7] (net)                                 3         4.51                0.00       2.13 r
+  yout[7] (out)                                                     0.03      0.00       2.13 r
+  data arrival time                                                                      2.13
+
+  clock clk (rise edge)                                                      20.00      20.00
+  clock network delay (ideal)                                                 0.00      20.00
+  clock uncertainty                                                          -0.20      19.80
+  output external delay                                                      -2.00      17.80
+  data required time                                                                    17.80
+  ----------------------------------------------------------------------------------------------
+  data required time                                                                    17.80
+  data arrival time                                                                     -2.13
+  ----------------------------------------------------------------------------------------------
+  slack (MET)                                                                           15.67
+
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[15]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: yout[6] (output port clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  tf_lms_sv          5K_hvratio_1_1        NangateOpenCellLibrary_typ
+
+  Point                                       Fanout       Cap     Trans      Incr       Path
+  ----------------------------------------------------------------------------------------------
+  clock clk (rise edge)                                                       0.00       0.00
+  clock network delay (ideal)                                                 0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[15]/CK (DFF_X1)                   0.10      0.00       0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[15]/Q (DFF_X1)                    0.02      0.12       0.12 f
+  cflt/tap5/delayed_new_coeff_true[15] (net)
+                                                9        17.77                0.00       0.12 f
+  U169/ZN (NOR2_X1)                                                 0.04      0.07       0.19 r
+  n763 (net)                                    3         6.22                0.00       0.19 r
+  U170/ZN (INV_X1)                                                  0.01      0.04       0.23 f
+  n762 (net)                                    4         7.10                0.00       0.23 f
+  U172/ZN (NAND2_X1)                                                0.06      0.09       0.32 r
+  n765 (net)                                   13        24.06                0.00       0.32 r
+  U177/ZN (NAND2_X1)                                                0.05      0.10       0.42 f
+  n135 (net)                                   12        23.68                0.00       0.42 f
+  U178/ZN (INV_X1)                                                  0.06      0.11       0.52 r
+  intadd_3/B[8] (net)                          11        25.01                0.00       0.52 r
+  U225/ZN (AOI22_X1)                                                0.05      0.09       0.62 f
+  n128 (net)                                   11        21.35                0.00       0.62 f
+  U137/ZN (AOI221_X4)                                               0.01      0.16       0.77 r
+  n110 (net)                                    8        16.73                0.00       0.77 r
+  U297/ZN (OAI221_X1)                                               0.02      0.05       0.83 f
+  n112 (net)                                    1         1.83                0.00       0.83 f
+  U298/ZN (OAI21_X1)                                                0.03      0.04       0.87 r
+  n121 (net)                                    2         3.93                0.00       0.87 r
+  U299/ZN (NAND2_X1)                                                0.02      0.04       0.91 f
+  n120 (net)                                    2         5.62                0.00       0.91 f
+  U302/ZN (OAI21_X1)                                                0.03      0.05       0.96 r
+  intadd_22/A[0] (net)                          1         4.06                0.00       0.96 r
+  intadd_22/U6/S (FA_X1)                                            0.02      0.12       1.08 f
+  intadd_22/SUM[0] (net)                        2         3.64                0.00       1.08 f
+  U331/ZN (NOR2_X1)                                                 0.02      0.04       1.12 r
+  n158 (net)                                    1         1.88                0.00       1.12 r
+  U333/ZN (OAI21_X1)                                                0.02      0.03       1.16 f
+  intadd_22/B[1] (net)                          1         3.71                0.00       1.16 f
+  intadd_22/U5/CO (FA_X1)                                           0.01      0.11       1.26 f
+  intadd_22/n4 (net)                            1         2.97                0.00       1.26 f
+  intadd_22/U4/CO (FA_X1)                                           0.01      0.09       1.35 f
+  intadd_22/n3 (net)                            1         2.97                0.00       1.35 f
+  intadd_22/U3/CO (FA_X1)                                           0.01      0.09       1.44 f
+  intadd_22/n2 (net)                            1         2.97                0.00       1.44 f
+  intadd_22/U2/CO (FA_X1)                                           0.01      0.09       1.53 f
+  intadd_22/n1 (net)                            1         1.86                0.00       1.53 f
+  U334/ZN (INV_X1)                                                  0.01      0.03       1.56 r
+  intadd_21/B[2] (net)                          1         3.78                0.00       1.56 r
+  intadd_21/U4/S (FA_X1)                                            0.01      0.08       1.64 r
+  intadd_21/SUM[2] (net)                        1         2.01                0.00       1.64 r
+  U337/ZN (INV_X1)                                                  0.01      0.02       1.66 f
+  intadd_14/B[3] (net)                          1         3.71                0.00       1.66 f
+  intadd_14/U4/CO (FA_X1)                                           0.01      0.10       1.76 f
+  intadd_14/n3 (net)                            1         2.97                0.00       1.76 f
+  intadd_14/U3/CO (FA_X1)                                           0.01      0.09       1.85 f
+  intadd_14/n2 (net)                            1         2.97                0.00       1.85 f
+  intadd_14/U2/S (FA_X1)                                            0.02      0.14       2.00 r
+  intadd_14/SUM[5] (net)                        3         6.16                0.00       2.00 r
+  U349/ZN (INV_X1)                                                  0.01      0.03       2.02 f
+  yout[6] (net)                                 2         2.31                0.00       2.02 f
+  yout[6] (out)                                                     0.01      0.00       2.03 f
+  data arrival time                                                                      2.03
+
+  clock clk (rise edge)                                                      20.00      20.00
+  clock network delay (ideal)                                                 0.00      20.00
+  clock uncertainty                                                          -0.20      19.80
+  output external delay                                                      -2.00      17.80
+  data required time                                                                    17.80
+  ----------------------------------------------------------------------------------------------
+  data required time                                                                    17.80
+  data arrival time                                                                     -2.03
+  ----------------------------------------------------------------------------------------------
+  slack (MET)                                                                           15.77
+
+
+1

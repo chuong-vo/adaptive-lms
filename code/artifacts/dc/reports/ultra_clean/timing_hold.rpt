@@ -1,0 +1,305 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay min
+        -max_paths 10
+Design : tf_lms_sv
+Version: L-2016.03-SP1
+Date   : Wed Mar 25 23:20:23 2026
+****************************************
+
+Operating Conditions: typical   Library: gscl45nm
+Wire Load Model Mode: top
+
+  Startpoint: cflt/tap1/shiftue_reg[17]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/shiftue_reg[9]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap1/shiftue_reg[17]/CLK (DFFPOSX1)                0.00       0.00 r
+  cflt/tap1/shiftue_reg[17]/Q (DFFPOSX1)                  0.10       0.10 f
+  cflt/tap1/shiftue_reg[9]/D (DFFPOSX1)                   0.00       0.10 f
+  data arrival time                                                  0.10
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.20       0.20
+  cflt/tap1/shiftue_reg[9]/CLK (DFFPOSX1)                 0.00       0.20 r
+  library hold time                                       0.06       0.26
+  data required time                                                 0.26
+  --------------------------------------------------------------------------
+  data required time                                                 0.26
+  data arrival time                                                 -0.10
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.16
+
+
+  Startpoint: cflt/tap1/shiftue_reg[16]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/shiftue_reg[8]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap1/shiftue_reg[16]/CLK (DFFPOSX1)                0.00       0.00 r
+  cflt/tap1/shiftue_reg[16]/Q (DFFPOSX1)                  0.10       0.10 f
+  cflt/tap1/shiftue_reg[8]/D (DFFPOSX1)                   0.00       0.10 f
+  data arrival time                                                  0.10
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.20       0.20
+  cflt/tap1/shiftue_reg[8]/CLK (DFFPOSX1)                 0.00       0.20 r
+  library hold time                                       0.06       0.26
+  data required time                                                 0.26
+  --------------------------------------------------------------------------
+  data required time                                                 0.26
+  data arrival time                                                 -0.10
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.16
+
+
+  Startpoint: cflt/tap1/shiftue_reg[15]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/shiftue_reg[7]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap1/shiftue_reg[15]/CLK (DFFPOSX1)                0.00       0.00 r
+  cflt/tap1/shiftue_reg[15]/Q (DFFPOSX1)                  0.10       0.10 f
+  cflt/tap1/shiftue_reg[7]/D (DFFPOSX1)                   0.00       0.10 f
+  data arrival time                                                  0.10
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.20       0.20
+  cflt/tap1/shiftue_reg[7]/CLK (DFFPOSX1)                 0.00       0.20 r
+  library hold time                                       0.06       0.26
+  data required time                                                 0.26
+  --------------------------------------------------------------------------
+  data required time                                                 0.26
+  data arrival time                                                 -0.10
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.16
+
+
+  Startpoint: cflt/tap1/shiftue_reg[14]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/shiftue_reg[6]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap1/shiftue_reg[14]/CLK (DFFPOSX1)                0.00       0.00 r
+  cflt/tap1/shiftue_reg[14]/Q (DFFPOSX1)                  0.10       0.10 f
+  cflt/tap1/shiftue_reg[6]/D (DFFPOSX1)                   0.00       0.10 f
+  data arrival time                                                  0.10
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.20       0.20
+  cflt/tap1/shiftue_reg[6]/CLK (DFFPOSX1)                 0.00       0.20 r
+  library hold time                                       0.06       0.26
+  data required time                                                 0.26
+  --------------------------------------------------------------------------
+  data required time                                                 0.26
+  data arrival time                                                 -0.10
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.16
+
+
+  Startpoint: cflt/tap1/shiftue_reg[13]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/shiftue_reg[5]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap1/shiftue_reg[13]/CLK (DFFPOSX1)                0.00       0.00 r
+  cflt/tap1/shiftue_reg[13]/Q (DFFPOSX1)                  0.10       0.10 f
+  cflt/tap1/shiftue_reg[5]/D (DFFPOSX1)                   0.00       0.10 f
+  data arrival time                                                  0.10
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.20       0.20
+  cflt/tap1/shiftue_reg[5]/CLK (DFFPOSX1)                 0.00       0.20 r
+  library hold time                                       0.06       0.26
+  data required time                                                 0.26
+  --------------------------------------------------------------------------
+  data required time                                                 0.26
+  data arrival time                                                 -0.10
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.16
+
+
+  Startpoint: cflt/tap1/shiftue_reg[12]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/shiftue_reg[4]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap1/shiftue_reg[12]/CLK (DFFPOSX1)                0.00       0.00 r
+  cflt/tap1/shiftue_reg[12]/Q (DFFPOSX1)                  0.10       0.10 f
+  cflt/tap1/shiftue_reg[4]/D (DFFPOSX1)                   0.00       0.10 f
+  data arrival time                                                  0.10
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.20       0.20
+  cflt/tap1/shiftue_reg[4]/CLK (DFFPOSX1)                 0.00       0.20 r
+  library hold time                                       0.06       0.26
+  data required time                                                 0.26
+  --------------------------------------------------------------------------
+  data required time                                                 0.26
+  data arrival time                                                 -0.10
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.16
+
+
+  Startpoint: cflt/tap1/shiftue_reg[11]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/shiftue_reg[3]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap1/shiftue_reg[11]/CLK (DFFPOSX1)                0.00       0.00 r
+  cflt/tap1/shiftue_reg[11]/Q (DFFPOSX1)                  0.10       0.10 f
+  cflt/tap1/shiftue_reg[3]/D (DFFPOSX1)                   0.00       0.10 f
+  data arrival time                                                  0.10
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.20       0.20
+  cflt/tap1/shiftue_reg[3]/CLK (DFFPOSX1)                 0.00       0.20 r
+  library hold time                                       0.06       0.26
+  data required time                                                 0.26
+  --------------------------------------------------------------------------
+  data required time                                                 0.26
+  data arrival time                                                 -0.10
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.16
+
+
+  Startpoint: cflt/tap1/shiftue_reg[10]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/shiftue_reg[2]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap1/shiftue_reg[10]/CLK (DFFPOSX1)                0.00       0.00 r
+  cflt/tap1/shiftue_reg[10]/Q (DFFPOSX1)                  0.10       0.10 f
+  cflt/tap1/shiftue_reg[2]/D (DFFPOSX1)                   0.00       0.10 f
+  data arrival time                                                  0.10
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.20       0.20
+  cflt/tap1/shiftue_reg[2]/CLK (DFFPOSX1)                 0.00       0.20 r
+  library hold time                                       0.06       0.26
+  data required time                                                 0.26
+  --------------------------------------------------------------------------
+  data required time                                                 0.26
+  data arrival time                                                 -0.10
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.16
+
+
+  Startpoint: cflt/tap1/shiftue_reg[9]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/shiftue_reg[1]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap1/shiftue_reg[9]/CLK (DFFPOSX1)                 0.00       0.00 r
+  cflt/tap1/shiftue_reg[9]/Q (DFFPOSX1)                   0.10       0.10 f
+  cflt/tap1/shiftue_reg[1]/D (DFFPOSX1)                   0.00       0.10 f
+  data arrival time                                                  0.10
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.20       0.20
+  cflt/tap1/shiftue_reg[1]/CLK (DFFPOSX1)                 0.00       0.20 r
+  library hold time                                       0.06       0.26
+  data required time                                                 0.26
+  --------------------------------------------------------------------------
+  data required time                                                 0.26
+  data arrival time                                                 -0.10
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.16
+
+
+  Startpoint: cflt/tap1/shiftue_reg[8]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/shiftue_reg[0]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap1/shiftue_reg[8]/CLK (DFFPOSX1)                 0.00       0.00 r
+  cflt/tap1/shiftue_reg[8]/Q (DFFPOSX1)                   0.10       0.10 f
+  cflt/tap1/shiftue_reg[0]/D (DFFPOSX1)                   0.00       0.10 f
+  data arrival time                                                  0.10
+
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  clock uncertainty                                       0.20       0.20
+  cflt/tap1/shiftue_reg[0]/CLK (DFFPOSX1)                 0.00       0.20 r
+  library hold time                                       0.06       0.26
+  data required time                                                 0.26
+  --------------------------------------------------------------------------
+  data required time                                                 0.26
+  data arrival time                                                 -0.10
+  --------------------------------------------------------------------------
+  slack (VIOLATED)                                                  -0.16
+
+
+1

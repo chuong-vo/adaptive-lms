@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+export TF_LMS_REPO_ROOT=/home/chuongvo/OpenROAD-flow-scripts
+export TF_LMS_HANDOFF_DIR=/home/chuongvo/OpenROAD-flow-scripts/handoff/tf_lms_sv
+export OPENROAD_FLOW_DIR=/home/chuongvo/OpenROAD-flow-scripts/flow
+export TF_LMS_DESIGN_CONFIG=/home/chuongvo/OpenROAD-flow-scripts/flow/designs/nangate45/tf_lms_sv/config.mk
+export OPENROAD_EXE=/usr/bin/openroad
+export YOSYS_EXE=/home/chuongvo/tools/oss-cad/oss-cad-suite/bin/yosys
+export KLAYOUT_CMD=/usr/bin/klayout
+export KLAYOUT_LVS_FILE=/home/chuongvo/OpenROAD-flow-scripts/handoff/tf_lms_sv/scripts/openroad/klayout/FreePDK45_orfs_lvs.lylvs
+export KLAYOUT_DRC_FILE=/home/chuongvo/OpenROAD-flow-scripts/handoff/tf_lms_sv/scripts/openroad/klayout/FreePDK45_beol_noant.lydrc

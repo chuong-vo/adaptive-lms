@@ -1,0 +1,91 @@
+ 
+****************************************
+Report : area
+Design : tf_lms_sv
+Version: L-2016.03-SP1
+Date   : Wed Mar 25 23:20:23 2026
+****************************************
+
+Library(s) Used:
+
+    gscl45nm (File: /home/hoangtrang/IC_design/code/Tool/PDK/PDK_45nm/osu_soc/lib/files/gscl45nm.db)
+
+Number of ports:                         1724
+Number of nets:                          5483
+Number of cells:                         3751
+Number of combinational cells:           2775
+Number of sequential cells:               928
+Number of macros/black boxes:               0
+Number of buf/inv:                       1252
+Number of references:                      11
+
+Combinational area:               8803.598701
+Buf/Inv area:                     2354.947334
+Noncombinational area:            7116.465042
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (No wire load specified)
+
+Total cell area:                 15920.063743
+Total area:                 undefined
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area           Local cell area
+                                  -------------------  ---------------------------- 
+Hierarchical cell                 Absolute    Percent  Combi-     Noncombi-  Black-
+                                  Total       Total    national   national   boxes   Design
+--------------------------------  ----------  -------  ---------  ---------  ------  ----------------
+tf_lms_sv                         15920.0637    100.0   189.1279     0.0000  0.0000  tf_lms_sv
+cflt                              13114.1191     82.4     0.0000     0.0000  0.0000  core_filt_sv
+cflt/tap1                          2591.9439     16.3     0.0000   702.0728  0.0000  unit_calc_sv_4
+cflt/tap1/add1                      128.1189      0.8   128.1189     0.0000  0.0000  add16_sv_4
+cflt/tap1/delay_2                   127.6496      0.8     0.0000   127.6496  0.0000  shift_1d_16_sv_4
+cflt/tap1/mul_coeff_x_in            739.1475      4.6   739.1475     0.0000  0.0000  mul8_sv_8
+cflt/tap1/mul_xnin_ue               755.5730      4.7   755.5730     0.0000  0.0000  mul8_sv_9
+cflt/tap1/sat_1                      43.6449      0.3    43.6449     0.0000  0.0000  saturation_sv_4
+cflt/tap1/trunc_1                     0.0000      0.0     0.0000     0.0000  0.0000  truncation_sv_9
+cflt/tap1/trunc_2                     0.0000      0.0     0.0000     0.0000  0.0000  truncation_sv_8
+cflt/tap1/u1                         95.7372      0.6     0.0000    95.7372  0.0000  u_scaling_sv_4
+cflt/tap2                          2790.4578     17.5    70.8643   829.7224  0.0000  unit_calc_sv_3
+cflt/tap2/add1                      128.1189      0.8   128.1189     0.0000  0.0000  add16_sv_3
+cflt/tap2/delay_2                   127.6496      0.8     0.0000   127.6496  0.0000  shift_1d_16_sv_3
+cflt/tap2/mul_coeff_x_in            739.1475      4.6   739.1475     0.0000  0.0000  mul8_sv_6
+cflt/tap2/mul_xnin_ue               755.5730      4.7   755.5730     0.0000  0.0000  mul8_sv_7
+cflt/tap2/sat_1                      43.6449      0.3    43.6449     0.0000  0.0000  saturation_sv_3
+cflt/tap2/trunc_1                     0.0000      0.0     0.0000     0.0000  0.0000  truncation_sv_7
+cflt/tap2/trunc_2                     0.0000      0.0     0.0000     0.0000  0.0000  truncation_sv_6
+cflt/tap2/u1                         95.7372      0.6     0.0000    95.7372  0.0000  u_scaling_sv_3
+cflt/tap3                          2790.4578     17.5    70.8643   829.7224  0.0000  unit_calc_sv_2
+cflt/tap3/add1                      128.1189      0.8   128.1189     0.0000  0.0000  add16_sv_2
+cflt/tap3/delay_2                   127.6496      0.8     0.0000   127.6496  0.0000  shift_1d_16_sv_2
+cflt/tap3/mul_coeff_x_in            739.1475      4.6   739.1475     0.0000  0.0000  mul8_sv_4
+cflt/tap3/mul_xnin_ue               755.5730      4.7   755.5730     0.0000  0.0000  mul8_sv_5
+cflt/tap3/sat_1                      43.6449      0.3    43.6449     0.0000  0.0000  saturation_sv_2
+cflt/tap3/trunc_1                     0.0000      0.0     0.0000     0.0000  0.0000  truncation_sv_5
+cflt/tap3/trunc_2                     0.0000      0.0     0.0000     0.0000  0.0000  truncation_sv_4
+cflt/tap3/u1                         95.7372      0.6     0.0000    95.7372  0.0000  u_scaling_sv_2
+cflt/tap4                          2790.4578     17.5    70.8643   829.7224  0.0000  unit_calc_sv_1
+cflt/tap4/add1                      128.1189      0.8   128.1189     0.0000  0.0000  add16_sv_1
+cflt/tap4/delay_2                   127.6496      0.8     0.0000   127.6496  0.0000  shift_1d_16_sv_1
+cflt/tap4/mul_coeff_x_in            739.1475      4.6   739.1475     0.0000  0.0000  mul8_sv_2
+cflt/tap4/mul_xnin_ue               755.5730      4.7   755.5730     0.0000  0.0000  mul8_sv_3
+cflt/tap4/sat_1                      43.6449      0.3    43.6449     0.0000  0.0000  saturation_sv_1
+cflt/tap4/trunc_1                     0.0000      0.0     0.0000     0.0000  0.0000  truncation_sv_3
+cflt/tap4/trunc_2                     0.0000      0.0     0.0000     0.0000  0.0000  truncation_sv_2
+cflt/tap4/u1                         95.7372      0.6     0.0000    95.7372  0.0000  u_scaling_sv_1
+cflt/tap5                          2150.8019     13.5    69.4564   191.4744  0.0000  unit_calc_sv_0
+cflt/tap5/add1                      128.1189      0.8   128.1189     0.0000  0.0000  add16_sv_0
+cflt/tap5/delay_2                   127.6496      0.8     0.0000   127.6496  0.0000  shift_1d_16_sv_0
+cflt/tap5/mul_coeff_x_in            739.1475      4.6   739.1475     0.0000  0.0000  mul8_sv_0
+cflt/tap5/mul_xnin_ue               755.5730      4.7   755.5730     0.0000  0.0000  mul8_sv_1
+cflt/tap5/sat_1                      43.6449      0.3    43.6449     0.0000  0.0000  saturation_sv_0
+cflt/tap5/trunc_1                     0.0000      0.0     0.0000     0.0000  0.0000  truncation_sv_1
+cflt/tap5/trunc_2                     0.0000      0.0     0.0000     0.0000  0.0000  truncation_sv_0
+cflt/tap5/u1                         95.7372      0.6     0.0000    95.7372  0.0000  u_scaling_sv_0
+shift_1                            1276.4960      8.0     0.0000  1276.4960  0.0000  shift_20d_sv
+shift_2                            1340.3208      8.4     0.0000  1340.3208  0.0000  shift_21d_sv
+--------------------------------  ----------  -------  ---------  ---------  ------  ----------------
+Total                                                  8803.5987  7116.4650  0.0000
+
+1

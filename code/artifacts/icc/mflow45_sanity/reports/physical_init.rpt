@@ -1,0 +1,34 @@
+----------------------------------------
+Report  : report_design_physical
+          -floorplan
+          -design_setup
+Date    : Fri Mar 27 07:47:43 2026
+Version : L-2016.03-SP1
+--------------------------------------------------------------------------------
+                            DESIGN SETUP INFORMATION
+--------------------------------------------------------------------------------
+Host Name             : localhost.localdomain
+Working Directory     : /home/hoangtrang/IC_design/code
+Library Name          : tf_lms_sv_mw
+Cell Name             : tf_lms_sv.CEL;1
+Library settings      :
+  Search Path      : /home/hoangtrang/IC_design/code
+                     /home/hoangtrang/IC_design/code/pdk/freepdk45_mflowgen
+  Target Libraries : /home/hoangtrang/IC_design/code/pdk/freepdk45_mflowgen/stdcells.db
+  Link Libraries   : *
+                     /home/hoangtrang/IC_design/code/pdk/freepdk45_mflowgen/stdcells.db
+  MW Ref Libraries : /home/hoangtrang/IC_design/code/pdk/freepdk45_mflowgen/stdcells.mwlib
+
+Units                 :
+                   Library   Milkyway  TechFile
+    Time              ns        ns        ns
+    Capacitance       fF        -         pF
+    Resitance         MOhm      -         kOhm
+    Power             nW        -         mW
+    Current           mA        mA        mA
+    Voltage           V         V         V
+--------------------------------------------------------------------------------
+                             FLOORPLAN INFORMATION
+--------------------------------------------------------------------------------
+No site row information available
+--------------------------------------------------------------------------------

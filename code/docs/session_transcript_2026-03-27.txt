@@ -1,0 +1,69 @@
+Session Transcript
+Date: 2026-03-27
+Workspace: c:\Users\nguye\Downloads\Compressed\adaptive_lms_equalizer_latest.tar\adaptive_lms_equalizer_latest\adaptive_lms_equalizer\trunk\code
+
+User: Trong thư mục pdk, láy các pdk từ các thư mục con ra, đặt tên sao cho đồng bộ để dễ kiếm sau này
+Assistant: Đã gom các bundle PDK chính lên thẳng dưới pdk và đặt tên đồng bộ hơn để dễ tìm kiếm, đồng thời giữ lại archives và legacy để truy vết nguồn cũ.
+
+User: Check lại toàn bộ pdk xem cái nào khả thi để sử dụng, mình vừa giải nén thêm 1 số cái
+Assistant: Đã rà lại toàn bộ pdk sau khi giải nén thêm và chốt hướng khả thi nhất là freepdk45_mflowgen cho thử nghiệm DC -> ICC kiểu academic, freepdk45_local cho DC -> Encounter, còn 65nm chỉ phù hợp synthesis/timing/formal.
+
+User: C:\Users\nguye\Downloads\Compressed\adaptive_lms_equalizer_latest.tar\adaptive_lms_equalizer_latest\adaptive_lms_equalizer\trunk\code\pdk\archives\saed32nm_ipdk.tar\SAED_iPDK_32.28_v_07292013
+User: trong này cũng k đủ hả? Cái này là từ Synopsis luôn á
+Assistant: Đã rà đúng cây SAED_iPDK_32.28_v_07292013 và kết luận đây vẫn là process/iPDK bundle, có tf, tluplus, itf, map nhưng không có Liberty/DB stdcell, LEF, Verilog cell hay Milkyway reference library cho digital flow.
+
+User: https://github.com/orgs/ieee-ceda-datc/repositories
+User: Nghiên cứu xem sử dụng được cái nào không?>
+Assistant: Đã rà nhanh các repo DATC và kết luận hướng dùng được là OpenROAD/OpenROAD-flow-scripts hoặc các benchmark/research flow liên quan, không phải bộ thay thế cho Synopsys ICC commercial flow.
+
+User: Nếu bạn vẫn muốn dùng bộ mflowgen (vì nó đang là bộ tốt nhất bạn có về mặt cấu trúc thư mục và .mwlib), bạn chỉ cần làm thêm một bước nhỏ:
+User: Bước 1: Tìm file ITF: Trong bộ FreePDK45 gốc (bạn có thể tải từ GitHub baichen318/FreePDK45 mà tôi nhắc đến trước đó), hãy tìm vào đường dẫn: ncsu_basekit/techfile/cxt/FreePDK45_10m_global.itf.
+User: Bước 2: Tìm file mapping: Cần một file text nhỏ tên là nxtgrd.map (để ánh xạ tên lớp kim loại từ ITF sang tool Synopsys). Thường trong thư viện cũng sẽ có sẵn.
+User: Bước 3: Chạy lệnh compile: Trên terminal của server Linux, bạn gõ lệnh:
+User: Bash
+User: grdgenxo -itf FreePDK45_10m_global.itf -tluplus FreePDK45.tluplus
+User: Sau khi lệnh chạy xong, bạn sẽ có một file FreePDK45.tluplus "nóng hổi" và chuẩn 100% cho luồng ICC của mình.
+User: Dùng cách này được không?
+Assistant: Đã kiểm lại và kết luận hướng build TLU+ từ ITF là đúng về mặt RC/parasitic, nhưng nó chỉ giải quyết phần RC, không tự sửa được các lỗi logical/physical mismatch đang chặn ICC; trong repo hiện tại cũng chưa có FreePDK45 ITF và map phù hợp để chạy ngay.
+
+User: Kiểm tra từng bước giúp mình xem, chạy được trước cái đã rồi tính đúng sai tính sau
+Assistant: Đã dựng hai script tối thiểu cho bộ freepdk45_mflowgen: một script DC để synthesize riêng ra output sạch và một script ICC sanity-check chỉ kiểm import DDC, đọc SDC, floorplan cơ bản và check_physical_design.
+
+User: stdcells.db là có sẵn hả
+Assistant: Xác nhận stdcells.db có sẵn trong pdk\freepdk45_mflowgen cùng với stdcells.lib, stdcells.lef, stdcells.v và stdcells.mwlib.
+
+User: OKay để mình test chạy DC trước
+Assistant: Đã hướng dẫn chạy dc_shell-t với script run_dc_tf_lms_sv_mflow45.tcl và vị trí output/report tương ứng.
+
+User: file này nằm ở đâu dc_mflow45.log
+Assistant: Giải thích log dc_mflow45.log sẽ nằm ngay trong thư mục bạn đứng khi chạy lệnh, thường là ~/IC_design/code/dc_mflow45.log trên máy lab Linux.
+
+User: Okay đã copy những gì mới chạy qua, check giúp mình
+Assistant: Đã đọc lại log và report của mflow45; xác nhận DC chạy pass với stdcells.db, compile_ultra thành công và sinh đủ netlist, DDC, SDC và report.
+
+User: Kết quả vậy đã ổn so với bước synthesis chưa
+Assistant: Kết luận là ổn cho bước synthesis: setup sạch, design rule sạch, hold còn vi phạm nhẹ trên short path và có thể để backend xử lý.
+
+User: Nếu muốn fix các vi phạm đó thì sao?
+Assistant: Giải thích rằng hold violation nên ưu tiên fix ở backend qua placement, CTS, route; chỉ nên sửa RTL hoặc ép synthesis nếu backend không cứu nổi.
+
+User: Chạy ICC cần gửi bạn gì
+Assistant: Yêu cầu ưu tiên gửi icc_mflow45_sanity.log, hoặc ít nhất đoạn từ create_mw_lib đến lỗi đầu tiên, cùng các report init nếu script chạy qua.
+
+User: Okay vùa copy qua rồi check giúp mình
+Assistant: Đã đọc log ICC sanity của bộ mflow45 và chốt rằng create_mw_lib và import DDC pass, nhưng ICC vẫn bị hàng loạt PSYN-024 và PSYN-039 do logical cells không có corresponding physical cell description, nên chưa thể dùng cho backend flow thực sự.
+
+User: Nêu sử dụng 1 tool khác có cùng chức năng ICC thì nên sử dụng cái nào?
+Assistant: Đã chốt lựa chọn thay thế hợp lý nhất là Cadence Encounter hoặc Innovus; nếu muốn cùng họ Synopsys thì dùng ICC2; nếu cần free thì dùng OpenROAD.
+
+User: Giúp mình
+Assistant: Đã khuyên nên dùng Encounter/Innovus với freepdk45_local nếu lab có, vì đó là hướng khớp nhất với bộ PDK local hiện tại; nếu vẫn bị ràng buộc ICC thì cần xin lại bundle ICC-ready từ lab.
+
+User: Mình nghĩ sẽ sử dụng openflow, và nếu sử dụng openflow thì có thể chạy native trên đây
+Assistant: Đã kiểm môi trường và kết luận có thể chạy trên máy này nhưng nên chạy native trong WSL2 Ubuntu, không nên chạy trực tiếp trong PowerShell/Windows; máy hiện có WSL2 nhưng chưa có openroad, yosys, klayout, docker.
+
+User: Cách check đã càu chưa 
+Assistant: Đã đưa ra bộ lệnh kiểm tra WSL, openroad, yosys, klayout, docker, flow.tcl và OpenLane trong Ubuntu.
+
+User: In nội dung nói chuyện của session vào 1 file text
+Assistant: Đang ghi lại transcript của session hiện có vào file text trong docs.

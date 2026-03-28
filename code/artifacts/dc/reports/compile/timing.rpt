@@ -1,0 +1,1204 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 10
+Design : tf_lms_sv
+Version: L-2016.03-SP1
+Date   : Wed Mar 25 23:19:03 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: typical   Library: gscl45nm
+Wire Load Model Mode: top
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[13]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/u1/d_out_reg_reg[15]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[13]/CLK (DFFPOSX1)      0.00 #     0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[13]/Q (DFFPOSX1)        0.10       0.10 f
+  cflt/tap5/delay_2/xout[13] (shift_1d_16_sv_0)           0.00       0.10 f
+  cflt/tap5/sat_1/d_in[13] (saturation_sv_0)              0.00       0.10 f
+  cflt/tap5/sat_1/U31/Y (INVX1)                           0.01       0.12 r
+  cflt/tap5/sat_1/U28/Y (NAND3X1)                         0.02       0.13 f
+  cflt/tap5/sat_1/U7/Y (BUFX2)                            0.03       0.17 f
+  cflt/tap5/sat_1/U5/Y (AND2X1)                           0.04       0.21 f
+  cflt/tap5/sat_1/U6/Y (INVX1)                            0.01       0.22 r
+  cflt/tap5/sat_1/U3/Y (AND2X1)                           0.12       0.33 r
+  cflt/tap5/sat_1/U15/Y (AND2X1)                          0.11       0.44 r
+  cflt/tap5/sat_1/d_out[6] (saturation_sv_0)              0.00       0.44 r
+  cflt/tap5/trunc_1/d_in[6] (truncation_sv_1)             0.00       0.44 r
+  cflt/tap5/trunc_1/d_out[0] (truncation_sv_1)            0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/d1_in[0] (mul8_sv_0)           0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/A[0] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U41/Y (OR2X1)          0.05       0.49 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U42/Y (INVX1)          0.03       0.52 f
+  cflt/tap5/mul_coeff_x_in/mult_46/U65/Y (XOR2X1)         0.07       0.59 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_2_5/YS (FAX1)       0.09       0.68 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_3_4/YS (FAX1)       0.09       0.77 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_4_3/YS (FAX1)       0.09       0.86 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_5_2/YS (FAX1)       0.09       0.95 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_6_1/YS (FAX1)       0.09       1.04 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S4_0/YS (FAX1)         0.09       1.13 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S14_7_0/YC (FAX1)      0.06       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/B[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U14/Y (AND2X1)
+                                                          0.07       1.27 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U15/Y (INVX1)     0.04       1.30 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U35/Y (OAI21X1)
+                                                          0.01       1.32 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U31/Y (INVX1)     0.04       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/SUM[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/PRODUCT[8] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/d_out[8] (mul8_sv_0)           0.00       1.36 f
+  cflt/tap5/trunc_2/d_in[8] (truncation_sv_0)             0.00       1.36 f
+  cflt/tap5/trunc_2/d_out[2] (truncation_sv_0)            0.00       1.36 f
+  cflt/tap5/add_321/A[2] (unit_calc_sv_0_DW01_add_0)      0.00       1.36 f
+  cflt/tap5/add_321/U1_2/YC (FAX1)                        0.09       1.45 f
+  cflt/tap5/add_321/U1_3/YC (FAX1)                        0.08       1.53 f
+  cflt/tap5/add_321/U1_4/YC (FAX1)                        0.08       1.61 f
+  cflt/tap5/add_321/U1_5/YC (FAX1)                        0.08       1.69 f
+  cflt/tap5/add_321/U1_6/YC (FAX1)                        0.08       1.78 f
+  cflt/tap5/add_321/U1_7/YS (FAX1)                        0.26       2.03 r
+  cflt/tap5/add_321/SUM[7] (unit_calc_sv_0_DW01_add_0)
+                                                          0.00       2.03 r
+  cflt/tap5/y_out[7] (unit_calc_sv_0)                     0.00       2.03 r
+  cflt/y_out[7] (core_filt_sv)                            0.00       2.03 r
+  sub_476/A[7] (tf_lms_sv_DW01_sub_0)                     0.00       2.03 r
+  sub_476/U2_7/YS (FAX1)                                  0.10       2.14 r
+  sub_476/DIFF[7] (tf_lms_sv_DW01_sub_0)                  0.00       2.14 r
+  U19/Y (AND2X1)                                          0.24       2.37 r
+  cflt/ue_in[7] (core_filt_sv)                            0.00       2.37 r
+  cflt/tap1/ue_in[7] (unit_calc_sv_4)                     0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/d2_in[7] (mul8_sv_9)              0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/B[7] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/U42/Y (INVX1)             0.15       2.52 f
+  cflt/tap1/mul_xnin_ue/mult_46/U35/Y (OR2X1)             0.05       2.57 f
+  cflt/tap1/mul_xnin_ue/mult_46/U36/Y (INVX1)             0.02       2.59 r
+  cflt/tap1/mul_xnin_ue/mult_46/U58/Y (XOR2X1)            0.07       2.66 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_2_5/YS (FAX1)          0.09       2.75 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_3_4/YS (FAX1)          0.09       2.84 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_4_3/YS (FAX1)          0.09       2.93 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_5_2/YS (FAX1)          0.09       3.02 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_6_1/YS (FAX1)          0.09       3.11 f
+  cflt/tap1/mul_xnin_ue/mult_46/S4_0/YS (FAX1)            0.09       3.20 r
+  cflt/tap1/mul_xnin_ue/mult_46/S14_7_0/YC (FAX1)         0.06       3.26 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/B[6] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.26 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U18/Y (AND2X1)       0.07       3.33 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U50/Y (OAI21X1)      0.03       3.37 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U29/Y (INVX1)        0.00       3.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U49/Y (AOI21X1)      0.01       3.37 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U26/Y (BUFX2)        0.04       3.41 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U47/Y (OAI21X1)      0.06       3.47 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U45/Y (AOI21X1)      0.03       3.50 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U22/Y (BUFX2)        0.04       3.54 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U42/Y (OAI21X1)      0.06       3.60 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U39/Y (AOI21X1)      0.04       3.64 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U16/Y (BUFX2)        0.04       3.68 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U37/Y (OAI21X1)      0.06       3.74 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U36/YS (FAX1)        0.09       3.83 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/SUM[13] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.83 r
+  cflt/tap1/mul_xnin_ue/mult_46/PRODUCT[15] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       3.83 r
+  cflt/tap1/mul_xnin_ue/d_out[15] (mul8_sv_9)             0.00       3.83 r
+  cflt/tap1/u1/d_in[15] (u_scaling_sv_4)                  0.00       3.83 r
+  cflt/tap1/u1/d_out_reg_reg[15]/D (DFFPOSX1)             0.00       3.83 r
+  data arrival time                                                  3.83
+
+  clock clk (rise edge)                                  20.00      20.00
+  clock network delay (ideal)                             0.00      20.00
+  clock uncertainty                                      -0.20      19.80
+  cflt/tap1/u1/d_out_reg_reg[15]/CLK (DFFPOSX1)           0.00      19.80 r
+  library setup time                                     -1.16      18.64
+  data required time                                                18.64
+  --------------------------------------------------------------------------
+  data required time                                                18.64
+  data arrival time                                                 -3.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                       14.80
+
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[13]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/u1/d_out_reg_reg[14]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[13]/CLK (DFFPOSX1)      0.00 #     0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[13]/Q (DFFPOSX1)        0.10       0.10 f
+  cflt/tap5/delay_2/xout[13] (shift_1d_16_sv_0)           0.00       0.10 f
+  cflt/tap5/sat_1/d_in[13] (saturation_sv_0)              0.00       0.10 f
+  cflt/tap5/sat_1/U31/Y (INVX1)                           0.01       0.12 r
+  cflt/tap5/sat_1/U28/Y (NAND3X1)                         0.02       0.13 f
+  cflt/tap5/sat_1/U7/Y (BUFX2)                            0.03       0.17 f
+  cflt/tap5/sat_1/U5/Y (AND2X1)                           0.04       0.21 f
+  cflt/tap5/sat_1/U6/Y (INVX1)                            0.01       0.22 r
+  cflt/tap5/sat_1/U3/Y (AND2X1)                           0.12       0.33 r
+  cflt/tap5/sat_1/U15/Y (AND2X1)                          0.11       0.44 r
+  cflt/tap5/sat_1/d_out[6] (saturation_sv_0)              0.00       0.44 r
+  cflt/tap5/trunc_1/d_in[6] (truncation_sv_1)             0.00       0.44 r
+  cflt/tap5/trunc_1/d_out[0] (truncation_sv_1)            0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/d1_in[0] (mul8_sv_0)           0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/A[0] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U41/Y (OR2X1)          0.05       0.49 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U42/Y (INVX1)          0.03       0.52 f
+  cflt/tap5/mul_coeff_x_in/mult_46/U65/Y (XOR2X1)         0.07       0.59 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_2_5/YS (FAX1)       0.09       0.68 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_3_4/YS (FAX1)       0.09       0.77 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_4_3/YS (FAX1)       0.09       0.86 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_5_2/YS (FAX1)       0.09       0.95 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_6_1/YS (FAX1)       0.09       1.04 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S4_0/YS (FAX1)         0.09       1.13 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S14_7_0/YC (FAX1)      0.06       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/B[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U14/Y (AND2X1)
+                                                          0.07       1.27 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U15/Y (INVX1)     0.04       1.30 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U35/Y (OAI21X1)
+                                                          0.01       1.32 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U31/Y (INVX1)     0.04       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/SUM[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/PRODUCT[8] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/d_out[8] (mul8_sv_0)           0.00       1.36 f
+  cflt/tap5/trunc_2/d_in[8] (truncation_sv_0)             0.00       1.36 f
+  cflt/tap5/trunc_2/d_out[2] (truncation_sv_0)            0.00       1.36 f
+  cflt/tap5/add_321/A[2] (unit_calc_sv_0_DW01_add_0)      0.00       1.36 f
+  cflt/tap5/add_321/U1_2/YC (FAX1)                        0.09       1.45 f
+  cflt/tap5/add_321/U1_3/YC (FAX1)                        0.08       1.53 f
+  cflt/tap5/add_321/U1_4/YC (FAX1)                        0.08       1.61 f
+  cflt/tap5/add_321/U1_5/YC (FAX1)                        0.08       1.69 f
+  cflt/tap5/add_321/U1_6/YC (FAX1)                        0.08       1.78 f
+  cflt/tap5/add_321/U1_7/YS (FAX1)                        0.26       2.03 r
+  cflt/tap5/add_321/SUM[7] (unit_calc_sv_0_DW01_add_0)
+                                                          0.00       2.03 r
+  cflt/tap5/y_out[7] (unit_calc_sv_0)                     0.00       2.03 r
+  cflt/y_out[7] (core_filt_sv)                            0.00       2.03 r
+  sub_476/A[7] (tf_lms_sv_DW01_sub_0)                     0.00       2.03 r
+  sub_476/U2_7/YS (FAX1)                                  0.10       2.14 r
+  sub_476/DIFF[7] (tf_lms_sv_DW01_sub_0)                  0.00       2.14 r
+  U19/Y (AND2X1)                                          0.24       2.37 r
+  cflt/ue_in[7] (core_filt_sv)                            0.00       2.37 r
+  cflt/tap1/ue_in[7] (unit_calc_sv_4)                     0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/d2_in[7] (mul8_sv_9)              0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/B[7] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/U42/Y (INVX1)             0.15       2.52 f
+  cflt/tap1/mul_xnin_ue/mult_46/U35/Y (OR2X1)             0.05       2.57 f
+  cflt/tap1/mul_xnin_ue/mult_46/U36/Y (INVX1)             0.02       2.59 r
+  cflt/tap1/mul_xnin_ue/mult_46/U58/Y (XOR2X1)            0.07       2.66 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_2_5/YS (FAX1)          0.09       2.75 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_3_4/YS (FAX1)          0.09       2.84 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_4_3/YS (FAX1)          0.09       2.93 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_5_2/YS (FAX1)          0.09       3.02 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_6_1/YS (FAX1)          0.09       3.11 f
+  cflt/tap1/mul_xnin_ue/mult_46/S4_0/YS (FAX1)            0.09       3.20 r
+  cflt/tap1/mul_xnin_ue/mult_46/S14_7_0/YC (FAX1)         0.06       3.26 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/B[6] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.26 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U18/Y (AND2X1)       0.07       3.33 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U50/Y (OAI21X1)      0.03       3.37 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U29/Y (INVX1)        0.00       3.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U49/Y (AOI21X1)      0.01       3.37 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U26/Y (BUFX2)        0.04       3.41 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U47/Y (OAI21X1)      0.06       3.47 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U45/Y (AOI21X1)      0.03       3.50 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U22/Y (BUFX2)        0.04       3.54 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U42/Y (OAI21X1)      0.06       3.60 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U39/Y (AOI21X1)      0.04       3.64 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U16/Y (BUFX2)        0.04       3.68 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U37/Y (OAI21X1)      0.06       3.74 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U36/YS (FAX1)        0.09       3.83 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/SUM[13] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.83 r
+  cflt/tap1/mul_xnin_ue/mult_46/PRODUCT[15] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       3.83 r
+  cflt/tap1/mul_xnin_ue/d_out[15] (mul8_sv_9)             0.00       3.83 r
+  cflt/tap1/u1/d_in[15] (u_scaling_sv_4)                  0.00       3.83 r
+  cflt/tap1/u1/d_out_reg_reg[14]/D (DFFPOSX1)             0.00       3.83 r
+  data arrival time                                                  3.83
+
+  clock clk (rise edge)                                  20.00      20.00
+  clock network delay (ideal)                             0.00      20.00
+  clock uncertainty                                      -0.20      19.80
+  cflt/tap1/u1/d_out_reg_reg[14]/CLK (DFFPOSX1)           0.00      19.80 r
+  library setup time                                     -1.16      18.64
+  data required time                                                18.64
+  --------------------------------------------------------------------------
+  data required time                                                18.64
+  data arrival time                                                 -3.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                       14.80
+
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[13]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/u1/d_out_reg_reg[13]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[13]/CLK (DFFPOSX1)      0.00 #     0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[13]/Q (DFFPOSX1)        0.10       0.10 f
+  cflt/tap5/delay_2/xout[13] (shift_1d_16_sv_0)           0.00       0.10 f
+  cflt/tap5/sat_1/d_in[13] (saturation_sv_0)              0.00       0.10 f
+  cflt/tap5/sat_1/U31/Y (INVX1)                           0.01       0.12 r
+  cflt/tap5/sat_1/U28/Y (NAND3X1)                         0.02       0.13 f
+  cflt/tap5/sat_1/U7/Y (BUFX2)                            0.03       0.17 f
+  cflt/tap5/sat_1/U5/Y (AND2X1)                           0.04       0.21 f
+  cflt/tap5/sat_1/U6/Y (INVX1)                            0.01       0.22 r
+  cflt/tap5/sat_1/U3/Y (AND2X1)                           0.12       0.33 r
+  cflt/tap5/sat_1/U15/Y (AND2X1)                          0.11       0.44 r
+  cflt/tap5/sat_1/d_out[6] (saturation_sv_0)              0.00       0.44 r
+  cflt/tap5/trunc_1/d_in[6] (truncation_sv_1)             0.00       0.44 r
+  cflt/tap5/trunc_1/d_out[0] (truncation_sv_1)            0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/d1_in[0] (mul8_sv_0)           0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/A[0] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U41/Y (OR2X1)          0.05       0.49 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U42/Y (INVX1)          0.03       0.52 f
+  cflt/tap5/mul_coeff_x_in/mult_46/U65/Y (XOR2X1)         0.07       0.59 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_2_5/YS (FAX1)       0.09       0.68 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_3_4/YS (FAX1)       0.09       0.77 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_4_3/YS (FAX1)       0.09       0.86 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_5_2/YS (FAX1)       0.09       0.95 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_6_1/YS (FAX1)       0.09       1.04 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S4_0/YS (FAX1)         0.09       1.13 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S14_7_0/YC (FAX1)      0.06       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/B[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U14/Y (AND2X1)
+                                                          0.07       1.27 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U15/Y (INVX1)     0.04       1.30 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U35/Y (OAI21X1)
+                                                          0.01       1.32 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U31/Y (INVX1)     0.04       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/SUM[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/PRODUCT[8] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/d_out[8] (mul8_sv_0)           0.00       1.36 f
+  cflt/tap5/trunc_2/d_in[8] (truncation_sv_0)             0.00       1.36 f
+  cflt/tap5/trunc_2/d_out[2] (truncation_sv_0)            0.00       1.36 f
+  cflt/tap5/add_321/A[2] (unit_calc_sv_0_DW01_add_0)      0.00       1.36 f
+  cflt/tap5/add_321/U1_2/YC (FAX1)                        0.09       1.45 f
+  cflt/tap5/add_321/U1_3/YC (FAX1)                        0.08       1.53 f
+  cflt/tap5/add_321/U1_4/YC (FAX1)                        0.08       1.61 f
+  cflt/tap5/add_321/U1_5/YC (FAX1)                        0.08       1.69 f
+  cflt/tap5/add_321/U1_6/YC (FAX1)                        0.08       1.78 f
+  cflt/tap5/add_321/U1_7/YS (FAX1)                        0.26       2.03 r
+  cflt/tap5/add_321/SUM[7] (unit_calc_sv_0_DW01_add_0)
+                                                          0.00       2.03 r
+  cflt/tap5/y_out[7] (unit_calc_sv_0)                     0.00       2.03 r
+  cflt/y_out[7] (core_filt_sv)                            0.00       2.03 r
+  sub_476/A[7] (tf_lms_sv_DW01_sub_0)                     0.00       2.03 r
+  sub_476/U2_7/YS (FAX1)                                  0.10       2.14 r
+  sub_476/DIFF[7] (tf_lms_sv_DW01_sub_0)                  0.00       2.14 r
+  U19/Y (AND2X1)                                          0.24       2.37 r
+  cflt/ue_in[7] (core_filt_sv)                            0.00       2.37 r
+  cflt/tap1/ue_in[7] (unit_calc_sv_4)                     0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/d2_in[7] (mul8_sv_9)              0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/B[7] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/U42/Y (INVX1)             0.15       2.52 f
+  cflt/tap1/mul_xnin_ue/mult_46/U35/Y (OR2X1)             0.05       2.57 f
+  cflt/tap1/mul_xnin_ue/mult_46/U36/Y (INVX1)             0.02       2.59 r
+  cflt/tap1/mul_xnin_ue/mult_46/U58/Y (XOR2X1)            0.07       2.66 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_2_5/YS (FAX1)          0.09       2.75 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_3_4/YS (FAX1)          0.09       2.84 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_4_3/YS (FAX1)          0.09       2.93 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_5_2/YS (FAX1)          0.09       3.02 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_6_1/YS (FAX1)          0.09       3.11 f
+  cflt/tap1/mul_xnin_ue/mult_46/S4_0/YS (FAX1)            0.09       3.20 r
+  cflt/tap1/mul_xnin_ue/mult_46/S14_7_0/YC (FAX1)         0.06       3.26 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/B[6] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.26 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U18/Y (AND2X1)       0.07       3.33 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U50/Y (OAI21X1)      0.03       3.37 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U29/Y (INVX1)        0.00       3.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U49/Y (AOI21X1)      0.01       3.37 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U26/Y (BUFX2)        0.04       3.41 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U47/Y (OAI21X1)      0.06       3.47 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U45/Y (AOI21X1)      0.03       3.50 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U22/Y (BUFX2)        0.04       3.54 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U42/Y (OAI21X1)      0.06       3.60 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U39/Y (AOI21X1)      0.04       3.64 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U16/Y (BUFX2)        0.04       3.68 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U37/Y (OAI21X1)      0.06       3.74 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U36/YS (FAX1)        0.09       3.83 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/SUM[13] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.83 r
+  cflt/tap1/mul_xnin_ue/mult_46/PRODUCT[15] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       3.83 r
+  cflt/tap1/mul_xnin_ue/d_out[15] (mul8_sv_9)             0.00       3.83 r
+  cflt/tap1/u1/d_in[15] (u_scaling_sv_4)                  0.00       3.83 r
+  cflt/tap1/u1/d_out_reg_reg[13]/D (DFFPOSX1)             0.00       3.83 r
+  data arrival time                                                  3.83
+
+  clock clk (rise edge)                                  20.00      20.00
+  clock network delay (ideal)                             0.00      20.00
+  clock uncertainty                                      -0.20      19.80
+  cflt/tap1/u1/d_out_reg_reg[13]/CLK (DFFPOSX1)           0.00      19.80 r
+  library setup time                                     -1.16      18.64
+  data required time                                                18.64
+  --------------------------------------------------------------------------
+  data required time                                                18.64
+  data arrival time                                                 -3.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                       14.80
+
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[13]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/u1/d_out_reg_reg[12]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[13]/CLK (DFFPOSX1)      0.00 #     0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[13]/Q (DFFPOSX1)        0.10       0.10 f
+  cflt/tap5/delay_2/xout[13] (shift_1d_16_sv_0)           0.00       0.10 f
+  cflt/tap5/sat_1/d_in[13] (saturation_sv_0)              0.00       0.10 f
+  cflt/tap5/sat_1/U31/Y (INVX1)                           0.01       0.12 r
+  cflt/tap5/sat_1/U28/Y (NAND3X1)                         0.02       0.13 f
+  cflt/tap5/sat_1/U7/Y (BUFX2)                            0.03       0.17 f
+  cflt/tap5/sat_1/U5/Y (AND2X1)                           0.04       0.21 f
+  cflt/tap5/sat_1/U6/Y (INVX1)                            0.01       0.22 r
+  cflt/tap5/sat_1/U3/Y (AND2X1)                           0.12       0.33 r
+  cflt/tap5/sat_1/U15/Y (AND2X1)                          0.11       0.44 r
+  cflt/tap5/sat_1/d_out[6] (saturation_sv_0)              0.00       0.44 r
+  cflt/tap5/trunc_1/d_in[6] (truncation_sv_1)             0.00       0.44 r
+  cflt/tap5/trunc_1/d_out[0] (truncation_sv_1)            0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/d1_in[0] (mul8_sv_0)           0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/A[0] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U41/Y (OR2X1)          0.05       0.49 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U42/Y (INVX1)          0.03       0.52 f
+  cflt/tap5/mul_coeff_x_in/mult_46/U65/Y (XOR2X1)         0.07       0.59 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_2_5/YS (FAX1)       0.09       0.68 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_3_4/YS (FAX1)       0.09       0.77 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_4_3/YS (FAX1)       0.09       0.86 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_5_2/YS (FAX1)       0.09       0.95 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_6_1/YS (FAX1)       0.09       1.04 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S4_0/YS (FAX1)         0.09       1.13 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S14_7_0/YC (FAX1)      0.06       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/B[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U14/Y (AND2X1)
+                                                          0.07       1.27 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U15/Y (INVX1)     0.04       1.30 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U35/Y (OAI21X1)
+                                                          0.01       1.32 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U31/Y (INVX1)     0.04       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/SUM[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/PRODUCT[8] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/d_out[8] (mul8_sv_0)           0.00       1.36 f
+  cflt/tap5/trunc_2/d_in[8] (truncation_sv_0)             0.00       1.36 f
+  cflt/tap5/trunc_2/d_out[2] (truncation_sv_0)            0.00       1.36 f
+  cflt/tap5/add_321/A[2] (unit_calc_sv_0_DW01_add_0)      0.00       1.36 f
+  cflt/tap5/add_321/U1_2/YC (FAX1)                        0.09       1.45 f
+  cflt/tap5/add_321/U1_3/YC (FAX1)                        0.08       1.53 f
+  cflt/tap5/add_321/U1_4/YC (FAX1)                        0.08       1.61 f
+  cflt/tap5/add_321/U1_5/YC (FAX1)                        0.08       1.69 f
+  cflt/tap5/add_321/U1_6/YC (FAX1)                        0.08       1.78 f
+  cflt/tap5/add_321/U1_7/YS (FAX1)                        0.26       2.03 r
+  cflt/tap5/add_321/SUM[7] (unit_calc_sv_0_DW01_add_0)
+                                                          0.00       2.03 r
+  cflt/tap5/y_out[7] (unit_calc_sv_0)                     0.00       2.03 r
+  cflt/y_out[7] (core_filt_sv)                            0.00       2.03 r
+  sub_476/A[7] (tf_lms_sv_DW01_sub_0)                     0.00       2.03 r
+  sub_476/U2_7/YS (FAX1)                                  0.10       2.14 r
+  sub_476/DIFF[7] (tf_lms_sv_DW01_sub_0)                  0.00       2.14 r
+  U19/Y (AND2X1)                                          0.24       2.37 r
+  cflt/ue_in[7] (core_filt_sv)                            0.00       2.37 r
+  cflt/tap1/ue_in[7] (unit_calc_sv_4)                     0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/d2_in[7] (mul8_sv_9)              0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/B[7] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/U42/Y (INVX1)             0.15       2.52 f
+  cflt/tap1/mul_xnin_ue/mult_46/U35/Y (OR2X1)             0.05       2.57 f
+  cflt/tap1/mul_xnin_ue/mult_46/U36/Y (INVX1)             0.02       2.59 r
+  cflt/tap1/mul_xnin_ue/mult_46/U58/Y (XOR2X1)            0.07       2.66 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_2_5/YS (FAX1)          0.09       2.75 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_3_4/YS (FAX1)          0.09       2.84 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_4_3/YS (FAX1)          0.09       2.93 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_5_2/YS (FAX1)          0.09       3.02 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_6_1/YS (FAX1)          0.09       3.11 f
+  cflt/tap1/mul_xnin_ue/mult_46/S4_0/YS (FAX1)            0.09       3.20 r
+  cflt/tap1/mul_xnin_ue/mult_46/S14_7_0/YC (FAX1)         0.06       3.26 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/B[6] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.26 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U18/Y (AND2X1)       0.07       3.33 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U50/Y (OAI21X1)      0.03       3.37 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U29/Y (INVX1)        0.00       3.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U49/Y (AOI21X1)      0.01       3.37 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U26/Y (BUFX2)        0.04       3.41 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U47/Y (OAI21X1)      0.06       3.47 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U45/Y (AOI21X1)      0.03       3.50 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U22/Y (BUFX2)        0.04       3.54 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U42/Y (OAI21X1)      0.06       3.60 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U39/Y (AOI21X1)      0.04       3.64 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U16/Y (BUFX2)        0.04       3.68 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U37/Y (OAI21X1)      0.06       3.74 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U36/YS (FAX1)        0.09       3.83 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/SUM[13] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.83 r
+  cflt/tap1/mul_xnin_ue/mult_46/PRODUCT[15] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       3.83 r
+  cflt/tap1/mul_xnin_ue/d_out[15] (mul8_sv_9)             0.00       3.83 r
+  cflt/tap1/u1/d_in[15] (u_scaling_sv_4)                  0.00       3.83 r
+  cflt/tap1/u1/d_out_reg_reg[12]/D (DFFPOSX1)             0.00       3.83 r
+  data arrival time                                                  3.83
+
+  clock clk (rise edge)                                  20.00      20.00
+  clock network delay (ideal)                             0.00      20.00
+  clock uncertainty                                      -0.20      19.80
+  cflt/tap1/u1/d_out_reg_reg[12]/CLK (DFFPOSX1)           0.00      19.80 r
+  library setup time                                     -1.16      18.64
+  data required time                                                18.64
+  --------------------------------------------------------------------------
+  data required time                                                18.64
+  data arrival time                                                 -3.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                       14.80
+
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[13]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/u1/d_out_reg_reg[11]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[13]/CLK (DFFPOSX1)      0.00 #     0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[13]/Q (DFFPOSX1)        0.10       0.10 f
+  cflt/tap5/delay_2/xout[13] (shift_1d_16_sv_0)           0.00       0.10 f
+  cflt/tap5/sat_1/d_in[13] (saturation_sv_0)              0.00       0.10 f
+  cflt/tap5/sat_1/U31/Y (INVX1)                           0.01       0.12 r
+  cflt/tap5/sat_1/U28/Y (NAND3X1)                         0.02       0.13 f
+  cflt/tap5/sat_1/U7/Y (BUFX2)                            0.03       0.17 f
+  cflt/tap5/sat_1/U5/Y (AND2X1)                           0.04       0.21 f
+  cflt/tap5/sat_1/U6/Y (INVX1)                            0.01       0.22 r
+  cflt/tap5/sat_1/U3/Y (AND2X1)                           0.12       0.33 r
+  cflt/tap5/sat_1/U15/Y (AND2X1)                          0.11       0.44 r
+  cflt/tap5/sat_1/d_out[6] (saturation_sv_0)              0.00       0.44 r
+  cflt/tap5/trunc_1/d_in[6] (truncation_sv_1)             0.00       0.44 r
+  cflt/tap5/trunc_1/d_out[0] (truncation_sv_1)            0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/d1_in[0] (mul8_sv_0)           0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/A[0] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U41/Y (OR2X1)          0.05       0.49 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U42/Y (INVX1)          0.03       0.52 f
+  cflt/tap5/mul_coeff_x_in/mult_46/U65/Y (XOR2X1)         0.07       0.59 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_2_5/YS (FAX1)       0.09       0.68 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_3_4/YS (FAX1)       0.09       0.77 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_4_3/YS (FAX1)       0.09       0.86 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_5_2/YS (FAX1)       0.09       0.95 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_6_1/YS (FAX1)       0.09       1.04 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S4_0/YS (FAX1)         0.09       1.13 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S14_7_0/YC (FAX1)      0.06       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/B[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U14/Y (AND2X1)
+                                                          0.07       1.27 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U15/Y (INVX1)     0.04       1.30 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U35/Y (OAI21X1)
+                                                          0.01       1.32 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U31/Y (INVX1)     0.04       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/SUM[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/PRODUCT[8] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/d_out[8] (mul8_sv_0)           0.00       1.36 f
+  cflt/tap5/trunc_2/d_in[8] (truncation_sv_0)             0.00       1.36 f
+  cflt/tap5/trunc_2/d_out[2] (truncation_sv_0)            0.00       1.36 f
+  cflt/tap5/add_321/A[2] (unit_calc_sv_0_DW01_add_0)      0.00       1.36 f
+  cflt/tap5/add_321/U1_2/YC (FAX1)                        0.09       1.45 f
+  cflt/tap5/add_321/U1_3/YC (FAX1)                        0.08       1.53 f
+  cflt/tap5/add_321/U1_4/YC (FAX1)                        0.08       1.61 f
+  cflt/tap5/add_321/U1_5/YC (FAX1)                        0.08       1.69 f
+  cflt/tap5/add_321/U1_6/YC (FAX1)                        0.08       1.78 f
+  cflt/tap5/add_321/U1_7/YS (FAX1)                        0.26       2.03 r
+  cflt/tap5/add_321/SUM[7] (unit_calc_sv_0_DW01_add_0)
+                                                          0.00       2.03 r
+  cflt/tap5/y_out[7] (unit_calc_sv_0)                     0.00       2.03 r
+  cflt/y_out[7] (core_filt_sv)                            0.00       2.03 r
+  sub_476/A[7] (tf_lms_sv_DW01_sub_0)                     0.00       2.03 r
+  sub_476/U2_7/YS (FAX1)                                  0.10       2.14 r
+  sub_476/DIFF[7] (tf_lms_sv_DW01_sub_0)                  0.00       2.14 r
+  U19/Y (AND2X1)                                          0.24       2.37 r
+  cflt/ue_in[7] (core_filt_sv)                            0.00       2.37 r
+  cflt/tap1/ue_in[7] (unit_calc_sv_4)                     0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/d2_in[7] (mul8_sv_9)              0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/B[7] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/U42/Y (INVX1)             0.15       2.52 f
+  cflt/tap1/mul_xnin_ue/mult_46/U35/Y (OR2X1)             0.05       2.57 f
+  cflt/tap1/mul_xnin_ue/mult_46/U36/Y (INVX1)             0.02       2.59 r
+  cflt/tap1/mul_xnin_ue/mult_46/U58/Y (XOR2X1)            0.07       2.66 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_2_5/YS (FAX1)          0.09       2.75 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_3_4/YS (FAX1)          0.09       2.84 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_4_3/YS (FAX1)          0.09       2.93 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_5_2/YS (FAX1)          0.09       3.02 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_6_1/YS (FAX1)          0.09       3.11 f
+  cflt/tap1/mul_xnin_ue/mult_46/S4_0/YS (FAX1)            0.09       3.20 r
+  cflt/tap1/mul_xnin_ue/mult_46/S14_7_0/YC (FAX1)         0.06       3.26 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/B[6] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.26 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U18/Y (AND2X1)       0.07       3.33 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U50/Y (OAI21X1)      0.03       3.37 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U29/Y (INVX1)        0.00       3.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U49/Y (AOI21X1)      0.01       3.37 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U26/Y (BUFX2)        0.04       3.41 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U47/Y (OAI21X1)      0.06       3.47 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U45/Y (AOI21X1)      0.03       3.50 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U22/Y (BUFX2)        0.04       3.54 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U42/Y (OAI21X1)      0.06       3.60 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U39/Y (AOI21X1)      0.04       3.64 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U16/Y (BUFX2)        0.04       3.68 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U37/Y (OAI21X1)      0.06       3.74 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U36/YS (FAX1)        0.09       3.83 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/SUM[13] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.83 r
+  cflt/tap1/mul_xnin_ue/mult_46/PRODUCT[15] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       3.83 r
+  cflt/tap1/mul_xnin_ue/d_out[15] (mul8_sv_9)             0.00       3.83 r
+  cflt/tap1/u1/d_in[15] (u_scaling_sv_4)                  0.00       3.83 r
+  cflt/tap1/u1/d_out_reg_reg[11]/D (DFFPOSX1)             0.00       3.83 r
+  data arrival time                                                  3.83
+
+  clock clk (rise edge)                                  20.00      20.00
+  clock network delay (ideal)                             0.00      20.00
+  clock uncertainty                                      -0.20      19.80
+  cflt/tap1/u1/d_out_reg_reg[11]/CLK (DFFPOSX1)           0.00      19.80 r
+  library setup time                                     -1.16      18.64
+  data required time                                                18.64
+  --------------------------------------------------------------------------
+  data required time                                                18.64
+  data arrival time                                                 -3.83
+  --------------------------------------------------------------------------
+  slack (MET)                                                       14.80
+
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[13]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/u1/d_out_reg_reg[10]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[13]/CLK (DFFPOSX1)      0.00 #     0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[13]/Q (DFFPOSX1)        0.10       0.10 f
+  cflt/tap5/delay_2/xout[13] (shift_1d_16_sv_0)           0.00       0.10 f
+  cflt/tap5/sat_1/d_in[13] (saturation_sv_0)              0.00       0.10 f
+  cflt/tap5/sat_1/U31/Y (INVX1)                           0.01       0.12 r
+  cflt/tap5/sat_1/U28/Y (NAND3X1)                         0.02       0.13 f
+  cflt/tap5/sat_1/U7/Y (BUFX2)                            0.03       0.17 f
+  cflt/tap5/sat_1/U5/Y (AND2X1)                           0.04       0.21 f
+  cflt/tap5/sat_1/U6/Y (INVX1)                            0.01       0.22 r
+  cflt/tap5/sat_1/U3/Y (AND2X1)                           0.12       0.33 r
+  cflt/tap5/sat_1/U15/Y (AND2X1)                          0.11       0.44 r
+  cflt/tap5/sat_1/d_out[6] (saturation_sv_0)              0.00       0.44 r
+  cflt/tap5/trunc_1/d_in[6] (truncation_sv_1)             0.00       0.44 r
+  cflt/tap5/trunc_1/d_out[0] (truncation_sv_1)            0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/d1_in[0] (mul8_sv_0)           0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/A[0] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U41/Y (OR2X1)          0.05       0.49 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U42/Y (INVX1)          0.03       0.52 f
+  cflt/tap5/mul_coeff_x_in/mult_46/U65/Y (XOR2X1)         0.07       0.59 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_2_5/YS (FAX1)       0.09       0.68 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_3_4/YS (FAX1)       0.09       0.77 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_4_3/YS (FAX1)       0.09       0.86 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_5_2/YS (FAX1)       0.09       0.95 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_6_1/YS (FAX1)       0.09       1.04 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S4_0/YS (FAX1)         0.09       1.13 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S14_7_0/YC (FAX1)      0.06       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/B[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U14/Y (AND2X1)
+                                                          0.07       1.27 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U15/Y (INVX1)     0.04       1.30 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U35/Y (OAI21X1)
+                                                          0.01       1.32 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U31/Y (INVX1)     0.04       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/SUM[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/PRODUCT[8] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/d_out[8] (mul8_sv_0)           0.00       1.36 f
+  cflt/tap5/trunc_2/d_in[8] (truncation_sv_0)             0.00       1.36 f
+  cflt/tap5/trunc_2/d_out[2] (truncation_sv_0)            0.00       1.36 f
+  cflt/tap5/add_321/A[2] (unit_calc_sv_0_DW01_add_0)      0.00       1.36 f
+  cflt/tap5/add_321/U1_2/YC (FAX1)                        0.09       1.45 f
+  cflt/tap5/add_321/U1_3/YC (FAX1)                        0.08       1.53 f
+  cflt/tap5/add_321/U1_4/YC (FAX1)                        0.08       1.61 f
+  cflt/tap5/add_321/U1_5/YC (FAX1)                        0.08       1.69 f
+  cflt/tap5/add_321/U1_6/YC (FAX1)                        0.08       1.78 f
+  cflt/tap5/add_321/U1_7/YS (FAX1)                        0.26       2.03 r
+  cflt/tap5/add_321/SUM[7] (unit_calc_sv_0_DW01_add_0)
+                                                          0.00       2.03 r
+  cflt/tap5/y_out[7] (unit_calc_sv_0)                     0.00       2.03 r
+  cflt/y_out[7] (core_filt_sv)                            0.00       2.03 r
+  sub_476/A[7] (tf_lms_sv_DW01_sub_0)                     0.00       2.03 r
+  sub_476/U2_7/YS (FAX1)                                  0.10       2.14 r
+  sub_476/DIFF[7] (tf_lms_sv_DW01_sub_0)                  0.00       2.14 r
+  U19/Y (AND2X1)                                          0.24       2.37 r
+  cflt/ue_in[7] (core_filt_sv)                            0.00       2.37 r
+  cflt/tap1/ue_in[7] (unit_calc_sv_4)                     0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/d2_in[7] (mul8_sv_9)              0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/B[7] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/U42/Y (INVX1)             0.15       2.52 f
+  cflt/tap1/mul_xnin_ue/mult_46/U35/Y (OR2X1)             0.05       2.57 f
+  cflt/tap1/mul_xnin_ue/mult_46/U36/Y (INVX1)             0.02       2.59 r
+  cflt/tap1/mul_xnin_ue/mult_46/U58/Y (XOR2X1)            0.07       2.66 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_2_5/YS (FAX1)          0.09       2.75 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_3_4/YS (FAX1)          0.09       2.84 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_4_3/YS (FAX1)          0.09       2.93 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_5_2/YS (FAX1)          0.09       3.02 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_6_1/YS (FAX1)          0.09       3.11 f
+  cflt/tap1/mul_xnin_ue/mult_46/S4_0/YS (FAX1)            0.09       3.20 r
+  cflt/tap1/mul_xnin_ue/mult_46/S14_7_0/YC (FAX1)         0.06       3.26 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/B[6] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.26 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U18/Y (AND2X1)       0.07       3.33 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U50/Y (OAI21X1)      0.03       3.37 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U29/Y (INVX1)        0.00       3.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U49/Y (AOI21X1)      0.01       3.37 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U26/Y (BUFX2)        0.04       3.41 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U47/Y (OAI21X1)      0.06       3.47 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U45/Y (AOI21X1)      0.03       3.50 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U22/Y (BUFX2)        0.04       3.54 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U42/Y (OAI21X1)      0.06       3.60 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U39/Y (AOI21X1)      0.04       3.64 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U16/Y (BUFX2)        0.04       3.68 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U38/Y (XOR2X1)       0.05       3.73 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/SUM[12] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.73 r
+  cflt/tap1/mul_xnin_ue/mult_46/PRODUCT[14] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       3.73 r
+  cflt/tap1/mul_xnin_ue/d_out[14] (mul8_sv_9)             0.00       3.73 r
+  cflt/tap1/u1/d_in[14] (u_scaling_sv_4)                  0.00       3.73 r
+  cflt/tap1/u1/d_out_reg_reg[10]/D (DFFPOSX1)             0.00       3.73 r
+  data arrival time                                                  3.73
+
+  clock clk (rise edge)                                  20.00      20.00
+  clock network delay (ideal)                             0.00      20.00
+  clock uncertainty                                      -0.20      19.80
+  cflt/tap1/u1/d_out_reg_reg[10]/CLK (DFFPOSX1)           0.00      19.80 r
+  library setup time                                     -1.21      18.59
+  data required time                                                18.59
+  --------------------------------------------------------------------------
+  data required time                                                18.59
+  data arrival time                                                 -3.73
+  --------------------------------------------------------------------------
+  slack (MET)                                                       14.86
+
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[13]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/u1/d_out_reg_reg[9]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[13]/CLK (DFFPOSX1)      0.00 #     0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[13]/Q (DFFPOSX1)        0.10       0.10 f
+  cflt/tap5/delay_2/xout[13] (shift_1d_16_sv_0)           0.00       0.10 f
+  cflt/tap5/sat_1/d_in[13] (saturation_sv_0)              0.00       0.10 f
+  cflt/tap5/sat_1/U31/Y (INVX1)                           0.01       0.12 r
+  cflt/tap5/sat_1/U28/Y (NAND3X1)                         0.02       0.13 f
+  cflt/tap5/sat_1/U7/Y (BUFX2)                            0.03       0.17 f
+  cflt/tap5/sat_1/U5/Y (AND2X1)                           0.04       0.21 f
+  cflt/tap5/sat_1/U6/Y (INVX1)                            0.01       0.22 r
+  cflt/tap5/sat_1/U3/Y (AND2X1)                           0.12       0.33 r
+  cflt/tap5/sat_1/U15/Y (AND2X1)                          0.11       0.44 r
+  cflt/tap5/sat_1/d_out[6] (saturation_sv_0)              0.00       0.44 r
+  cflt/tap5/trunc_1/d_in[6] (truncation_sv_1)             0.00       0.44 r
+  cflt/tap5/trunc_1/d_out[0] (truncation_sv_1)            0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/d1_in[0] (mul8_sv_0)           0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/A[0] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U41/Y (OR2X1)          0.05       0.49 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U42/Y (INVX1)          0.03       0.52 f
+  cflt/tap5/mul_coeff_x_in/mult_46/U65/Y (XOR2X1)         0.07       0.59 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_2_5/YS (FAX1)       0.09       0.68 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_3_4/YS (FAX1)       0.09       0.77 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_4_3/YS (FAX1)       0.09       0.86 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_5_2/YS (FAX1)       0.09       0.95 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_6_1/YS (FAX1)       0.09       1.04 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S4_0/YS (FAX1)         0.09       1.13 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S14_7_0/YC (FAX1)      0.06       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/B[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U14/Y (AND2X1)
+                                                          0.07       1.27 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U15/Y (INVX1)     0.04       1.30 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U35/Y (OAI21X1)
+                                                          0.01       1.32 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U31/Y (INVX1)     0.04       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/SUM[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/PRODUCT[8] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/d_out[8] (mul8_sv_0)           0.00       1.36 f
+  cflt/tap5/trunc_2/d_in[8] (truncation_sv_0)             0.00       1.36 f
+  cflt/tap5/trunc_2/d_out[2] (truncation_sv_0)            0.00       1.36 f
+  cflt/tap5/add_321/A[2] (unit_calc_sv_0_DW01_add_0)      0.00       1.36 f
+  cflt/tap5/add_321/U1_2/YC (FAX1)                        0.09       1.45 f
+  cflt/tap5/add_321/U1_3/YC (FAX1)                        0.08       1.53 f
+  cflt/tap5/add_321/U1_4/YC (FAX1)                        0.08       1.61 f
+  cflt/tap5/add_321/U1_5/YC (FAX1)                        0.08       1.69 f
+  cflt/tap5/add_321/U1_6/YC (FAX1)                        0.08       1.78 f
+  cflt/tap5/add_321/U1_7/YS (FAX1)                        0.26       2.03 r
+  cflt/tap5/add_321/SUM[7] (unit_calc_sv_0_DW01_add_0)
+                                                          0.00       2.03 r
+  cflt/tap5/y_out[7] (unit_calc_sv_0)                     0.00       2.03 r
+  cflt/y_out[7] (core_filt_sv)                            0.00       2.03 r
+  sub_476/A[7] (tf_lms_sv_DW01_sub_0)                     0.00       2.03 r
+  sub_476/U2_7/YS (FAX1)                                  0.10       2.14 r
+  sub_476/DIFF[7] (tf_lms_sv_DW01_sub_0)                  0.00       2.14 r
+  U19/Y (AND2X1)                                          0.24       2.37 r
+  cflt/ue_in[7] (core_filt_sv)                            0.00       2.37 r
+  cflt/tap1/ue_in[7] (unit_calc_sv_4)                     0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/d2_in[7] (mul8_sv_9)              0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/B[7] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/U42/Y (INVX1)             0.15       2.52 f
+  cflt/tap1/mul_xnin_ue/mult_46/U35/Y (OR2X1)             0.05       2.57 f
+  cflt/tap1/mul_xnin_ue/mult_46/U36/Y (INVX1)             0.02       2.59 r
+  cflt/tap1/mul_xnin_ue/mult_46/U58/Y (XOR2X1)            0.07       2.66 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_2_5/YS (FAX1)          0.09       2.75 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_3_4/YS (FAX1)          0.09       2.84 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_4_3/YS (FAX1)          0.09       2.93 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_5_2/YS (FAX1)          0.09       3.02 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_6_1/YS (FAX1)          0.09       3.11 f
+  cflt/tap1/mul_xnin_ue/mult_46/S4_0/YS (FAX1)            0.09       3.20 r
+  cflt/tap1/mul_xnin_ue/mult_46/S14_7_0/YC (FAX1)         0.06       3.26 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/B[6] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.26 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U18/Y (AND2X1)       0.07       3.33 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U50/Y (OAI21X1)      0.03       3.37 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U29/Y (INVX1)        0.00       3.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U49/Y (AOI21X1)      0.01       3.37 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U26/Y (BUFX2)        0.04       3.41 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U47/Y (OAI21X1)      0.06       3.47 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U45/Y (AOI21X1)      0.03       3.50 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U22/Y (BUFX2)        0.04       3.54 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U42/Y (OAI21X1)      0.06       3.60 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U41/Y (XNOR2X1)      0.05       3.66 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/SUM[11] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.66 r
+  cflt/tap1/mul_xnin_ue/mult_46/PRODUCT[13] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       3.66 r
+  cflt/tap1/mul_xnin_ue/d_out[13] (mul8_sv_9)             0.00       3.66 r
+  cflt/tap1/u1/d_in[13] (u_scaling_sv_4)                  0.00       3.66 r
+  cflt/tap1/u1/d_out_reg_reg[9]/D (DFFPOSX1)              0.00       3.66 r
+  data arrival time                                                  3.66
+
+  clock clk (rise edge)                                  20.00      20.00
+  clock network delay (ideal)                             0.00      20.00
+  clock uncertainty                                      -0.20      19.80
+  cflt/tap1/u1/d_out_reg_reg[9]/CLK (DFFPOSX1)            0.00      19.80 r
+  library setup time                                     -1.24      18.56
+  data required time                                                18.56
+  --------------------------------------------------------------------------
+  data required time                                                18.56
+  data arrival time                                                 -3.66
+  --------------------------------------------------------------------------
+  slack (MET)                                                       14.91
+
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[13]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/u1/d_out_reg_reg[8]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[13]/CLK (DFFPOSX1)      0.00 #     0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[13]/Q (DFFPOSX1)        0.10       0.10 f
+  cflt/tap5/delay_2/xout[13] (shift_1d_16_sv_0)           0.00       0.10 f
+  cflt/tap5/sat_1/d_in[13] (saturation_sv_0)              0.00       0.10 f
+  cflt/tap5/sat_1/U31/Y (INVX1)                           0.01       0.12 r
+  cflt/tap5/sat_1/U28/Y (NAND3X1)                         0.02       0.13 f
+  cflt/tap5/sat_1/U7/Y (BUFX2)                            0.03       0.17 f
+  cflt/tap5/sat_1/U5/Y (AND2X1)                           0.04       0.21 f
+  cflt/tap5/sat_1/U6/Y (INVX1)                            0.01       0.22 r
+  cflt/tap5/sat_1/U3/Y (AND2X1)                           0.12       0.33 r
+  cflt/tap5/sat_1/U15/Y (AND2X1)                          0.11       0.44 r
+  cflt/tap5/sat_1/d_out[6] (saturation_sv_0)              0.00       0.44 r
+  cflt/tap5/trunc_1/d_in[6] (truncation_sv_1)             0.00       0.44 r
+  cflt/tap5/trunc_1/d_out[0] (truncation_sv_1)            0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/d1_in[0] (mul8_sv_0)           0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/A[0] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U41/Y (OR2X1)          0.05       0.49 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U42/Y (INVX1)          0.03       0.52 f
+  cflt/tap5/mul_coeff_x_in/mult_46/U65/Y (XOR2X1)         0.07       0.59 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_2_5/YS (FAX1)       0.09       0.68 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_3_4/YS (FAX1)       0.09       0.77 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_4_3/YS (FAX1)       0.09       0.86 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_5_2/YS (FAX1)       0.09       0.95 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_6_1/YS (FAX1)       0.09       1.04 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S4_0/YS (FAX1)         0.09       1.13 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S14_7_0/YC (FAX1)      0.06       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/B[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U14/Y (AND2X1)
+                                                          0.07       1.27 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U15/Y (INVX1)     0.04       1.30 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U35/Y (OAI21X1)
+                                                          0.01       1.32 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U31/Y (INVX1)     0.04       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/SUM[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/PRODUCT[8] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/d_out[8] (mul8_sv_0)           0.00       1.36 f
+  cflt/tap5/trunc_2/d_in[8] (truncation_sv_0)             0.00       1.36 f
+  cflt/tap5/trunc_2/d_out[2] (truncation_sv_0)            0.00       1.36 f
+  cflt/tap5/add_321/A[2] (unit_calc_sv_0_DW01_add_0)      0.00       1.36 f
+  cflt/tap5/add_321/U1_2/YC (FAX1)                        0.09       1.45 f
+  cflt/tap5/add_321/U1_3/YC (FAX1)                        0.08       1.53 f
+  cflt/tap5/add_321/U1_4/YC (FAX1)                        0.08       1.61 f
+  cflt/tap5/add_321/U1_5/YC (FAX1)                        0.08       1.69 f
+  cflt/tap5/add_321/U1_6/YC (FAX1)                        0.08       1.78 f
+  cflt/tap5/add_321/U1_7/YS (FAX1)                        0.26       2.03 r
+  cflt/tap5/add_321/SUM[7] (unit_calc_sv_0_DW01_add_0)
+                                                          0.00       2.03 r
+  cflt/tap5/y_out[7] (unit_calc_sv_0)                     0.00       2.03 r
+  cflt/y_out[7] (core_filt_sv)                            0.00       2.03 r
+  sub_476/A[7] (tf_lms_sv_DW01_sub_0)                     0.00       2.03 r
+  sub_476/U2_7/YS (FAX1)                                  0.10       2.14 r
+  sub_476/DIFF[7] (tf_lms_sv_DW01_sub_0)                  0.00       2.14 r
+  U19/Y (AND2X1)                                          0.24       2.37 r
+  cflt/ue_in[7] (core_filt_sv)                            0.00       2.37 r
+  cflt/tap1/ue_in[7] (unit_calc_sv_4)                     0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/d2_in[7] (mul8_sv_9)              0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/B[7] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/U42/Y (INVX1)             0.15       2.52 f
+  cflt/tap1/mul_xnin_ue/mult_46/U35/Y (OR2X1)             0.05       2.57 f
+  cflt/tap1/mul_xnin_ue/mult_46/U36/Y (INVX1)             0.02       2.59 r
+  cflt/tap1/mul_xnin_ue/mult_46/U58/Y (XOR2X1)            0.07       2.66 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_2_5/YS (FAX1)          0.09       2.75 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_3_4/YS (FAX1)          0.09       2.84 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_4_3/YS (FAX1)          0.09       2.93 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_5_2/YS (FAX1)          0.09       3.02 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_6_1/YS (FAX1)          0.09       3.11 r
+  cflt/tap1/mul_xnin_ue/mult_46/S4_0/YS (FAX1)            0.09       3.20 f
+  cflt/tap1/mul_xnin_ue/mult_46/S14_7_0/YC (FAX1)         0.07       3.27 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/B[6] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.27 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U18/Y (AND2X1)       0.06       3.33 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U50/Y (OAI21X1)      0.05       3.38 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U29/Y (INVX1)        0.02       3.40 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U49/Y (AOI21X1)      0.02       3.42 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U26/Y (BUFX2)        0.04       3.46 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U47/Y (OAI21X1)      0.03       3.49 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U45/Y (AOI21X1)      0.04       3.53 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U22/Y (BUFX2)        0.04       3.57 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U44/Y (XOR2X1)       0.05       3.62 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/SUM[10] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.62 r
+  cflt/tap1/mul_xnin_ue/mult_46/PRODUCT[12] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       3.62 r
+  cflt/tap1/mul_xnin_ue/d_out[12] (mul8_sv_9)             0.00       3.62 r
+  cflt/tap1/u1/d_in[12] (u_scaling_sv_4)                  0.00       3.62 r
+  cflt/tap1/u1/d_out_reg_reg[8]/D (DFFPOSX1)              0.00       3.62 r
+  data arrival time                                                  3.62
+
+  clock clk (rise edge)                                  20.00      20.00
+  clock network delay (ideal)                             0.00      20.00
+  clock uncertainty                                      -0.20      19.80
+  cflt/tap1/u1/d_out_reg_reg[8]/CLK (DFFPOSX1)            0.00      19.80 r
+  library setup time                                     -1.21      18.59
+  data required time                                                18.59
+  --------------------------------------------------------------------------
+  data required time                                                18.59
+  data arrival time                                                 -3.62
+  --------------------------------------------------------------------------
+  slack (MET)                                                       14.97
+
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[13]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/u1/d_out_reg_reg[4]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[13]/CLK (DFFPOSX1)      0.00 #     0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[13]/Q (DFFPOSX1)        0.10       0.10 f
+  cflt/tap5/delay_2/xout[13] (shift_1d_16_sv_0)           0.00       0.10 f
+  cflt/tap5/sat_1/d_in[13] (saturation_sv_0)              0.00       0.10 f
+  cflt/tap5/sat_1/U31/Y (INVX1)                           0.01       0.12 r
+  cflt/tap5/sat_1/U28/Y (NAND3X1)                         0.02       0.13 f
+  cflt/tap5/sat_1/U7/Y (BUFX2)                            0.03       0.17 f
+  cflt/tap5/sat_1/U5/Y (AND2X1)                           0.04       0.21 f
+  cflt/tap5/sat_1/U6/Y (INVX1)                            0.01       0.22 r
+  cflt/tap5/sat_1/U3/Y (AND2X1)                           0.12       0.33 r
+  cflt/tap5/sat_1/U15/Y (AND2X1)                          0.11       0.44 r
+  cflt/tap5/sat_1/d_out[6] (saturation_sv_0)              0.00       0.44 r
+  cflt/tap5/trunc_1/d_in[6] (truncation_sv_1)             0.00       0.44 r
+  cflt/tap5/trunc_1/d_out[0] (truncation_sv_1)            0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/d1_in[0] (mul8_sv_0)           0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/A[0] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U41/Y (OR2X1)          0.05       0.49 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U42/Y (INVX1)          0.03       0.52 f
+  cflt/tap5/mul_coeff_x_in/mult_46/U65/Y (XOR2X1)         0.07       0.59 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_2_5/YS (FAX1)       0.09       0.68 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_3_4/YS (FAX1)       0.09       0.77 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_4_3/YS (FAX1)       0.09       0.86 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_5_2/YS (FAX1)       0.09       0.95 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_6_1/YS (FAX1)       0.09       1.04 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S4_0/YS (FAX1)         0.09       1.13 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S14_7_0/YC (FAX1)      0.06       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/B[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U14/Y (AND2X1)
+                                                          0.07       1.27 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U15/Y (INVX1)     0.04       1.30 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U35/Y (OAI21X1)
+                                                          0.01       1.32 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U31/Y (INVX1)     0.04       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/SUM[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/PRODUCT[8] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/d_out[8] (mul8_sv_0)           0.00       1.36 f
+  cflt/tap5/trunc_2/d_in[8] (truncation_sv_0)             0.00       1.36 f
+  cflt/tap5/trunc_2/d_out[2] (truncation_sv_0)            0.00       1.36 f
+  cflt/tap5/add_321/A[2] (unit_calc_sv_0_DW01_add_0)      0.00       1.36 f
+  cflt/tap5/add_321/U1_2/YC (FAX1)                        0.09       1.45 f
+  cflt/tap5/add_321/U1_3/YC (FAX1)                        0.08       1.53 f
+  cflt/tap5/add_321/U1_4/YC (FAX1)                        0.08       1.61 f
+  cflt/tap5/add_321/U1_5/YC (FAX1)                        0.08       1.69 f
+  cflt/tap5/add_321/U1_6/YC (FAX1)                        0.08       1.78 f
+  cflt/tap5/add_321/U1_7/YS (FAX1)                        0.26       2.03 r
+  cflt/tap5/add_321/SUM[7] (unit_calc_sv_0_DW01_add_0)
+                                                          0.00       2.03 r
+  cflt/tap5/y_out[7] (unit_calc_sv_0)                     0.00       2.03 r
+  cflt/y_out[7] (core_filt_sv)                            0.00       2.03 r
+  sub_476/A[7] (tf_lms_sv_DW01_sub_0)                     0.00       2.03 r
+  sub_476/U2_7/YS (FAX1)                                  0.10       2.14 r
+  sub_476/DIFF[7] (tf_lms_sv_DW01_sub_0)                  0.00       2.14 r
+  U19/Y (AND2X1)                                          0.24       2.37 r
+  cflt/ue_in[7] (core_filt_sv)                            0.00       2.37 r
+  cflt/tap1/ue_in[7] (unit_calc_sv_4)                     0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/d2_in[7] (mul8_sv_9)              0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/B[7] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/U42/Y (INVX1)             0.15       2.52 f
+  cflt/tap1/mul_xnin_ue/mult_46/U35/Y (OR2X1)             0.05       2.57 f
+  cflt/tap1/mul_xnin_ue/mult_46/U36/Y (INVX1)             0.02       2.59 r
+  cflt/tap1/mul_xnin_ue/mult_46/U58/Y (XOR2X1)            0.07       2.66 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_2_5/YS (FAX1)          0.09       2.75 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_3_4/YS (FAX1)          0.09       2.84 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_4_3/YS (FAX1)          0.09       2.93 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_5_2/YS (FAX1)          0.09       3.02 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_6_1/YS (FAX1)          0.09       3.11 r
+  cflt/tap1/mul_xnin_ue/mult_46/S4_0/YS (FAX1)            0.09       3.20 f
+  cflt/tap1/mul_xnin_ue/mult_46/S14_7_0/YC (FAX1)         0.07       3.27 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/B[6] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.27 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U18/Y (AND2X1)       0.06       3.33 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U19/Y (INVX1)        0.01       3.34 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U35/Y (OAI21X1)      0.01       3.35 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U31/Y (INVX1)        0.00       3.35 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/SUM[6] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.35 r
+  cflt/tap1/mul_xnin_ue/mult_46/PRODUCT[8] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       3.35 r
+  cflt/tap1/mul_xnin_ue/d_out[8] (mul8_sv_9)              0.00       3.35 r
+  cflt/tap1/u1/d_in[8] (u_scaling_sv_4)                   0.00       3.35 r
+  cflt/tap1/u1/d_out_reg_reg[4]/D (DFFPOSX1)              0.00       3.35 r
+  data arrival time                                                  3.35
+
+  clock clk (rise edge)                                  20.00      20.00
+  clock network delay (ideal)                             0.00      20.00
+  clock uncertainty                                      -0.20      19.80
+  cflt/tap1/u1/d_out_reg_reg[4]/CLK (DFFPOSX1)            0.00      19.80 r
+  library setup time                                     -1.44      18.36
+  data required time                                                18.36
+  --------------------------------------------------------------------------
+  data required time                                                18.36
+  data arrival time                                                 -3.35
+  --------------------------------------------------------------------------
+  slack (MET)                                                       15.01
+
+
+  Startpoint: cflt/tap5/delay_2/shift_reg_reg[13]
+              (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: cflt/tap1/u1/d_out_reg_reg[7]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  cflt/tap5/delay_2/shift_reg_reg[13]/CLK (DFFPOSX1)      0.00 #     0.00 r
+  cflt/tap5/delay_2/shift_reg_reg[13]/Q (DFFPOSX1)        0.10       0.10 f
+  cflt/tap5/delay_2/xout[13] (shift_1d_16_sv_0)           0.00       0.10 f
+  cflt/tap5/sat_1/d_in[13] (saturation_sv_0)              0.00       0.10 f
+  cflt/tap5/sat_1/U31/Y (INVX1)                           0.01       0.12 r
+  cflt/tap5/sat_1/U28/Y (NAND3X1)                         0.02       0.13 f
+  cflt/tap5/sat_1/U7/Y (BUFX2)                            0.03       0.17 f
+  cflt/tap5/sat_1/U5/Y (AND2X1)                           0.04       0.21 f
+  cflt/tap5/sat_1/U6/Y (INVX1)                            0.01       0.22 r
+  cflt/tap5/sat_1/U3/Y (AND2X1)                           0.12       0.33 r
+  cflt/tap5/sat_1/U15/Y (AND2X1)                          0.11       0.44 r
+  cflt/tap5/sat_1/d_out[6] (saturation_sv_0)              0.00       0.44 r
+  cflt/tap5/trunc_1/d_in[6] (truncation_sv_1)             0.00       0.44 r
+  cflt/tap5/trunc_1/d_out[0] (truncation_sv_1)            0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/d1_in[0] (mul8_sv_0)           0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/A[0] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       0.44 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U41/Y (OR2X1)          0.05       0.49 r
+  cflt/tap5/mul_coeff_x_in/mult_46/U42/Y (INVX1)          0.03       0.52 f
+  cflt/tap5/mul_coeff_x_in/mult_46/U65/Y (XOR2X1)         0.07       0.59 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_2_5/YS (FAX1)       0.09       0.68 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_3_4/YS (FAX1)       0.09       0.77 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_4_3/YS (FAX1)       0.09       0.86 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_5_2/YS (FAX1)       0.09       0.95 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S2_6_1/YS (FAX1)       0.09       1.04 f
+  cflt/tap5/mul_coeff_x_in/mult_46/S4_0/YS (FAX1)         0.09       1.13 r
+  cflt/tap5/mul_coeff_x_in/mult_46/S14_7_0/YC (FAX1)      0.06       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/B[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.19 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U14/Y (AND2X1)
+                                                          0.07       1.27 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U15/Y (INVX1)     0.04       1.30 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U35/Y (OAI21X1)
+                                                          0.01       1.32 r
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/U31/Y (INVX1)     0.04       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/FS_1/SUM[6] (mul8_sv_0_DW01_add_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/mult_46/PRODUCT[8] (mul8_sv_0_DW02_mult_0)
+                                                          0.00       1.36 f
+  cflt/tap5/mul_coeff_x_in/d_out[8] (mul8_sv_0)           0.00       1.36 f
+  cflt/tap5/trunc_2/d_in[8] (truncation_sv_0)             0.00       1.36 f
+  cflt/tap5/trunc_2/d_out[2] (truncation_sv_0)            0.00       1.36 f
+  cflt/tap5/add_321/A[2] (unit_calc_sv_0_DW01_add_0)      0.00       1.36 f
+  cflt/tap5/add_321/U1_2/YC (FAX1)                        0.09       1.45 f
+  cflt/tap5/add_321/U1_3/YC (FAX1)                        0.08       1.53 f
+  cflt/tap5/add_321/U1_4/YC (FAX1)                        0.08       1.61 f
+  cflt/tap5/add_321/U1_5/YC (FAX1)                        0.08       1.69 f
+  cflt/tap5/add_321/U1_6/YC (FAX1)                        0.08       1.78 f
+  cflt/tap5/add_321/U1_7/YS (FAX1)                        0.26       2.03 r
+  cflt/tap5/add_321/SUM[7] (unit_calc_sv_0_DW01_add_0)
+                                                          0.00       2.03 r
+  cflt/tap5/y_out[7] (unit_calc_sv_0)                     0.00       2.03 r
+  cflt/y_out[7] (core_filt_sv)                            0.00       2.03 r
+  sub_476/A[7] (tf_lms_sv_DW01_sub_0)                     0.00       2.03 r
+  sub_476/U2_7/YS (FAX1)                                  0.10       2.14 r
+  sub_476/DIFF[7] (tf_lms_sv_DW01_sub_0)                  0.00       2.14 r
+  U19/Y (AND2X1)                                          0.24       2.37 r
+  cflt/ue_in[7] (core_filt_sv)                            0.00       2.37 r
+  cflt/tap1/ue_in[7] (unit_calc_sv_4)                     0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/d2_in[7] (mul8_sv_9)              0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/B[7] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       2.37 r
+  cflt/tap1/mul_xnin_ue/mult_46/U42/Y (INVX1)             0.15       2.52 f
+  cflt/tap1/mul_xnin_ue/mult_46/U35/Y (OR2X1)             0.05       2.57 f
+  cflt/tap1/mul_xnin_ue/mult_46/U36/Y (INVX1)             0.02       2.59 r
+  cflt/tap1/mul_xnin_ue/mult_46/U58/Y (XOR2X1)            0.07       2.66 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_2_5/YS (FAX1)          0.09       2.75 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_3_4/YS (FAX1)          0.09       2.84 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_4_3/YS (FAX1)          0.09       2.93 f
+  cflt/tap1/mul_xnin_ue/mult_46/S2_5_2/YS (FAX1)          0.09       3.02 r
+  cflt/tap1/mul_xnin_ue/mult_46/S2_6_1/YS (FAX1)          0.09       3.11 r
+  cflt/tap1/mul_xnin_ue/mult_46/S4_0/YS (FAX1)            0.09       3.20 f
+  cflt/tap1/mul_xnin_ue/mult_46/S14_7_0/YC (FAX1)         0.07       3.27 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/B[6] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.27 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U18/Y (AND2X1)       0.06       3.33 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U50/Y (OAI21X1)      0.05       3.38 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U29/Y (INVX1)        0.02       3.40 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U49/Y (AOI21X1)      0.02       3.42 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U26/Y (BUFX2)        0.04       3.46 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U47/Y (OAI21X1)      0.03       3.49 f
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/U32/Y (XNOR2X1)      0.05       3.54 r
+  cflt/tap1/mul_xnin_ue/mult_46/FS_1/SUM[9] (mul8_sv_9_DW01_add_0)
+                                                          0.00       3.54 r
+  cflt/tap1/mul_xnin_ue/mult_46/PRODUCT[11] (mul8_sv_9_DW02_mult_0)
+                                                          0.00       3.54 r
+  cflt/tap1/mul_xnin_ue/d_out[11] (mul8_sv_9)             0.00       3.54 r
+  cflt/tap1/u1/d_in[11] (u_scaling_sv_4)                  0.00       3.54 r
+  cflt/tap1/u1/d_out_reg_reg[7]/D (DFFPOSX1)              0.00       3.54 r
+  data arrival time                                                  3.54
+
+  clock clk (rise edge)                                  20.00      20.00
+  clock network delay (ideal)                             0.00      20.00
+  clock uncertainty                                      -0.20      19.80
+  cflt/tap1/u1/d_out_reg_reg[7]/CLK (DFFPOSX1)            0.00      19.80 r
+  library setup time                                     -1.24      18.56
+  data required time                                                18.56
+  --------------------------------------------------------------------------
+  data required time                                                18.56
+  data arrival time                                                 -3.54
+  --------------------------------------------------------------------------
+  slack (MET)                                                       15.02
+
+
+1

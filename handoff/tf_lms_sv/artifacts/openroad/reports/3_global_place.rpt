@@ -1,0 +1,164 @@
+
+==========================================================================
+global place report_tns
+--------------------------------------------------------------------------
+tns max 0.00
+
+==========================================================================
+global place report_wns
+--------------------------------------------------------------------------
+wns max 0.00
+
+==========================================================================
+global place report_worst_slack
+--------------------------------------------------------------------------
+worst slack max 15.48
+
+==========================================================================
+global place report_clock_min_period
+--------------------------------------------------------------------------
+clk period_min = 4.52 fmax = 221.47
+
+==========================================================================
+global place report_checks -path_delay min
+--------------------------------------------------------------------------
+Startpoint: cflt.tap1.shiftx[5]$_DFF_PN0_
+            (rising edge-triggered flip-flop clocked by clk)
+Endpoint: cflt.tap2.shiftx[29]$_DFF_PN0_
+          (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                  0.10    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                  0.10    0.00    0.00 ^ cflt.tap1.shiftx[5]$_DFF_PN0_/CK (DFFR_X1)
+     1    1.06    0.01    0.10    0.10 v cflt.tap1.shiftx[5]$_DFF_PN0_/Q (DFFR_X1)
+                                         cflt.tap1.shiftx[5] (net)
+                  0.01    0.00    0.10 v cflt.tap2.shiftx[29]$_DFF_PN0_/D (DFFR_X1)
+                                  0.10   data arrival time
+
+                  0.10    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                          0.20    0.20   clock uncertainty
+                          0.00    0.20   clock reconvergence pessimism
+                                  0.20 ^ cflt.tap2.shiftx[29]$_DFF_PN0_/CK (DFFR_X1)
+                          0.01    0.21   library hold time
+                                  0.21   data required time
+-----------------------------------------------------------------------------
+                                  0.21   data required time
+                                 -0.10   data arrival time
+-----------------------------------------------------------------------------
+                                 -0.11   slack (VIOLATED)
+
+
+
+==========================================================================
+global place report_checks -path_delay max
+--------------------------------------------------------------------------
+Startpoint: adapt_en (input port clocked by clk)
+Endpoint: err[2] (output port clocked by clk)
+Path Group: clk
+Path Type: max
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                  0.10    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                          2.00    2.00 ^ input external delay
+     1    1.50    0.10    0.00    2.00 ^ adapt_en (in)
+                                         adapt_en (net)
+                  0.10    0.00    2.00 ^ input1/A (BUF_X1)
+     1    1.95    0.01    0.03    2.03 ^ input1/Z (BUF_X1)
+                                         net1 (net)
+                  0.01    0.00    2.03 ^ _6171_/A1 (NAND2_X1)
+     7   21.81    0.05    0.05    2.09 v _6171_/ZN (NAND2_X1)
+                                         _2798_ (net)
+                  0.05    0.00    2.09 v _6190_/A3 (NOR3_X1)
+     5   11.15    0.09    0.14    2.23 ^ _6190_/ZN (NOR3_X1)
+                                         net21 (net)
+                  0.09    0.00    2.23 ^ place62/A (BUF_X1)
+     2   13.28    0.03    0.06    2.29 ^ place62/Z (BUF_X1)
+                                         net62 (net)
+                  0.03    0.00    2.29 ^ output21/A (BUF_X1)
+     1    0.51    0.01    0.02    2.32 ^ output21/Z (BUF_X1)
+                                         err[2] (net)
+                  0.01    0.00    2.32 ^ err[2] (out)
+                                  2.32   data arrival time
+
+                  0.10   20.00   20.00   clock clk (rise edge)
+                          0.00   20.00   clock network delay (ideal)
+                         -0.20   19.80   clock uncertainty
+                          0.00   19.80   clock reconvergence pessimism
+                         -2.00   17.80   output external delay
+                                 17.80   data required time
+-----------------------------------------------------------------------------
+                                 17.80   data required time
+                                 -2.32   data arrival time
+-----------------------------------------------------------------------------
+                                 15.48   slack (MET)
+
+
+
+==========================================================================
+global place report_checks -unconstrained
+--------------------------------------------------------------------------
+Startpoint: adapt_en (input port clocked by clk)
+Endpoint: err[2] (output port clocked by clk)
+Path Group: clk
+Path Type: max
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                  0.10    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                          2.00    2.00 ^ input external delay
+     1    1.50    0.10    0.00    2.00 ^ adapt_en (in)
+                                         adapt_en (net)
+                  0.10    0.00    2.00 ^ input1/A (BUF_X1)
+     1    1.95    0.01    0.03    2.03 ^ input1/Z (BUF_X1)
+                                         net1 (net)
+                  0.01    0.00    2.03 ^ _6171_/A1 (NAND2_X1)
+     7   21.81    0.05    0.05    2.09 v _6171_/ZN (NAND2_X1)
+                                         _2798_ (net)
+                  0.05    0.00    2.09 v _6190_/A3 (NOR3_X1)
+     5   11.15    0.09    0.14    2.23 ^ _6190_/ZN (NOR3_X1)
+                                         net21 (net)
+                  0.09    0.00    2.23 ^ place62/A (BUF_X1)
+     2   13.28    0.03    0.06    2.29 ^ place62/Z (BUF_X1)
+                                         net62 (net)
+                  0.03    0.00    2.29 ^ output21/A (BUF_X1)
+     1    0.51    0.01    0.02    2.32 ^ output21/Z (BUF_X1)
+                                         err[2] (net)
+                  0.01    0.00    2.32 ^ err[2] (out)
+                                  2.32   data arrival time
+
+                  0.10   20.00   20.00   clock clk (rise edge)
+                          0.00   20.00   clock network delay (ideal)
+                         -0.20   19.80   clock uncertainty
+                          0.00   19.80   clock reconvergence pessimism
+                         -2.00   17.80   output external delay
+                                 17.80   data required time
+-----------------------------------------------------------------------------
+                                 17.80   data required time
+                                 -2.32   data arrival time
+-----------------------------------------------------------------------------
+                                 15.48   slack (MET)
+
+
+
+==========================================================================
+global place report_power
+--------------------------------------------------------------------------
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power (Watts)
+----------------------------------------------------------------
+Sequential             4.06e-04   4.54e-05   6.47e-05   5.16e-04  10.0%
+Combinational          2.31e-03   2.21e-03   1.22e-04   4.64e-03  90.0%
+Clock                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  2.72e-03   2.26e-03   1.87e-04   5.16e-03 100.0%
+                          52.6%      43.8%       3.6%

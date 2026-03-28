@@ -1,0 +1,682 @@
+
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+
+               Version L-2016.03-SP1 for linux64 - Apr 18, 2016 
+
+                    Copyright (c) 1988 - 2016 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+            or distribution of this software is strictly prohibited.
+Initializing...
+set script_dir [file dirname [file normalize [info script]]]
+/home/hoangtrang/IC_design/code/scripts/synopsys/dc
+set project_root [file normalize [file join $script_dir .. .. ..]]
+/home/hoangtrang/IC_design/code
+set top_name tf_lms_sv
+tf_lms_sv
+set pdk_root [file join $project_root pdk freepdk45_mflowgen]
+/home/hoangtrang/IC_design/code/pdk/freepdk45_mflowgen
+set lib_tt   [file join $pdk_root stdcells.db]
+/home/hoangtrang/IC_design/code/pdk/freepdk45_mflowgen/stdcells.db
+set out_dir  [file join $project_root artifacts dc out mflow45]
+/home/hoangtrang/IC_design/code/artifacts/dc/out/mflow45
+set rpt_dir  [file join $project_root artifacts dc reports mflow45]
+/home/hoangtrang/IC_design/code/artifacts/dc/reports/mflow45
+set work_dir [file join $project_root artifacts dc work mflow45]
+/home/hoangtrang/IC_design/code/artifacts/dc/work/mflow45
+set_app_var search_path [list     [file join $project_root src sv rtl]     [file join $project_root constraints]     $pdk_root ]
+/home/hoangtrang/IC_design/code/src/sv/rtl /home/hoangtrang/IC_design/code/constraints /home/hoangtrang/IC_design/code/pdk/freepdk45_mflowgen
+set_app_var target_library [list $lib_tt]
+/home/hoangtrang/IC_design/code/pdk/freepdk45_mflowgen/stdcells.db
+set_app_var link_library [list "*" $lib_tt]
+* /home/hoangtrang/IC_design/code/pdk/freepdk45_mflowgen/stdcells.db
+define_design_lib WORK -path $work_dir
+1
+analyze -format sverilog [file join $project_root src sv rtl adaptation_lms.sv]
+Running PRESTO HDLC
+Compiling source file /home/hoangtrang/IC_design/code/src/sv/rtl/adaptation_lms.sv
+Presto compilation completed successfully.
+Loading db file '/home/hoangtrang/IC_design/code/pdk/freepdk45_mflowgen/stdcells.db'
+1
+elaborate $top_name
+Loading db file '/home/hoangtrang/Tools/DC-2016.03-SP1/libraries/syn/gtech.db'
+Loading db file '/home/hoangtrang/Tools/DC-2016.03-SP1/libraries/syn/standard.sldb'
+  Loading link library 'NangateOpenCellLibrary'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+
+Statistics for case statements in always block at line 474 in file
+	'/home/hoangtrang/IC_design/code/src/sv/rtl/adaptation_lms.sv'
+===============================================
+|           Line           |  full/ parallel  |
+===============================================
+|           475            |    auto/auto     |
+===============================================
+Presto compilation completed successfully.
+Elaborated 1 design.
+Current design is now 'tf_lms_sv'.
+Information: Building the design 'shift_20d_sv'. (HDL-193)
+
+Inferred memory devices in process
+	in routine shift_20d_sv line 108 in file
+		'/home/hoangtrang/IC_design/code/src/sv/rtl/adaptation_lms.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    shift_reg_reg    | Flip-flop |  160  |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'shift_21d_sv'. (HDL-193)
+
+Inferred memory devices in process
+	in routine shift_21d_sv line 127 in file
+		'/home/hoangtrang/IC_design/code/src/sv/rtl/adaptation_lms.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    shift_reg_reg    | Flip-flop |  168  |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'core_filt_sv'. (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'unit_calc_sv'. (HDL-193)
+
+Inferred memory devices in process
+	in routine unit_calc_sv line 311 in file
+		'/home/hoangtrang/IC_design/code/src/sv/rtl/adaptation_lms.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|     shiftx_reg      | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     shiftxn_reg     | Flip-flop |  32   |  Y  | N  | N  | N  | N  | N  | N  |
+|     shiftue_reg     | Flip-flop |  24   |  Y  | N  | N  | N  | N  | N  | N  |
+|     shifty_reg      | Flip-flop |  16   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'mul8_sv'. (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'u_scaling_sv'. (HDL-193)
+
+Inferred memory devices in process
+	in routine u_scaling_sv line 146 in file
+		'/home/hoangtrang/IC_design/code/src/sv/rtl/adaptation_lms.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    d_out_reg_reg    | Flip-flop |  16   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'add16_sv'. (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'shift_1d_16_sv'. (HDL-193)
+
+Inferred memory devices in process
+	in routine shift_1d_16_sv line 90 in file
+		'/home/hoangtrang/IC_design/code/src/sv/rtl/adaptation_lms.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    shift_reg_reg    | Flip-flop |  16   |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'saturation_sv'. (HDL-193)
+Presto compilation completed successfully.
+Information: Building the design 'truncation_sv'. (HDL-193)
+Presto compilation completed successfully.
+1
+current_design $top_name
+Current design is 'tf_lms_sv'.
+{tf_lms_sv}
+link
+
+  Linking design 'tf_lms_sv'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (11 designs)              /home/hoangtrang/IC_design/code/tf_lms_sv.db, etc
+  NangateOpenCellLibrary (library) /home/hoangtrang/IC_design/code/pdk/freepdk45_mflowgen/stdcells.db
+
+1
+check_design
+ 
+****************************************
+check_design summary:
+Version:     L-2016.03-SP1
+Date:        Fri Mar 27 00:20:19 2026
+****************************************
+
+                   Name                                            Total
+--------------------------------------------------------------------------------
+Inputs/Outputs                                                     20
+    Unconnected ports (LINT-28)                                    12
+    Feedthrough (LINT-29)                                           8
+
+Cells                                                              10
+    Cells do not drive (LINT-1)                                     1
+    Connected to power or ground (LINT-32)                          8
+    Nets connected to multiple pins on same cell (LINT-33)          1
+--------------------------------------------------------------------------------
+
+Warning: In design 'tf_lms_sv', cell 'B_2' does not drive any nets. (LINT-1)
+Warning: In design 'u_scaling_sv', port 'd_in[3]' is not connected to any nets. (LINT-28)
+Warning: In design 'u_scaling_sv', port 'd_in[2]' is not connected to any nets. (LINT-28)
+Warning: In design 'u_scaling_sv', port 'd_in[1]' is not connected to any nets. (LINT-28)
+Warning: In design 'u_scaling_sv', port 'd_in[0]' is not connected to any nets. (LINT-28)
+Warning: In design 'truncation_sv', port 'd_in[15]' is not connected to any nets. (LINT-28)
+Warning: In design 'truncation_sv', port 'd_in[14]' is not connected to any nets. (LINT-28)
+Warning: In design 'truncation_sv', port 'd_in[5]' is not connected to any nets. (LINT-28)
+Warning: In design 'truncation_sv', port 'd_in[4]' is not connected to any nets. (LINT-28)
+Warning: In design 'truncation_sv', port 'd_in[3]' is not connected to any nets. (LINT-28)
+Warning: In design 'truncation_sv', port 'd_in[2]' is not connected to any nets. (LINT-28)
+Warning: In design 'truncation_sv', port 'd_in[1]' is not connected to any nets. (LINT-28)
+Warning: In design 'truncation_sv', port 'd_in[0]' is not connected to any nets. (LINT-28)
+Warning: In design 'truncation_sv', input port 'd_in[13]' is connected directly to output port 'd_out[7]'. (LINT-29)
+Warning: In design 'truncation_sv', input port 'd_in[12]' is connected directly to output port 'd_out[6]'. (LINT-29)
+Warning: In design 'truncation_sv', input port 'd_in[11]' is connected directly to output port 'd_out[5]'. (LINT-29)
+Warning: In design 'truncation_sv', input port 'd_in[10]' is connected directly to output port 'd_out[4]'. (LINT-29)
+Warning: In design 'truncation_sv', input port 'd_in[9]' is connected directly to output port 'd_out[3]'. (LINT-29)
+Warning: In design 'truncation_sv', input port 'd_in[8]' is connected directly to output port 'd_out[2]'. (LINT-29)
+Warning: In design 'truncation_sv', input port 'd_in[7]' is connected directly to output port 'd_out[1]'. (LINT-29)
+Warning: In design 'truncation_sv', input port 'd_in[6]' is connected directly to output port 'd_out[0]'. (LINT-29)
+Warning: In design 'core_filt_sv', a pin on submodule 'tap1' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'y_in[7]' is connected to logic 0. 
+Warning: In design 'core_filt_sv', a pin on submodule 'tap1' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'y_in[6]' is connected to logic 0. 
+Warning: In design 'core_filt_sv', a pin on submodule 'tap1' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'y_in[5]' is connected to logic 0. 
+Warning: In design 'core_filt_sv', a pin on submodule 'tap1' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'y_in[4]' is connected to logic 0. 
+Warning: In design 'core_filt_sv', a pin on submodule 'tap1' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'y_in[3]' is connected to logic 0. 
+Warning: In design 'core_filt_sv', a pin on submodule 'tap1' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'y_in[2]' is connected to logic 0. 
+Warning: In design 'core_filt_sv', a pin on submodule 'tap1' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'y_in[1]' is connected to logic 0. 
+Warning: In design 'core_filt_sv', a pin on submodule 'tap1' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'y_in[0]' is connected to logic 0. 
+Warning: In design 'core_filt_sv', the same net is connected to more than one pin on submodule 'tap1'. (LINT-33)
+   Net '*Logic0*' is connected to pins 'y_in[7]', 'y_in[6]'', 'y_in[5]', 'y_in[4]', 'y_in[3]', 'y_in[2]', 'y_in[1]', 'y_in[0]'.
+1
+source [file join $project_root constraints tf_lms_sv.sdc]
+1
+uniquify
+Information: Uniquified 5 instances of design 'unit_calc_sv'. (OPT-1056)
+Information: Uniquified 10 instances of design 'mul8_sv'. (OPT-1056)
+Information: Uniquified 5 instances of design 'u_scaling_sv'. (OPT-1056)
+Information: Uniquified 5 instances of design 'add16_sv'. (OPT-1056)
+Information: Uniquified 5 instances of design 'shift_1d_16_sv'. (OPT-1056)
+Information: Uniquified 5 instances of design 'saturation_sv'. (OPT-1056)
+Information: Uniquified 10 instances of design 'truncation_sv'. (OPT-1056)
+1
+compile_ultra
+Information: Performing power optimization. (PWR-850)
+Analyzing: "/home/hoangtrang/IC_design/code/pdk/freepdk45_mflowgen/stdcells.db"
+Library analysis succeeded.
+Loading db file '/home/hoangtrang/Tools/DC-2016.03-SP1/libraries/syn/dw_foundation.sldb'
+Information: Failed to find dw_foundation.sldb in the user defined search_path, load it from 'Synopsys Root'. (UISN-70)
+Warning: DesignWare synthetic library dw_foundation.sldb is added to the synthetic_library in the current command. (UISN-40)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | L-2016.03-DWBB_201603.1 |     *     |
+| Licensed DW Building Blocks        | L-2016.03-DWBB_201603.1 |     *     |
+============================================================================
+
+Information: Sequential output inversion is enabled.  SVF file must be used for formal verification. (OPT-1208)
+
+Information: There are 190 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+  Simplifying Design 'tf_lms_sv'
+
+Loaded alib file './alib-52/stdcells.db.alib'
+  Building model 'DW01_NAND2'
+Information: Ungrouping hierarchy shift_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy shift_2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap5 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap4 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap3 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap1/mul_xnin_ue before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap1/u1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap1/add1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap1/delay_2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap1/sat_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap1/trunc_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap5/mul_coeff_x_in before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap5/mul_xnin_ue before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap4/mul_coeff_x_in before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap4/mul_xnin_ue before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap3/mul_coeff_x_in before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap3/mul_xnin_ue before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap2/mul_coeff_x_in before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap2/mul_xnin_ue before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap1/mul_coeff_x_in before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap5/u1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap4/u1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap3/u1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap2/u1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap5/add1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap4/add1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap3/add1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap2/add1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap5/delay_2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap4/delay_2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap3/delay_2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap2/delay_2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap5/sat_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap4/sat_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap3/sat_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap2/sat_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap5/trunc_2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap5/trunc_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap4/trunc_2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap4/trunc_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap3/trunc_2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap3/trunc_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap2/trunc_2 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap2/trunc_1 before Pass 1 (OPT-776)
+Information: Ungrouping hierarchy cflt/tap1/trunc_2 before Pass 1 (OPT-776)
+Information: Ungrouping 48 of 49 hierarchies before Pass 1 (OPT-775)
+Information: State dependent leakage is now switched from on to off.
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'tf_lms_sv'
+Information: The register 'cflt/tap1/shifty_reg[15]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cflt/tap1/shifty_reg[14]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cflt/tap1/shifty_reg[14]' will be removed. (OPT-1207)
+Information: The register 'cflt/tap1/shifty_reg[13]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cflt/tap1/shifty_reg[13]' will be removed. (OPT-1207)
+Information: The register 'cflt/tap1/shifty_reg[12]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cflt/tap1/shifty_reg[12]' will be removed. (OPT-1207)
+Information: The register 'cflt/tap1/shifty_reg[11]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cflt/tap1/shifty_reg[11]' will be removed. (OPT-1207)
+Information: The register 'cflt/tap1/shifty_reg[10]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cflt/tap1/shifty_reg[10]' will be removed. (OPT-1207)
+Information: The register 'cflt/tap1/shifty_reg[9]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cflt/tap1/shifty_reg[9]' will be removed. (OPT-1207)
+Information: The register 'cflt/tap1/shifty_reg[8]' is a constant and will be removed. (OPT-1206)
+Information: The register 'cflt/tap1/shifty_reg[8]' will be removed. (OPT-1207)
+Information: In design 'tf_lms_sv', the register 'cflt/tap1/shifty_reg[6]' is removed because it is merged to 'cflt/tap1/shifty_reg[7]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap1/shifty_reg[5]' is removed because it is merged to 'cflt/tap1/shifty_reg[7]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap1/shifty_reg[4]' is removed because it is merged to 'cflt/tap1/shifty_reg[7]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap1/shifty_reg[3]' is removed because it is merged to 'cflt/tap1/shifty_reg[7]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap1/shifty_reg[2]' is removed because it is merged to 'cflt/tap1/shifty_reg[7]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap1/shifty_reg[1]' is removed because it is merged to 'cflt/tap1/shifty_reg[7]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap1/shifty_reg[0]' is removed because it is merged to 'cflt/tap1/shifty_reg[7]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[159]' is removed because it is merged to 'cflt/tap1/shiftx_reg[31]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[151]' is removed because it is merged to 'cflt/tap1/shiftx_reg[23]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[143]' is removed because it is merged to 'cflt/tap1/shiftx_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[135]' is removed because it is merged to 'cflt/tap1/shiftx_reg[7]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[127]' is removed because it is merged to 'cflt/tap2/shiftx_reg[31]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[119]' is removed because it is merged to 'cflt/tap2/shiftx_reg[23]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[111]' is removed because it is merged to 'cflt/tap2/shiftx_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[103]' is removed because it is merged to 'cflt/tap2/shiftx_reg[7]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[95]' is removed because it is merged to 'cflt/tap3/shiftx_reg[31]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[87]' is removed because it is merged to 'cflt/tap3/shiftx_reg[23]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[79]' is removed because it is merged to 'cflt/tap3/shiftx_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[71]' is removed because it is merged to 'cflt/tap3/shiftx_reg[7]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[63]' is removed because it is merged to 'cflt/tap4/shiftx_reg[31]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[55]' is removed because it is merged to 'cflt/tap4/shiftx_reg[23]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[47]' is removed because it is merged to 'cflt/tap4/shiftx_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[39]' is removed because it is merged to 'cflt/tap4/shiftx_reg[7]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[31]' is removed because it is merged to 'cflt/tap5/shiftx_reg[31]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[158]' is removed because it is merged to 'cflt/tap1/shiftx_reg[30]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[150]' is removed because it is merged to 'cflt/tap1/shiftx_reg[22]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[142]' is removed because it is merged to 'cflt/tap1/shiftx_reg[14]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[134]' is removed because it is merged to 'cflt/tap1/shiftx_reg[6]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[126]' is removed because it is merged to 'cflt/tap2/shiftx_reg[30]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[118]' is removed because it is merged to 'cflt/tap2/shiftx_reg[22]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[110]' is removed because it is merged to 'cflt/tap2/shiftx_reg[14]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[102]' is removed because it is merged to 'cflt/tap2/shiftx_reg[6]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[94]' is removed because it is merged to 'cflt/tap3/shiftx_reg[30]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[86]' is removed because it is merged to 'cflt/tap3/shiftx_reg[22]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[78]' is removed because it is merged to 'cflt/tap3/shiftx_reg[14]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[70]' is removed because it is merged to 'cflt/tap3/shiftx_reg[6]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[62]' is removed because it is merged to 'cflt/tap4/shiftx_reg[30]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[54]' is removed because it is merged to 'cflt/tap4/shiftx_reg[22]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[46]' is removed because it is merged to 'cflt/tap4/shiftx_reg[14]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[38]' is removed because it is merged to 'cflt/tap4/shiftx_reg[6]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[30]' is removed because it is merged to 'cflt/tap5/shiftx_reg[30]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[157]' is removed because it is merged to 'cflt/tap1/shiftx_reg[29]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[149]' is removed because it is merged to 'cflt/tap1/shiftx_reg[21]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[141]' is removed because it is merged to 'cflt/tap1/shiftx_reg[13]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[133]' is removed because it is merged to 'cflt/tap1/shiftx_reg[5]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[125]' is removed because it is merged to 'cflt/tap2/shiftx_reg[29]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[117]' is removed because it is merged to 'cflt/tap2/shiftx_reg[21]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[109]' is removed because it is merged to 'cflt/tap2/shiftx_reg[13]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[101]' is removed because it is merged to 'cflt/tap2/shiftx_reg[5]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[93]' is removed because it is merged to 'cflt/tap3/shiftx_reg[29]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[85]' is removed because it is merged to 'cflt/tap3/shiftx_reg[21]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[77]' is removed because it is merged to 'cflt/tap3/shiftx_reg[13]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[69]' is removed because it is merged to 'cflt/tap3/shiftx_reg[5]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[61]' is removed because it is merged to 'cflt/tap4/shiftx_reg[29]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[53]' is removed because it is merged to 'cflt/tap4/shiftx_reg[21]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[45]' is removed because it is merged to 'cflt/tap4/shiftx_reg[13]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[37]' is removed because it is merged to 'cflt/tap4/shiftx_reg[5]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[29]' is removed because it is merged to 'cflt/tap5/shiftx_reg[29]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[156]' is removed because it is merged to 'cflt/tap1/shiftx_reg[28]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[148]' is removed because it is merged to 'cflt/tap1/shiftx_reg[20]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[140]' is removed because it is merged to 'cflt/tap1/shiftx_reg[12]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[132]' is removed because it is merged to 'cflt/tap1/shiftx_reg[4]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[124]' is removed because it is merged to 'cflt/tap2/shiftx_reg[28]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[116]' is removed because it is merged to 'cflt/tap2/shiftx_reg[20]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[108]' is removed because it is merged to 'cflt/tap2/shiftx_reg[12]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[100]' is removed because it is merged to 'cflt/tap2/shiftx_reg[4]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[92]' is removed because it is merged to 'cflt/tap3/shiftx_reg[28]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[84]' is removed because it is merged to 'cflt/tap3/shiftx_reg[20]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[76]' is removed because it is merged to 'cflt/tap3/shiftx_reg[12]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[68]' is removed because it is merged to 'cflt/tap3/shiftx_reg[4]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[60]' is removed because it is merged to 'cflt/tap4/shiftx_reg[28]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[52]' is removed because it is merged to 'cflt/tap4/shiftx_reg[20]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[44]' is removed because it is merged to 'cflt/tap4/shiftx_reg[12]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[36]' is removed because it is merged to 'cflt/tap4/shiftx_reg[4]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[28]' is removed because it is merged to 'cflt/tap5/shiftx_reg[28]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[155]' is removed because it is merged to 'cflt/tap1/shiftx_reg[27]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[147]' is removed because it is merged to 'cflt/tap1/shiftx_reg[19]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[139]' is removed because it is merged to 'cflt/tap1/shiftx_reg[11]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[131]' is removed because it is merged to 'cflt/tap1/shiftx_reg[3]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[123]' is removed because it is merged to 'cflt/tap2/shiftx_reg[27]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[115]' is removed because it is merged to 'cflt/tap2/shiftx_reg[19]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[107]' is removed because it is merged to 'cflt/tap2/shiftx_reg[11]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[99]' is removed because it is merged to 'cflt/tap2/shiftx_reg[3]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[91]' is removed because it is merged to 'cflt/tap3/shiftx_reg[27]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[83]' is removed because it is merged to 'cflt/tap3/shiftx_reg[19]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[75]' is removed because it is merged to 'cflt/tap3/shiftx_reg[11]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[67]' is removed because it is merged to 'cflt/tap3/shiftx_reg[3]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[59]' is removed because it is merged to 'cflt/tap4/shiftx_reg[27]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[51]' is removed because it is merged to 'cflt/tap4/shiftx_reg[19]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[43]' is removed because it is merged to 'cflt/tap4/shiftx_reg[11]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[35]' is removed because it is merged to 'cflt/tap4/shiftx_reg[3]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[27]' is removed because it is merged to 'cflt/tap5/shiftx_reg[27]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[154]' is removed because it is merged to 'cflt/tap1/shiftx_reg[26]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[146]' is removed because it is merged to 'cflt/tap1/shiftx_reg[18]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[138]' is removed because it is merged to 'cflt/tap1/shiftx_reg[10]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[130]' is removed because it is merged to 'cflt/tap1/shiftx_reg[2]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[122]' is removed because it is merged to 'cflt/tap2/shiftx_reg[26]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[114]' is removed because it is merged to 'cflt/tap2/shiftx_reg[18]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[106]' is removed because it is merged to 'cflt/tap2/shiftx_reg[10]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[98]' is removed because it is merged to 'cflt/tap2/shiftx_reg[2]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[90]' is removed because it is merged to 'cflt/tap3/shiftx_reg[26]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[82]' is removed because it is merged to 'cflt/tap3/shiftx_reg[18]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[74]' is removed because it is merged to 'cflt/tap3/shiftx_reg[10]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[66]' is removed because it is merged to 'cflt/tap3/shiftx_reg[2]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[58]' is removed because it is merged to 'cflt/tap4/shiftx_reg[26]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[50]' is removed because it is merged to 'cflt/tap4/shiftx_reg[18]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[42]' is removed because it is merged to 'cflt/tap4/shiftx_reg[10]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[34]' is removed because it is merged to 'cflt/tap4/shiftx_reg[2]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[26]' is removed because it is merged to 'cflt/tap5/shiftx_reg[26]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[153]' is removed because it is merged to 'cflt/tap1/shiftx_reg[25]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[145]' is removed because it is merged to 'cflt/tap1/shiftx_reg[17]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[137]' is removed because it is merged to 'cflt/tap1/shiftx_reg[9]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[129]' is removed because it is merged to 'cflt/tap1/shiftx_reg[1]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[121]' is removed because it is merged to 'cflt/tap2/shiftx_reg[25]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[113]' is removed because it is merged to 'cflt/tap2/shiftx_reg[17]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[105]' is removed because it is merged to 'cflt/tap2/shiftx_reg[9]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[97]' is removed because it is merged to 'cflt/tap2/shiftx_reg[1]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[89]' is removed because it is merged to 'cflt/tap3/shiftx_reg[25]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[81]' is removed because it is merged to 'cflt/tap3/shiftx_reg[17]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[73]' is removed because it is merged to 'cflt/tap3/shiftx_reg[9]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[65]' is removed because it is merged to 'cflt/tap3/shiftx_reg[1]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[57]' is removed because it is merged to 'cflt/tap4/shiftx_reg[25]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[49]' is removed because it is merged to 'cflt/tap4/shiftx_reg[17]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[41]' is removed because it is merged to 'cflt/tap4/shiftx_reg[9]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[33]' is removed because it is merged to 'cflt/tap4/shiftx_reg[1]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[25]' is removed because it is merged to 'cflt/tap5/shiftx_reg[25]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[152]' is removed because it is merged to 'cflt/tap1/shiftx_reg[24]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[144]' is removed because it is merged to 'cflt/tap1/shiftx_reg[16]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[136]' is removed because it is merged to 'cflt/tap1/shiftx_reg[8]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[128]' is removed because it is merged to 'cflt/tap1/shiftx_reg[0]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[120]' is removed because it is merged to 'cflt/tap2/shiftx_reg[24]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[112]' is removed because it is merged to 'cflt/tap2/shiftx_reg[16]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[104]' is removed because it is merged to 'cflt/tap2/shiftx_reg[8]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[96]' is removed because it is merged to 'cflt/tap2/shiftx_reg[0]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[88]' is removed because it is merged to 'cflt/tap3/shiftx_reg[24]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[80]' is removed because it is merged to 'cflt/tap3/shiftx_reg[16]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[72]' is removed because it is merged to 'cflt/tap3/shiftx_reg[8]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[64]' is removed because it is merged to 'cflt/tap3/shiftx_reg[0]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[56]' is removed because it is merged to 'cflt/tap4/shiftx_reg[24]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[48]' is removed because it is merged to 'cflt/tap4/shiftx_reg[16]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[40]' is removed because it is merged to 'cflt/tap4/shiftx_reg[8]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[32]' is removed because it is merged to 'cflt/tap4/shiftx_reg[0]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'shift_2/shift_reg_reg[24]' is removed because it is merged to 'cflt/tap5/shiftx_reg[24]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap1/u1/d_out_reg_reg[14]' is removed because it is merged to 'cflt/tap1/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap1/u1/d_out_reg_reg[13]' is removed because it is merged to 'cflt/tap1/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap1/u1/d_out_reg_reg[12]' is removed because it is merged to 'cflt/tap1/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap1/u1/d_out_reg_reg[11]' is removed because it is merged to 'cflt/tap1/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap2/u1/d_out_reg_reg[14]' is removed because it is merged to 'cflt/tap2/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap2/u1/d_out_reg_reg[13]' is removed because it is merged to 'cflt/tap2/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap2/u1/d_out_reg_reg[12]' is removed because it is merged to 'cflt/tap2/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap2/u1/d_out_reg_reg[11]' is removed because it is merged to 'cflt/tap2/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap3/u1/d_out_reg_reg[14]' is removed because it is merged to 'cflt/tap3/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap3/u1/d_out_reg_reg[13]' is removed because it is merged to 'cflt/tap3/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap3/u1/d_out_reg_reg[12]' is removed because it is merged to 'cflt/tap3/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap3/u1/d_out_reg_reg[11]' is removed because it is merged to 'cflt/tap3/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap4/u1/d_out_reg_reg[14]' is removed because it is merged to 'cflt/tap4/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap4/u1/d_out_reg_reg[13]' is removed because it is merged to 'cflt/tap4/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap4/u1/d_out_reg_reg[12]' is removed because it is merged to 'cflt/tap4/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap4/u1/d_out_reg_reg[11]' is removed because it is merged to 'cflt/tap4/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap5/u1/d_out_reg_reg[14]' is removed because it is merged to 'cflt/tap5/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap5/u1/d_out_reg_reg[13]' is removed because it is merged to 'cflt/tap5/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap5/u1/d_out_reg_reg[12]' is removed because it is merged to 'cflt/tap5/u1/d_out_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap5/u1/d_out_reg_reg[11]' is removed because it is merged to 'cflt/tap5/u1/d_out_reg_reg[15]'. (OPT-1215)
+ Implement Synthetic for 'tf_lms_sv'.
+Information: The register 'cflt/tap1/shifty_reg[7]' is a constant and will be removed. (OPT-1206)
+Information: Added key list 'DesignWare' to design 'tf_lms_sv'. (DDB-72)
+Memory usage for J1 task 128 Mbytes -- main task 128 Mbytes.
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+
+  Beginning Mapping Optimizations  (Ultra High effort)
+  -------------------------------
+Information: In design 'tf_lms_sv', the register 'cflt/tap1/delay_2/shift_reg_reg[13]' is removed because it is merged to 'cflt/tap1/delay_2/shift_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap1/delay_2/shift_reg_reg[14]' is removed because it is merged to 'cflt/tap1/delay_2/shift_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap2/delay_2/shift_reg_reg[13]' is removed because it is merged to 'cflt/tap2/delay_2/shift_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap2/delay_2/shift_reg_reg[14]' is removed because it is merged to 'cflt/tap2/delay_2/shift_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap3/delay_2/shift_reg_reg[13]' is removed because it is merged to 'cflt/tap3/delay_2/shift_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap3/delay_2/shift_reg_reg[14]' is removed because it is merged to 'cflt/tap3/delay_2/shift_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap4/delay_2/shift_reg_reg[13]' is removed because it is merged to 'cflt/tap4/delay_2/shift_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap4/delay_2/shift_reg_reg[14]' is removed because it is merged to 'cflt/tap4/delay_2/shift_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap5/delay_2/shift_reg_reg[13]' is removed because it is merged to 'cflt/tap5/delay_2/shift_reg_reg[15]'. (OPT-1215)
+Information: In design 'tf_lms_sv', the register 'cflt/tap5/delay_2/shift_reg_reg[14]' is removed because it is merged to 'cflt/tap5/delay_2/shift_reg_reg[15]'. (OPT-1215)
+
+  Beginning Constant Register Removal
+  -----------------------------------
+
+  Beginning Global Optimizations
+  ------------------------------
+  Numerical Synthesis (Phase 1)
+  Numerical Synthesis (Phase 2)
+  Global Optimization (Phase 1)
+  Global Optimization (Phase 2)
+  Global Optimization (Phase 3)
+  Global Optimization (Phase 4)
+  Global Optimization (Phase 5)
+  Global Optimization (Phase 6)
+  Global Optimization (Phase 7)
+  Global Optimization (Phase 8)
+  Global Optimization (Phase 9)
+  Global Optimization (Phase 10)
+  Global Optimization (Phase 11)
+  Global Optimization (Phase 12)
+  Global Optimization (Phase 13)
+  Global Optimization (Phase 14)
+  Global Optimization (Phase 15)
+  Global Optimization (Phase 16)
+  Global Optimization (Phase 17)
+  Global Optimization (Phase 18)
+  Global Optimization (Phase 19)
+  Global Optimization (Phase 20)
+  Global Optimization (Phase 21)
+  Global Optimization (Phase 22)
+  Global Optimization (Phase 23)
+  Global Optimization (Phase 24)
+  Global Optimization (Phase 25)
+  Global Optimization (Phase 26)
+  Global Optimization (Phase 27)
+  Global Optimization (Phase 28)
+  Global Optimization (Phase 29)
+  Global Optimization (Phase 30)
+  Global Optimization (Phase 31)
+
+  Beginning Isolate Ports
+  -----------------------
+
+  Beginning Delay Optimization
+  ----------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:04    6119.3      0.00       0.0      59.6                           117273.0078
+    0:00:04    6119.3      0.00       0.0      59.6                           117273.0078
+    0:00:04    6119.3      0.00       0.0      59.6                           117273.0078
+    0:00:04    6116.7      0.00       0.0      59.6                           117201.2422
+
+  Beginning WLM Backend Optimization
+  --------------------------------------
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+
+
+  Beginning Design Rule Fixing  (max_transition)  (max_capacitance)
+  ----------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:04    6111.3      0.00       0.0      59.6                           117140.5625
+  Global Optimization (Phase 32)
+  Global Optimization (Phase 33)
+  Global Optimization (Phase 34)
+    0:00:04    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:04    6143.8      0.00       0.0       0.0                           118592.7188
+
+
+  Beginning Leakage Power Optimization  (max_leakage_power 0)
+  ------------------------------------
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:04    6143.8      0.00       0.0       0.0                           118592.7188
+  Global Optimization (Phase 35)
+  Global Optimization (Phase 36)
+  Global Optimization (Phase 37)
+  Global Optimization (Phase 38)
+  Global Optimization (Phase 39)
+  Global Optimization (Phase 40)
+  Global Optimization (Phase 41)
+  Global Optimization (Phase 42)
+  Global Optimization (Phase 43)
+  Global Optimization (Phase 44)
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+
+                                  TOTAL                                                
+   ELAPSED            WORST NEG   SETUP    DESIGN                              LEAKAGE 
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT            POWER  
+  --------- --------- --------- --------- --------- ------------------------- ---------
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+    0:00:05    6143.8      0.00       0.0       0.0                           118592.7188
+Loading db file '/home/hoangtrang/IC_design/code/pdk/freepdk45_mflowgen/stdcells.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Information: State dependent leakage is now switched from off to on.
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+1
+file delete -force $out_dir
+file delete -force $rpt_dir
+file mkdir $out_dir
+file mkdir $rpt_dir
+write -format verilog -hierarchy -output [file join $out_dir ${top_name}_syn.v]
+Writing verilog file '/home/hoangtrang/IC_design/code/artifacts/dc/out/mflow45/tf_lms_sv_syn.v'.
+1
+write -format ddc -hierarchy -output [file join $out_dir ${top_name}.ddc]
+Writing ddc file '/home/hoangtrang/IC_design/code/artifacts/dc/out/mflow45/tf_lms_sv.ddc'.
+1
+write_sdc [file join $out_dir ${top_name}_syn.sdc]
+1
+report_qor > [file join $rpt_dir qor.rpt]
+report_design > [file join $rpt_dir design.rpt]
+report_area -hierarchy > [file join $rpt_dir area.rpt]
+report_timing -max_paths 10 > [file join $rpt_dir timing.rpt]
+report_timing -delay min -max_paths 10 > [file join $rpt_dir timing_hold.rpt]
+report_constraint -all_violators > [file join $rpt_dir constraints.rpt]
+report_cell > [file join $rpt_dir cells.rpt]
+report_power > [file join $rpt_dir power.rpt]
+quit
+
+Memory usage for main task 130 Mbytes.
+Memory usage for this session 130 Mbytes.
+CPU usage for this session 48 seconds ( 0.01 hours ).
+
+Thank you...

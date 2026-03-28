@@ -1,0 +1,43 @@
+ 
+****************************************
+Report : area
+Design : tf_lms_sv
+Version: L-2016.03-SP1
+Date   : Wed Mar 25 23:20:00 2026
+****************************************
+
+Library(s) Used:
+
+    gscl45nm (File: /home/hoangtrang/IC_design/code/Tool/PDK/PDK_45nm/osu_soc/lib/files/gscl45nm.db)
+
+Number of ports:                           34
+Number of nets:                          3841
+Number of cells:                         3511
+Number of combinational cells:           2765
+Number of sequential cells:               746
+Number of macros/black boxes:               0
+Number of buf/inv:                       1319
+Number of references:                      14
+
+Combinational area:               8610.247105
+Buf/Inv area:                     2414.548435
+Noncombinational area:            5951.662468
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (No wire load specified)
+
+Total cell area:                 14561.909572
+Total area:                 undefined
+
+Hierarchical area distribution
+------------------------------
+
+                                  Global cell area           Local cell area
+                                  -------------------  ---------------------------- 
+Hierarchical cell                 Absolute    Percent  Combi-     Noncombi-  Black-
+                                  Total       Total    national   national   boxes   Design
+--------------------------------  ----------  -------  ---------  ---------  ------  ---------
+tf_lms_sv                         14561.9096    100.0  8610.2471  5951.6625  0.0000  tf_lms_sv
+--------------------------------  ----------  -------  ---------  ---------  ------  ---------
+Total                                                  8610.2471  5951.6625  0.0000
+
+1

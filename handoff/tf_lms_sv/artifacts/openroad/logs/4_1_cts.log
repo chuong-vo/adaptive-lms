@@ -1,0 +1,288 @@
+OpenROAD 26Q1-342-g7c57b1b222 
+Features included (+) or not (-): +GPU +GUI +Python
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ORD-0030] Using 20 thread(s).
+read_liberty /home/chuongvo/OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib
+read_db ./results/nangate45/tf_lms_sv/base/3_place.odb
+source /home/chuongvo/OpenROAD-flow-scripts/flow/platforms/nangate45/setRC.tcl
+clock_tree_synthesis -sink_clustering_enable -repair_clock_nets
+[INFO CTS-0050] Root buffer is CLKBUF_X3.
+[INFO CTS-0051] Sink buffer is CLKBUF_X3.
+[INFO CTS-0052] The following clock buffers will be used for CTS:
+                    CLKBUF_X3
+[INFO CTS-0049] Characterization buffer is CLKBUF_X3.
+[INFO CTS-0007] Net "clock" found for clock "clk".
+[INFO CTS-0010]  Clock net "clock" has 756 sinks.
+[INFO CTS-0008] TritonCTS found 1 clock nets.
+[INFO CTS-0097] Characterization used 1 buffer(s) types.
+[INFO CTS-0201] 0 blockages from hard placement blockages and placed macros will be used.
+[INFO CTS-0027] Generating H-Tree topology for net clock.
+[INFO CTS-0028]  Total number of sinks: 756.
+[INFO CTS-0090]  Sinks will be clustered based on buffer max cap.
+[INFO CTS-0030]  Number of static layers: 0.
+[INFO CTS-0020]  Wire segment unit: 14000  dbu (7 um).
+[INFO CTS-0206] Best clustering solution was found from clustering size of 10 and clustering diameter of 50.
+[INFO CTS-0019]  Total number of sinks after clustering: 115.
+[INFO CTS-0024]  Normalized sink region: [(0.507619, 1.93), (24.3214, 23.6557)].
+[INFO CTS-0025]     Width:  23.8138.
+[INFO CTS-0026]     Height: 21.7257.
+ Level 1
+    Direction: Horizontal
+    Sinks per sub-region: 58
+    Sub-region size: 11.9069 X 21.7257
+[INFO CTS-0034]     Segment length (rounded): 6.
+ Level 2
+    Direction: Vertical
+    Sinks per sub-region: 29
+    Sub-region size: 11.9069 X 10.8629
+[INFO CTS-0034]     Segment length (rounded): 6.
+ Level 3
+    Direction: Horizontal
+    Sinks per sub-region: 15
+    Sub-region size: 5.9535 X 10.8629
+[INFO CTS-0034]     Segment length (rounded): 2.
+ Level 4
+    Direction: Vertical
+    Sinks per sub-region: 8
+    Sub-region size: 5.9535 X 5.4314
+[INFO CTS-0034]     Segment length (rounded): 2.
+[INFO CTS-0032]  Stop criterion found. Max number of sinks is 15.
+[INFO CTS-0035]  Number of sinks covered: 115.
+[INFO CTS-0018]     Created 132 clock buffers.
+[INFO CTS-0012]     Minimum number of buffers in the clock path: 3.
+[INFO CTS-0013]     Maximum number of buffers in the clock path: 3.
+[INFO CTS-0015]     Created 132 clock nets.
+[INFO CTS-0016]     Fanout distribution for the current clock = 2:1, 3:2, 4:10, 5:17, 6:17, 7:48, 8:28, 9:5, 10:2, 11:1..
+[INFO CTS-0017]     Max level of the clock tree: 4.
+[INFO CTS-0098] Clock net "clock"
+[INFO CTS-0099]  Sinks 847
+[INFO CTS-0100]  Leaf buffers 115
+[INFO CTS-0101]  Average sink wire length 268.65 um
+[INFO CTS-0102]  Path depth 2 - 3
+[INFO CTS-0207]  Dummy loads inserted 91
+estimate_parasitics -placement
+Placement Analysis
+---------------------------------
+total displacement        269.2 u
+average displacement        0.1 u
+max displacement            3.1 u
+original HPWL           36278.1 u
+legalized HPWL          37325.9 u
+delta HPWL                    3 %
+
+estimate_parasitics -placement
+repair_timing -setup_margin 0 -hold_margin 0.03 -repair_tns 100 -max_buffer_percent 100 -max_utilization 60 -verbose
+[INFO RSZ-0100] Repair move sequence: UnbufferMove SizeUpMove SwapPinsMove BufferMove CloneMove SplitLoadMove 
+[INFO RSZ-0098] No setup violations found
+[INFO RSZ-0046] Found 679 endpoints with hold violations.
+Iteration | Resized | Buffers | Cloned Gates |   Area   |   WNS   |   TNS   | Endpoint
+--------------------------------------------------------------------------------------
+        0 |       0 |       0 |            0 |    +0.0% |  -0.127 | -67.044 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+       10 |       0 |       9 |            0 |    +0.1% |  -0.120 | -66.815 | cflt.tap3.shiftxn[16]$_DFF_PN0_/D
+       20 |       0 |      19 |            0 |    +0.2% |  -0.119 | -66.563 | cflt.tap5.shiftx[15]$_DFF_PN0_/D
+       30 |       0 |      29 |            0 |    +0.2% |  -0.118 | -66.310 | cflt.tap2.shiftxn[21]$_DFF_PN0_/D
+       40 |       0 |      39 |            0 |    +0.3% |  -0.118 | -66.055 | shift_1.shift_reg[49]$_DFF_PN0_/D
+       50 |       0 |      49 |            0 |    +0.4% |  -0.117 | -65.804 | cflt.tap1.shiftxn[4]$_DFF_PN0_/D
+       60 |       0 |      59 |            0 |    +0.5% |  -0.117 | -65.553 | cflt.tap5.shifty[6]$_DFF_PN0_/D
+       70 |       0 |      69 |            0 |    +0.6% |  -0.117 | -65.301 | shift_1.shift_reg[66]$_DFF_PN0_/D
+       80 |       0 |      79 |            0 |    +0.6% |  -0.117 | -65.049 | cflt.tap2.shiftxn[5]$_DFF_PN0_/D
+       90 |       0 |      89 |            0 |    +0.7% |  -0.117 | -64.798 | cflt.tap2.shiftxn[3]$_DFF_PN0_/D
+      100 |       0 |      99 |            0 |    +0.8% |  -0.117 | -64.547 | cflt.tap2.shiftue[8]$_DFF_PN0_/D
+      110 |       0 |     109 |            0 |    +0.9% |  -0.117 | -64.295 | cflt.tap2.shiftxn[23]$_DFF_PN0_/D
+      120 |       0 |     119 |            0 |    +1.0% |  -0.117 | -64.043 | shift_1.shift_reg[69]$_DFF_PN0_/D
+      130 |       0 |     129 |            0 |    +1.0% |  -0.117 | -63.792 | shift_1.shift_reg[68]$_DFF_PN0_/D
+      140 |       0 |     139 |            0 |    +1.1% |  -0.117 | -63.541 | cflt.tap2.shiftue[2]$_DFF_PN0_/D
+      150 |       0 |     149 |            0 |    +1.2% |  -0.117 | -63.289 | cflt.tap4.shiftxn[20]$_DFF_PN0_/D
+      160 |       0 |     159 |            0 |    +1.3% |  -0.117 | -63.038 | cflt.tap3.shiftxn[7]$_DFF_PN0_/D
+      170 |       0 |     169 |            0 |    +1.3% |  -0.117 | -62.787 | cflt.tap4.shiftue[12]$_DFF_PN0_/D
+      180 |       0 |     179 |            0 |    +1.4% |  -0.117 | -62.536 | shift_1.shift_reg[80]$_DFF_PN0_/D
+      190 |       0 |     189 |            0 |    +1.5% |  -0.117 | -62.285 | cflt.tap3.shiftue[8]$_DFF_PN0_/D
+      200 |       0 |     199 |            0 |    +1.6% |  -0.117 | -62.035 | shift_1.shift_reg[116]$_DFF_PN0_/D
+      210 |       0 |     209 |            0 |    +1.7% |  -0.117 | -61.784 | shift_1.shift_reg[120]$_DFF_PN0_/D
+      220 |       0 |     219 |            0 |    +1.7% |  -0.117 | -61.533 | shift_1.shift_reg[130]$_DFF_PN0_/D
+      230 |       0 |     229 |            0 |    +1.8% |  -0.117 | -61.281 | shift_1.shift_reg[101]$_DFF_PN0_/D
+      240 |       0 |     239 |            0 |    +1.9% |  -0.117 | -61.029 | cflt.tap1.shiftxn[19]$_DFF_PN0_/D
+      250 |       0 |     249 |            0 |    +2.0% |  -0.116 | -60.778 | shift_1.shift_reg[81]$_DFF_PN0_/D
+      260 |       0 |     259 |            0 |    +2.1% |  -0.116 | -60.527 | shift_1.shift_reg[140]$_DFF_PN0_/D
+      270 |       0 |     269 |            0 |    +2.1% |  -0.116 | -60.275 | cflt.tap1.shiftx[25]$_DFF_PN0_/D
+      280 |       0 |     279 |            0 |    +2.2% |  -0.116 | -60.023 | shift_1.shift_reg[57]$_DFF_PN0_/D
+      290 |       0 |     289 |            0 |    +2.3% |  -0.116 | -59.769 | cflt.tap5.shifty[7]$_DFF_PN0_/D
+      300 |       0 |     299 |            0 |    +2.4% |  -0.116 | -59.518 | cflt.tap4.shiftxn[18]$_DFF_PN0_/D
+      310 |       0 |     309 |            0 |    +2.5% |  -0.116 | -59.265 | cflt.tap2.shiftx[11]$_DFF_PN0_/D
+      320 |       0 |     319 |            0 |    +2.5% |  -0.116 | -59.013 | cflt.tap2.shiftx[0]$_DFF_PN0_/D
+      330 |       0 |     329 |            0 |    +2.6% |  -0.116 | -58.762 | cflt.tap1.shiftxn[13]$_DFF_PN0_/D
+      340 |       0 |     339 |            0 |    +2.7% |  -0.116 | -58.509 | cflt.tap4.shiftx[1]$_DFF_PN0_/D
+      350 |       0 |     349 |            0 |    +2.8% |  -0.116 | -58.256 | cflt.tap2.shiftxn[22]$_DFF_PN0_/D
+      360 |       0 |     359 |            0 |    +2.9% |  -0.116 | -58.001 | cflt.tap2.shiftx[25]$_DFF_PN0_/D
+      370 |       0 |     369 |            0 |    +2.9% |  -0.115 | -57.747 | shift_1.shift_reg[3]$_DFF_PN0_/D
+      380 |       0 |     379 |            0 |    +3.0% |  -0.115 | -57.493 | cflt.tap1.shiftxn[22]$_DFF_PN0_/D
+      390 |       0 |     389 |            0 |    +3.1% |  -0.115 | -57.238 | shift_2.shift_reg[31]$_DFF_PN0_/D
+      400 |       0 |     399 |            0 |    +3.2% |  -0.115 | -56.979 | cflt.tap2.shiftue[9]$_DFF_PN0_/D
+      410 |       0 |     409 |            0 |    +3.3% |  -0.114 | -56.718 | cflt.tap3.shiftx[27]$_DFF_PN0_/D
+      420 |       0 |     419 |            0 |    +3.3% |  -0.113 | -56.459 | cflt.tap5.shiftx[7]$_DFF_PN0_/D
+      430 |       0 |     429 |            0 |    +3.4% |  -0.113 | -56.196 | cflt.tap3.shifty[6]$_DFF_PN0_/D
+      440 |       0 |     439 |            0 |    +3.5% |  -0.112 | -55.939 | cflt.tap5.shiftx[24]$_DFF_PN0_/D
+      450 |       0 |     449 |            0 |    +3.6% |  -0.110 | -55.636 | cflt.tap5.shiftx[28]$_DFF_PN0_/D
+      460 |       0 |     459 |            0 |    +3.7% |  -0.108 | -55.345 | cflt.tap5.shifty[0]$_DFF_PN0_/D
+      470 |       0 |     469 |            0 |    +3.7% |  -0.104 | -55.039 | cflt.tap1.shiftxn[28]$_DFF_PN0_/D
+      480 |       0 |     479 |            0 |    +3.8% |  -0.102 | -54.717 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      490 |       0 |     491 |            0 |    +3.9% |  -0.102 | -54.323 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      500 |       0 |     505 |            0 |    +4.0% |  -0.102 | -53.872 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      510 |       0 |     516 |            0 |    +4.1% |  -0.102 | -53.491 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      520 |       0 |     527 |            0 |    +4.2% |  -0.102 | -53.119 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      530 |       0 |     539 |            0 |    +4.3% |  -0.102 | -52.710 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      540 |       0 |     549 |            0 |    +4.4% |  -0.102 | -52.361 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      550 |       0 |     565 |            0 |    +4.5% |  -0.102 | -51.877 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      560 |       0 |     575 |            0 |    +4.6% |  -0.102 | -51.519 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      570 |       0 |     587 |            0 |    +4.7% |  -0.102 | -51.089 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      580 |       0 |     609 |            0 |    +4.9% |  -0.102 | -50.412 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      590 |       0 |     642 |            0 |    +5.1% |  -0.102 | -50.035 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      600 |       0 |     673 |            0 |    +5.4% |  -0.102 | -49.609 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      610 |       0 |     705 |            0 |    +5.6% |  -0.102 | -49.240 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      620 |       0 |     738 |            0 |    +5.9% |  -0.102 | -48.892 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      630 |       0 |     775 |            0 |    +6.2% |  -0.102 | -48.547 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      640 |       0 |     811 |            0 |    +6.5% |  -0.102 | -48.239 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      650 |       0 |     844 |            0 |    +6.7% |  -0.102 | -48.004 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      660 |       0 |     865 |            0 |    +6.9% |  -0.102 | -47.865 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      670 |       0 |     881 |            0 |    +7.0% |  -0.102 | -47.811 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      680 |       0 |     902 |            0 |    +7.2% |  -0.102 | -47.713 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      680 |       0 |     902 |            0 |    +7.2% |  -0.102 | -47.713 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+      690 |       0 |     922 |            0 |    +7.4% |  -0.094 | -47.223 | shift_2.shift_reg[127]$_DFF_PN0_/D
+      700 |       0 |     942 |            0 |    +7.5% |  -0.094 | -46.733 | cflt.tap5.shiftx[11]$_DFF_PN0_/D
+      710 |       0 |     962 |            0 |    +7.7% |  -0.093 | -46.243 | cflt.tap2.shiftxn[14]$_DFF_PN0_/D
+      720 |       0 |     982 |            0 |    +7.8% |  -0.093 | -45.752 | cflt.tap2.shiftue[1]$_DFF_PN0_/D
+      730 |       0 |    1002 |            0 |    +8.0% |  -0.092 | -45.262 | cflt.tap1.shiftx[6]$_DFF_PN0_/D
+      740 |       0 |    1022 |            0 |    +8.2% |  -0.092 | -44.771 | cflt.tap3.shiftx[7]$_DFF_PN0_/D
+      750 |       0 |    1042 |            0 |    +8.3% |  -0.092 | -44.281 | shift_1.shift_reg[66]$_DFF_PN0_/D
+      760 |       0 |    1062 |            0 |    +8.5% |  -0.092 | -43.791 | shift_1.shift_reg[4]$_DFF_PN0_/D
+      770 |       0 |    1082 |            0 |    +8.6% |  -0.092 | -43.300 | cflt.tap5.shifty[6]$_DFF_PN0_/D
+      780 |       0 |    1102 |            0 |    +8.8% |  -0.092 | -42.810 | cflt.tap3.shiftxn[1]$_DFF_PN0_/D
+      790 |       0 |    1122 |            0 |    +9.0% |  -0.092 | -42.319 | cflt.tap1.shiftxn[14]$_DFF_PN0_/D
+      800 |       0 |    1142 |            0 |    +9.1% |  -0.092 | -41.829 | shift_1.shift_reg[13]$_DFF_PN0_/D
+      810 |       0 |    1162 |            0 |    +9.3% |  -0.092 | -41.339 | cflt.tap1.shiftxn[8]$_DFF_PN0_/D
+      820 |       0 |    1182 |            0 |    +9.4% |  -0.092 | -40.847 | shift_1.shift_reg[125]$_DFF_PN0_/D
+      830 |       0 |    1202 |            0 |    +9.6% |  -0.092 | -40.357 | cflt.tap4.shiftxn[16]$_DFF_PN0_/D
+      840 |       0 |    1222 |            0 |    +9.8% |  -0.092 | -39.866 | cflt.tap2.shifty[0]$_DFF_PN0_/D
+      850 |       0 |    1242 |            0 |    +9.9% |  -0.092 | -39.376 | cflt.tap3.shifty[3]$_DFF_PN0_/D
+      860 |       0 |    1262 |            0 |   +10.1% |  -0.092 | -38.886 | cflt.tap4.shifty[3]$_DFF_PN0_/D
+      870 |       0 |    1282 |            0 |   +10.2% |  -0.092 | -38.395 | shift_1.shift_reg[67]$_DFF_PN0_/D
+      880 |       0 |    1302 |            0 |   +10.4% |  -0.092 | -37.904 | shift_1.shift_reg[127]$_DFF_PN0_/D
+      890 |       0 |    1322 |            0 |   +10.6% |  -0.092 | -37.413 | cflt.tap4.shiftxn[1]$_DFF_PN0_/D
+      900 |       0 |    1342 |            0 |   +10.7% |  -0.091 | -36.923 | cflt.tap3.shiftxn[19]$_DFF_PN0_/D
+      910 |       0 |    1362 |            0 |   +10.9% |  -0.091 | -36.433 | cflt.tap1.shiftx[9]$_DFF_PN0_/D
+      920 |       0 |    1382 |            0 |   +11.0% |  -0.091 | -35.944 | cflt.tap2.shifty[5]$_DFF_PN0_/D
+      930 |       0 |    1402 |            0 |   +11.2% |  -0.091 | -35.455 | cflt.tap3.shiftue[1]$_DFF_PN0_/D
+      940 |       0 |    1422 |            0 |   +11.4% |  -0.091 | -34.965 | cflt.tap1.shiftx[3]$_DFF_PN0_/D
+      950 |       0 |    1442 |            0 |   +11.5% |  -0.091 | -34.475 | cflt.tap3.shiftue[13]$_DFF_PN0_/D
+      960 |       0 |    1462 |            0 |   +11.7% |  -0.091 | -33.985 | shift_1.shift_reg[135]$_DFF_PN0_/D
+      970 |       0 |    1482 |            0 |   +11.8% |  -0.091 | -33.494 | cflt.tap1.shiftue[8]$_DFF_PN0_/D
+      980 |       0 |    1502 |            0 |   +12.0% |  -0.091 | -33.004 | cflt.tap5.shifty[7]$_DFF_PN0_/D
+      990 |       0 |    1522 |            0 |   +12.2% |  -0.091 | -32.514 | cflt.tap4.shiftxn[18]$_DFF_PN0_/D
+     1000 |       0 |    1542 |            0 |   +12.3% |  -0.091 | -32.025 | cflt.tap4.shifty[6]$_DFF_PN0_/D
+     1010 |       0 |    1562 |            0 |   +12.5% |  -0.091 | -31.536 | cflt.tap2.shiftx[11]$_DFF_PN0_/D
+     1020 |       0 |    1582 |            0 |   +12.6% |  -0.091 | -31.045 | cflt.tap2.shiftue[5]$_DFF_PN0_/D
+     1030 |       0 |    1602 |            0 |   +12.8% |  -0.090 | -30.555 | cflt.tap4.shiftxn[21]$_DFF_PN0_/D
+     1040 |       0 |    1622 |            0 |   +13.0% |  -0.090 | -30.065 | cflt.tap2.shiftxn[22]$_DFF_PN0_/D
+     1050 |       0 |    1642 |            0 |   +13.1% |  -0.090 | -29.576 | cflt.tap3.shiftx[0]$_DFF_PN0_/D
+     1060 |       0 |    1662 |            0 |   +13.3% |  -0.089 | -29.086 | cflt.tap3.shiftx[25]$_DFF_PN0_/D
+     1070 |       0 |    1682 |            0 |   +13.4% |  -0.089 | -28.595 | shift_1.shift_reg[94]$_DFF_PN0_/D
+     1080 |       0 |    1702 |            0 |   +13.6% |  -0.089 | -28.105 | shift_1.shift_reg[37]$_DFF_PN0_/D
+     1090 |       0 |    1722 |            0 |   +13.8% |  -0.088 | -27.612 | cflt.tap2.shiftue[15]$_DFF_PN0_/D
+     1100 |       0 |    1742 |            0 |   +13.9% |  -0.087 | -27.120 | shift_1.shift_reg[31]$_DFF_PN0_/D
+     1110 |       0 |    1762 |            0 |   +14.1% |  -0.086 | -26.624 | cflt.tap5.shiftx[3]$_DFF_PN0_/D
+     1120 |       0 |    1782 |            0 |   +14.2% |  -0.085 | -26.122 | cflt.tap5.shiftx[25]$_DFF_PN0_/D
+     1130 |       0 |    1802 |            0 |   +14.4% |  -0.081 | -25.617 | cflt.tap1.shiftxn[12]$_DFF_PN0_/D
+     1140 |       0 |    1822 |            0 |   +14.6% |  -0.077 | -25.095 | cflt.tap1.shiftxn[26]$_DFF_PN0_/D
+     1150 |       0 |    1842 |            0 |   +14.7% |  -0.072 | -24.579 | cflt.tap1.shiftue[4]$_DFF_PN0_/D
+     1160 |       0 |    1862 |            0 |   +14.9% |  -0.066 | -24.046 | cflt.tap2.shiftx[16]$_DFF_PN0_/D
+     1170 |       0 |    1882 |            0 |   +15.0% |  -0.060 | -23.532 | cflt.tap3.shiftx[16]$_DFF_PN0_/D
+     1180 |       0 |    1902 |            0 |   +15.2% |  -0.058 | -23.027 | cflt.tap2.shiftue[21]$_DFF_PN0_/D
+     1190 |       0 |    1922 |            0 |   +15.4% |  -0.056 | -22.529 | cflt.tap3.shiftxn[25]$_DFF_PN0_/D
+     1200 |       0 |    1942 |            0 |   +15.5% |  -0.054 | -22.025 | cflt.tap2.shiftue[16]$_DFF_PN0_/D
+     1210 |       0 |    1962 |            0 |   +15.7% |  -0.053 | -21.511 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+     1220 |       0 |    1982 |            0 |   +15.8% |  -0.053 | -21.015 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+     1230 |       0 |    2002 |            0 |   +16.0% |  -0.053 | -20.553 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+     1240 |       0 |    2030 |            0 |   +16.2% |  -0.053 | -20.165 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+     1250 |       0 |    2061 |            0 |   +16.5% |  -0.053 | -19.908 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+     1260 |       0 |    2087 |            0 |   +16.7% |  -0.053 | -19.826 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+     1270 |       0 |    2101 |            0 |   +16.8% |  -0.053 | -19.825 | cflt.tap2.shiftx[28]$_DFF_PN0_/D
+     1280 |       0 |    2119 |            0 |   +16.9% |  -0.048 | -19.671 | shift_1.shift_reg[84]$_DFF_PN0_/D
+     1290 |       0 |    2159 |            0 |   +17.2% |  -0.045 | -19.212 | cflt.tap3.shiftue[10]$_DFF_PN0_/D
+     1300 |       0 |    2199 |            0 |   +17.6% |  -0.044 | -18.764 | cflt.tap2.shiftxn[11]$_DFF_PN0_/D
+     1310 |       0 |    2236 |            0 |   +17.9% |  -0.044 | -18.324 | cflt.tap4.shiftx[27]$_DFF_PN0_/D
+     1320 |       0 |    2267 |            0 |   +18.1% |  -0.043 | -17.888 | cflt.tap1.shiftxn[4]$_DFF_PN0_/D
+     1330 |       0 |    2297 |            0 |   +18.3% |  -0.043 | -17.455 | shift_1.shift_reg[9]$_DFF_PN0_/D
+     1340 |       0 |    2327 |            0 |   +18.6% |  -0.043 | -17.025 | cflt.tap3.shiftx[11]$_DFF_PN0_/D
+     1350 |       0 |    2357 |            0 |   +18.8% |  -0.043 | -16.596 | shift_1.shift_reg[137]$_DFF_PN0_/D
+     1360 |       0 |    2387 |            0 |   +19.1% |  -0.043 | -16.167 | cflt.tap2.shiftxn[5]$_DFF_PN0_/D
+     1370 |       0 |    2417 |            0 |   +19.3% |  -0.043 | -15.739 | shift_1.shift_reg[17]$_DFF_PN0_/D
+     1380 |       0 |    2447 |            0 |   +19.5% |  -0.043 | -15.311 | shift_1.shift_reg[92]$_DFF_PN0_/D
+     1390 |       0 |    2477 |            0 |   +19.8% |  -0.043 | -14.883 | cflt.tap1.shiftxn[1]$_DFF_PN0_/D
+     1400 |       0 |    2507 |            0 |   +20.0% |  -0.043 | -14.455 | cflt.tap3.shiftxn[14]$_DFF_PN0_/D
+     1410 |       0 |    2537 |            0 |   +20.3% |  -0.043 | -14.028 | cflt.tap2.shiftue[2]$_DFF_PN0_/D
+     1420 |       0 |    2567 |            0 |   +20.5% |  -0.043 | -13.601 | cflt.tap4.shiftxn[13]$_DFF_PN0_/D
+     1430 |       0 |    2597 |            0 |   +20.7% |  -0.043 | -13.174 | cflt.tap2.shifty[5]$_DFF_PN0_/D
+     1440 |       0 |    2627 |            0 |   +21.0% |  -0.043 | -12.747 | cflt.tap1.shiftxn[17]$_DFF_PN0_/D
+     1450 |       0 |    2657 |            0 |   +21.2% |  -0.043 | -12.320 | cflt.tap4.shiftxn[16]$_DFF_PN0_/D
+     1460 |       0 |    2687 |            0 |   +21.5% |  -0.043 | -11.894 | shift_1.shift_reg[125]$_DFF_PN0_/D
+     1470 |       0 |    2717 |            0 |   +21.7% |  -0.043 | -11.468 | shift_1.shift_reg[41]$_DFF_PN0_/D
+     1480 |       0 |    2747 |            0 |   +21.9% |  -0.043 | -11.042 | cflt.tap4.shiftx[4]$_DFF_PN0_/D
+     1490 |       0 |    2777 |            0 |   +22.2% |  -0.043 | -10.617 | cflt.tap1.shiftxn[0]$_DFF_PN0_/D
+     1500 |       0 |    2807 |            0 |   +22.4% |  -0.042 | -10.191 | shift_1.shift_reg[82]$_DFF_PN0_/D
+     1510 |       0 |    2837 |            0 |   +22.7% |  -0.042 |  -9.767 | shift_1.shift_reg[105]$_DFF_PN0_/D
+     1520 |       0 |    2867 |            0 |   +22.9% |  -0.042 |  -9.343 | shift_1.shift_reg[38]$_DFF_PN0_/D
+     1530 |       0 |    2897 |            0 |   +23.1% |  -0.042 |  -8.919 | cflt.tap4.shifty[2]$_DFF_PN0_/D
+     1540 |       0 |    2927 |            0 |   +23.4% |  -0.042 |  -8.497 | shift_1.shift_reg[96]$_DFF_PN0_/D
+     1550 |       0 |    2957 |            0 |   +23.6% |  -0.042 |  -8.075 | cflt.tap1.shiftx[4]$_DFF_PN0_/D
+     1560 |       0 |    2987 |            0 |   +23.9% |  -0.042 |  -7.654 | shift_1.shift_reg[106]$_DFF_PN0_/D
+     1570 |       0 |    3017 |            0 |   +24.1% |  -0.042 |  -7.233 | shift_1.shift_reg[95]$_DFF_PN0_/D
+     1580 |       0 |    3047 |            0 |   +24.3% |  -0.042 |  -6.814 | cflt.tap2.shiftx[8]$_DFF_PN0_/D
+     1590 |       0 |    3077 |            0 |   +24.6% |  -0.042 |  -6.394 | shift_1.shift_reg[107]$_DFF_PN0_/D
+     1600 |       0 |    3107 |            0 |   +24.8% |  -0.042 |  -5.976 | cflt.tap4.shifty[5]$_DFF_PN0_/D
+     1610 |       0 |    3137 |            0 |   +25.1% |  -0.042 |  -5.558 | cflt.tap3.shiftxn[6]$_DFF_PN0_/D
+     1620 |       0 |    3167 |            0 |   +25.3% |  -0.041 |  -5.143 | cflt.tap1.shiftxn[9]$_DFF_PN0_/D
+     1630 |       0 |    3197 |            0 |   +25.5% |  -0.041 |  -4.730 | cflt.tap1.shiftue[2]$_DFF_PN0_/D
+     1640 |       0 |    3227 |            0 |   +25.8% |  -0.041 |  -4.319 | cflt.tap3.shiftx[28]$_DFF_PN0_/D
+     1650 |       0 |    3257 |            0 |   +26.0% |  -0.041 |  -3.910 | shift_1.shift_reg[56]$_DFF_PN0_/D
+     1660 |       0 |    3287 |            0 |   +26.3% |  -0.040 |  -3.504 | cflt.tap4.shiftxn[5]$_DFF_PN0_/D
+     1670 |       0 |    3317 |            0 |   +26.5% |  -0.040 |  -3.102 | shift_1.shift_reg[102]$_DFF_PN0_/D
+     1680 |       0 |    3347 |            0 |   +26.7% |  -0.039 |  -2.705 | cflt.tap3.shiftxn[0]$_DFF_PN0_/D
+     1690 |       0 |    3377 |            0 |   +27.0% |  -0.038 |  -2.315 | shift_1.shift_reg[133]$_DFF_PN0_/D
+     1700 |       0 |    3407 |            0 |   +27.2% |  -0.037 |  -1.934 | shift_1.shift_reg[30]$_DFF_PN0_/D
+     1710 |       0 |    3437 |            0 |   +27.4% |  -0.036 |  -1.566 | cflt.tap5.shiftx[3]$_DFF_PN0_/D
+     1720 |       0 |    3467 |            0 |   +27.7% |  -0.033 |  -1.218 | cflt.tap1.shiftxn[21]$_DFF_PN0_/D
+     1730 |       0 |    3497 |            0 |   +27.9% |  -0.028 |  -0.911 | cflt.tap4.shiftue[23]$_DFF_PN0_/D
+     1740 |       0 |    3527 |            0 |   +28.2% |  -0.024 |  -0.649 | cflt.tap1.shiftue[5]$_DFF_PN0_/D
+     1750 |       0 |    3555 |            0 |   +28.4% |  -0.017 |  -0.435 | cflt.tap1.shiftxn[24]$_DFF_PN0_/D
+     1760 |       0 |    3575 |            0 |   +28.6% |  -0.012 |  -0.290 | cflt.tap2.shiftxn[30]$_DFF_PN0_/D
+     1770 |       0 |    3595 |            0 |   +28.7% |  -0.009 |  -0.190 | cflt.tap3.shiftx[18]$_DFF_PN0_/D
+     1780 |       0 |    3615 |            0 |   +28.9% |  -0.007 |  -0.110 | cflt.tap4.shiftxn[29]$_DFF_PN0_/D
+     1790 |       0 |    3635 |            0 |   +29.0% |  -0.005 |  -0.049 | cflt.tap4.shiftxn[30]$_DFF_PN0_/D
+     1800 |       0 |    3655 |            0 |   +29.2% |  -0.003 |  -0.011 | cflt.tap3.shiftxn[29]$_DFF_PN0_/D
+     1810 |       0 |    3675 |            0 |   +29.4% |   0.002 |   0.000 | cflt.tap4.shiftx[20]$_DFF_PN0_/D
+     1820 |       0 |    3690 |            0 |   +29.5% |   0.006 |   0.000 | cflt.tap5.shiftx[22]$_DFF_PN0_/D
+     1830 |       0 |    3700 |            0 |   +29.6% |   0.017 |   0.000 | cflt.tap4.shiftx[23]$_DFF_PN0_/D
+    final |       0 |    3708 |            0 |   +29.6% |   0.030 |   0.000 | cflt.tap2.shiftue[0]$_DFF_PN0_/D
+--------------------------------------------------------------------------------------
+[INFO RSZ-0032] Inserted 3708 hold buffers.
+Placement Analysis
+---------------------------------
+total displacement       6572.2 u
+average displacement        0.7 u
+max displacement            6.9 u
+original HPWL           41722.3 u
+legalized HPWL          46563.6 u
+delta HPWL                   12 %
+
+Report metrics stage 4, cts final...
+
+==========================================================================
+cts final report_design_area
+--------------------------------------------------------------------------
+Design area 12951 um^2 33% utilization.
+write_db ./results/nangate45/tf_lms_sv/base/4_1_cts.odb
+write_sdc -no_timestamp ./results/nangate45/tf_lms_sv/base/4_cts.sdc
+Elapsed time: 0:05.85[h:]min:sec. CPU time: user 8.98 sys 2.94 (203%). Peak memory: 154568KB.
+Log                        Elapsed/s Peak Memory/MB  sha1sum .odb [0:20)
+4_1_cts                            5            150 4783e94a46da22f4f977

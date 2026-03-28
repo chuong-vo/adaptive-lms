@@ -1,0 +1,36 @@
+ 
+****************************************
+Report : cell
+Design : tf_lms_sv
+Version: L-2016.03-SP1
+Date   : Wed Mar 25 23:19:03 2026
+****************************************
+
+Attributes:
+   BO - reference allows boundary optimization
+    b - black box (unknown)
+    h - hierarchical
+    n - noncombinational
+    r - removable
+    u - contains unmapped logic
+
+Cell                      Reference       Library             Area  Attributes
+--------------------------------------------------------------------------------
+U12                       AND2X1          gscl45nm        2.346500  
+U13                       AND2X1          gscl45nm        2.346500  
+U14                       AND2X1          gscl45nm        2.346500  
+U15                       AND2X1          gscl45nm        2.346500  
+U16                       AND2X1          gscl45nm        2.346500  
+U17                       AND2X1          gscl45nm        2.346500  
+U18                       AND2X1          gscl45nm        2.346500  
+U19                       AND2X1          gscl45nm        2.346500  
+cflt                      core_filt_sv                    14653.892458
+                                                                    h, n
+shift_1                   shift_20d_sv                    1276.495972
+                                                                    h, n
+shift_2                   shift_21d_sv                    1340.320770
+                                                                    h, n
+sub_476                   tf_lms_sv_DW01_sub_0            80.719602 BO, h
+--------------------------------------------------------------------------------
+Total 12 cells                                            17370.200801
+1

@@ -1,0 +1,9 @@
+OpenROAD 26Q1-342-g7c57b1b222 
+Features included (+) or not (-): +GPU +GUI +Python
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ORD-0030] Using 20 thread(s).
+read_liberty /home/chuongvo/OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib
+read_db ./results/nangate45/tf_lms_sv/base/6_final.odb
+source /home/chuongvo/OpenROAD-flow-scripts/flow/platforms/nangate45/setRC.tcl
+Elapsed time: 0:00.61[h:]min:sec. CPU time: user 0.34 sys 0.09 (70%). Peak memory: 118936KB.

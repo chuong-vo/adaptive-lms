@@ -1,0 +1,114 @@
+# do run_tf_lms_sv_wave.do
+# 
+# if {[file exists work]} {
+#     vdel -lib work -all
+# }
+# vlib work
+# vmap work work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work work 
+# Modifying modelsim.ini
+# 
+# vlog -sv +define+SIM_INIT adaptation_lms.sv tf_lms_sv_wave_tb.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 21:50:48 on Mar 25,2026
+# vlog -sv "+define+SIM_INIT" adaptation_lms.sv tf_lms_sv_wave_tb.sv 
+# -- Compiling module add16_sv
+# -- Compiling module bin_to_7seg_sv
+# -- Compiling module mul8_sv
+# -- Compiling module truncation_sv
+# -- Compiling module saturation_sv
+# -- Compiling module shift_1d_16_sv
+# -- Compiling module shift_20d_sv
+# -- Compiling module shift_21d_sv
+# -- Compiling module u_scaling_sv
+# -- Compiling module ch_filt_tap_sv
+# -- Compiling module const_ch_filt_sv
+# -- Compiling module data_gen_sv
+# -- Compiling module clock_div_sv
+# -- Compiling module unit_calc_sv
+# -- Compiling module core_filt_sv
+# -- Compiling module tf_lms_sv
+# -- Compiling module tf_lms_sv_wave_tb
+# 
+# Top level modules:
+# 	bin_to_7seg_sv
+# 	data_gen_sv
+# 	clock_div_sv
+# 	tf_lms_sv_wave_tb
+# End time: 21:50:48 on Mar 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim work.tf_lms_sv_wave_tb
+# vsim work.tf_lms_sv_wave_tb 
+# Start time: 21:50:49 on Mar 25,2026
+# Loading sv_std.std
+# Loading work.tf_lms_sv_wave_tb
+# Loading work.tf_lms_sv
+# Loading work.shift_20d_sv
+# Loading work.shift_21d_sv
+# Loading work.core_filt_sv
+# Loading work.unit_calc_sv
+# Loading work.mul8_sv
+# Loading work.u_scaling_sv
+# Loading work.add16_sv
+# Loading work.shift_1d_16_sv
+# Loading work.saturation_sv
+# Loading work.truncation_sv
+# 
+# quietly WaveActivateNextPane {} 0
+# view wave
+# 
+# add wave -noupdate -divider {Testbench IO}
+# add wave -noupdate -radix binary sim:/tf_lms_sv_wave_tb/clock
+# add wave -noupdate -radix binary sim:/tf_lms_sv_wave_tb/adapt_en
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/xin
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dxin
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/yout
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/err
+# 
+# add wave -noupdate -divider {Top-Level Internal}
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/x_1
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/x_N
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/e_t
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/y_o
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/e
+# 
+# add wave -noupdate -divider {Core Filter}
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/cflt/y_out_t1
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/cflt/y_out_t2
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/cflt/y_out_t3
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/cflt/y_out_t4
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/cflt/y_out
+# 
+# add wave -noupdate -divider {Tap1 Adaptation Path}
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/cflt/tap1/xnin_ue
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/cflt/tap1/xnin_ue_scaled
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/cflt/tap1/new_coeff_true
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/cflt/tap1/coeff16
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/cflt/tap1/coeff8
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/cflt/tap1/y_out16
+# add wave -noupdate -radix hex sim:/tf_lms_sv_wave_tb/dut/cflt/tap1/y_out
+# 
+# catch {configure wave -namecolwidth 260}
+# configure wave not supported in batch mode
+# 0
+# catch {configure wave -valuecolwidth 100}
+# configure wave not supported in batch mode
+# 0
+# catch {configure wave -justifyvalue left}
+# configure wave not supported in batch mode
+# 0
+# catch {configure wave -signalnamewidth 1}
+# configure wave not supported in batch mode
+# 0
+# catch {configure wave -timelineunits ns}
+# configure wave not supported in batch mode
+# 0
+# update
+# 
+# run -all
+# ** Note: $finish    : tf_lms_sv_wave_tb.sv(99)
+#    Time: 7350 ns  Iteration: 1  Instance: /tf_lms_sv_wave_tb
+# End time: 21:50:49 on Mar 25,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

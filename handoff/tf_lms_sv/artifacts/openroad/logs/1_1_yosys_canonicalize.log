@@ -1,0 +1,40 @@
+Yosys 0.61+129 (git sha1 6dbe03f0f, clang++ 18.1.8 -fPIC -O3)
+Using ABC area script.
+Extracting clock period from SDC file: ./results/nangate45/tf_lms_sv/base/clock_period.txt
+Setting clock period to 20
+1. Executing Liberty frontend: /home/chuongvo/OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib
+2. Executing Liberty frontend: /home/chuongvo/OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib
+3. Executing Verilog-2005 frontend: /home/chuongvo/OpenROAD-flow-scripts/flow/../code/src/sv/rtl/adaptation_lms.sv
+4. Executing Verilog-2005 frontend: /home/chuongvo/OpenROAD-flow-scripts/flow/platforms/nangate45/cells_clkgate.v
+5. Executing HIERARCHY pass (managing design hierarchy).
+6. Executing AST frontend in derive mode using pre-parsed AST for module `\tf_lms_sv'.
+6.1. Analyzing design hierarchy..
+6.2. Executing AST frontend in derive mode using pre-parsed AST for module `\core_filt_sv'.
+6.3. Executing AST frontend in derive mode using pre-parsed AST for module `\shift_21d_sv'.
+6.4. Executing AST frontend in derive mode using pre-parsed AST for module `\shift_20d_sv'.
+6.5. Analyzing design hierarchy..
+6.6. Executing AST frontend in derive mode using pre-parsed AST for module `\unit_calc_sv'.
+6.7. Analyzing design hierarchy..
+6.8. Executing AST frontend in derive mode using pre-parsed AST for module `\truncation_sv'.
+6.9. Executing AST frontend in derive mode using pre-parsed AST for module `\mul8_sv'.
+6.10. Executing AST frontend in derive mode using pre-parsed AST for module `\saturation_sv'.
+6.11. Executing AST frontend in derive mode using pre-parsed AST for module `\shift_1d_16_sv'.
+6.12. Executing AST frontend in derive mode using pre-parsed AST for module `\add16_sv'.
+6.13. Executing AST frontend in derive mode using pre-parsed AST for module `\u_scaling_sv'.
+6.14. Analyzing design hierarchy..
+6.15. Analyzing design hierarchy..
+7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Warning: Ignoring module unit_calc_sv because it contains processes (run 'proc' command first).
+Warning: Ignoring module shift_20d_sv because it contains processes (run 'proc' command first).
+Warning: Ignoring module shift_21d_sv because it contains processes (run 'proc' command first).
+Warning: Ignoring module tf_lms_sv because it contains processes (run 'proc' command first).
+Warning: Ignoring module u_scaling_sv because it contains processes (run 'proc' command first).
+Warning: Ignoring module shift_1d_16_sv because it contains processes (run 'proc' command first).
+Warning: Ignoring module saturation_sv because it contains processes (run 'proc' command first).
+Warning: Ignoring module mul8_sv because it contains processes (run 'proc' command first).
+8. Executing RTLIL backend.
+Warnings: 8 unique messages, 8 total
+End of script. Logfile hash: 8c5ef1a2a6, CPU: user 0.08s system 0.01s, MEM: 31.72 MB peak
+Yosys 0.61+129 (git sha1 6dbe03f0f, clang++ 18.1.8 -fPIC -O3)
+Time spent: 76% 4x read_liberty (0 sec), 12% 4x read_verilog (0 sec), ...
+Elapsed time: 0:00.20[h:]min:sec. CPU time: user 0.16 sys 0.01 (89%). Peak memory: 33760KB.

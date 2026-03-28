@@ -1,0 +1,42 @@
+OpenROAD 26Q1-342-g7c57b1b222 
+Features included (+) or not (-): +GPU +GUI +Python
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ORD-0030] Using 20 thread(s).
+read_liberty /home/chuongvo/OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib
+read_db ./results/nangate45/tf_lms_sv/base/1_synth.odb
+source /home/chuongvo/OpenROAD-flow-scripts/flow/platforms/nangate45/setRC.tcl
+
+==========================================================================
+Floorplan check_setup
+--------------------------------------------------------------------------
+number instances in verilog is 4852
+[WARNING IFP-0028] Core area lower left (1.000, 1.000) snapped to (1.140, 1.400).
+[INFO IFP-0001] Added 141 rows of 1042 site FreePDK45_38x28_10R_NP_162NW_34O.
+source /home/chuongvo/OpenROAD-flow-scripts/flow/platforms/nangate45/make_tracks.tcl
+source /home/chuongvo/OpenROAD-flow-scripts/flow/platforms/nangate45/fastroute.tcl
+Repair tie lo fanout...
+Repair tie hi fanout...
+repair_timing -setup_margin 0 -hold_margin 0 -repair_tns 100 -setup -skip_last_gasp -sequence unbuffer,sizeup,swap,buffer,vt_swap -verbose
+[WARNING EST-0027] no estimated parasitics. Using wire load models.
+[INFO RSZ-0100] Repair move sequence: UnbufferMove SizeUpMove SwapPinsMove BufferMove 
+[INFO RSZ-0098] No setup violations found
+Default units for flow
+ time 1ns
+ capacitance 1fF
+ resistance 1kohm
+ voltage 1v
+ current 1mA
+ power 1nW
+ distance 1um
+Report metrics stage 2, floorplan final...
+
+==========================================================================
+floorplan final report_design_area
+--------------------------------------------------------------------------
+Design area 9816 um^2 25% utilization.
+write_db ./results/nangate45/tf_lms_sv/base/2_1_floorplan.odb
+write_sdc -no_timestamp ./results/nangate45/tf_lms_sv/base/2_1_floorplan.sdc
+Elapsed time: 0:01.50[h:]min:sec. CPU time: user 1.35 sys 0.35 (113%). Peak memory: 137608KB.
+Log                        Elapsed/s Peak Memory/MB  sha1sum .odb [0:20)
+2_1_floorplan                      1            134 6b622b35a76c57038732

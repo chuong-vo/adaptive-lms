@@ -1,0 +1,158 @@
+
+==========================================================================
+floorplan final report_tns
+--------------------------------------------------------------------------
+tns max 0.00
+
+==========================================================================
+floorplan final report_wns
+--------------------------------------------------------------------------
+wns max 0.00
+
+==========================================================================
+floorplan final report_worst_slack
+--------------------------------------------------------------------------
+worst slack max 15.61
+
+==========================================================================
+floorplan final report_clock_min_period
+--------------------------------------------------------------------------
+clk period_min = 4.39 fmax = 227.90
+
+==========================================================================
+floorplan final report_checks -path_delay min
+--------------------------------------------------------------------------
+Startpoint: cflt.tap1.shiftue[8]$_DFF_PN0_
+            (rising edge-triggered flip-flop clocked by clk)
+Endpoint: cflt.tap1.shiftue[0]$_DFF_PN0_
+          (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                  0.10    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                  0.10    0.00    0.00 ^ cflt.tap1.shiftue[8]$_DFF_PN0_/CK (DFFR_X1)
+     1    1.05    0.01    0.10    0.10 v cflt.tap1.shiftue[8]$_DFF_PN0_/Q (DFFR_X1)
+                                         cflt.tap1.shiftue[8] (net)
+                  0.01    0.00    0.10 v cflt.tap1.shiftue[0]$_DFF_PN0_/D (DFFR_X1)
+                                  0.10   data arrival time
+
+                  0.10    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                          0.20    0.20   clock uncertainty
+                          0.00    0.20   clock reconvergence pessimism
+                                  0.20 ^ cflt.tap1.shiftue[0]$_DFF_PN0_/CK (DFFR_X1)
+                          0.01    0.21   library hold time
+                                  0.21   data required time
+-----------------------------------------------------------------------------
+                                  0.21   data required time
+                                 -0.10   data arrival time
+-----------------------------------------------------------------------------
+                                 -0.11   slack (VIOLATED)
+
+
+
+==========================================================================
+floorplan final report_checks -path_delay max
+--------------------------------------------------------------------------
+Startpoint: adapt_en (input port clocked by clk)
+Endpoint: err[6] (output port clocked by clk)
+Path Group: clk
+Path Type: max
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                  0.10    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                          2.00    2.00 ^ input external delay
+     1    1.60    0.10    0.00    2.00 ^ adapt_en (in)
+                                         adapt_en (net)
+                  0.10    0.00    2.00 ^ _6171_/A1 (NAND2_X1)
+     7   14.90    0.05    0.07    2.07 v _6171_/ZN (NAND2_X1)
+                                         _2798_ (net)
+                  0.05    0.00    2.07 v _6836_/A (AOI21_X1)
+     1    1.60    0.02    0.05    2.12 ^ _6836_/ZN (AOI21_X1)
+                                         _3109_ (net)
+                  0.02    0.00    2.12 ^ _6838_/A1 (NAND2_X1)
+     4    5.93    0.02    0.03    2.15 v _6838_/ZN (NAND2_X1)
+                                         _3111_ (net)
+                  0.02    0.00    2.15 v _7039_/A (INV_X1)
+     8   10.77    0.03    0.04    2.19 ^ _7039_/ZN (INV_X1)
+                                         err[6] (net)
+                  0.03    0.00    2.19 ^ err[6] (out)
+                                  2.19   data arrival time
+
+                  0.10   20.00   20.00   clock clk (rise edge)
+                          0.00   20.00   clock network delay (ideal)
+                         -0.20   19.80   clock uncertainty
+                          0.00   19.80   clock reconvergence pessimism
+                         -2.00   17.80   output external delay
+                                 17.80   data required time
+-----------------------------------------------------------------------------
+                                 17.80   data required time
+                                 -2.19   data arrival time
+-----------------------------------------------------------------------------
+                                 15.61   slack (MET)
+
+
+
+==========================================================================
+floorplan final report_checks -unconstrained
+--------------------------------------------------------------------------
+Startpoint: adapt_en (input port clocked by clk)
+Endpoint: err[6] (output port clocked by clk)
+Path Group: clk
+Path Type: max
+
+Fanout     Cap    Slew   Delay    Time   Description
+-----------------------------------------------------------------------------
+                  0.10    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                          2.00    2.00 ^ input external delay
+     1    1.60    0.10    0.00    2.00 ^ adapt_en (in)
+                                         adapt_en (net)
+                  0.10    0.00    2.00 ^ _6171_/A1 (NAND2_X1)
+     7   14.90    0.05    0.07    2.07 v _6171_/ZN (NAND2_X1)
+                                         _2798_ (net)
+                  0.05    0.00    2.07 v _6836_/A (AOI21_X1)
+     1    1.60    0.02    0.05    2.12 ^ _6836_/ZN (AOI21_X1)
+                                         _3109_ (net)
+                  0.02    0.00    2.12 ^ _6838_/A1 (NAND2_X1)
+     4    5.93    0.02    0.03    2.15 v _6838_/ZN (NAND2_X1)
+                                         _3111_ (net)
+                  0.02    0.00    2.15 v _7039_/A (INV_X1)
+     8   10.77    0.03    0.04    2.19 ^ _7039_/ZN (INV_X1)
+                                         err[6] (net)
+                  0.03    0.00    2.19 ^ err[6] (out)
+                                  2.19   data arrival time
+
+                  0.10   20.00   20.00   clock clk (rise edge)
+                          0.00   20.00   clock network delay (ideal)
+                         -0.20   19.80   clock uncertainty
+                          0.00   19.80   clock reconvergence pessimism
+                         -2.00   17.80   output external delay
+                                 17.80   data required time
+-----------------------------------------------------------------------------
+                                 17.80   data required time
+                                 -2.19   data arrival time
+-----------------------------------------------------------------------------
+                                 15.61   slack (MET)
+
+
+
+==========================================================================
+floorplan final report_power
+--------------------------------------------------------------------------
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power (Watts)
+----------------------------------------------------------------
+Sequential             4.06e-04   2.70e-05   6.47e-05   4.98e-04  10.6%
+Combinational          2.33e-03   1.75e-03   1.24e-04   4.21e-03  89.4%
+Clock                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  2.74e-03   1.78e-03   1.89e-04   4.70e-03 100.0%
+                          58.2%      37.8%       4.0%

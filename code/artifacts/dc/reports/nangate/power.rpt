@@ -1,0 +1,53 @@
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : tf_lms_sv
+Version: L-2016.03-SP1
+Date   : Thu Mar 26 01:26:00 2026
+****************************************
+
+
+Library(s) Used:
+
+    NangateOpenCellLibrary_typ (File: /home/hoangtrang/IC_design/code/Tool/PDK/Nangate45_icc/icc_lab/logical_lib/NangateOpenCellLibrary_typical.db)
+
+
+Operating Conditions: typical   Library: NangateOpenCellLibrary_typ
+Wire Load Model Mode: top
+
+Design        Wire Load Model            Library
+------------------------------------------------
+tf_lms_sv              5K_hvratio_1_1    NangateOpenCellLibrary_typ
+
+
+Global Operating Voltage = 1.1  
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000ff
+    Time Units = 1ns
+    Dynamic Power Units = 1uW    (derived from V,C,T units)
+    Leakage Power Units = 1nW
+
+
+  Cell Internal Power  = 279.6473 uW   (80%)
+  Net Switching Power  =  68.0557 uW   (20%)
+                         ---------
+Total Dynamic Power    = 347.7030 uW  (100%)
+
+Cell Leakage Power     = 120.0059 uW
+
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network      0.0000            0.0000            0.0000            0.0000  (   0.00%)
+register         224.5121           17.5622        5.8970e+04          301.0446  (  64.37%)
+sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
+combinational     55.1353           50.4935        6.1036e+04          166.6646  (  35.63%)
+--------------------------------------------------------------------------------------------------
+Total            279.6474 uW        68.0557 uW     1.2001e+05 nW       467.7092 uW
+1

@@ -1,0 +1,49 @@
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : tf_lms_sv
+Version: L-2016.03-SP1
+Date   : Wed Mar 25 23:20:00 2026
+****************************************
+
+
+Library(s) Used:
+
+    gscl45nm (File: /home/hoangtrang/IC_design/code/Tool/PDK/PDK_45nm/osu_soc/lib/files/gscl45nm.db)
+
+
+Operating Conditions: typical   Library: gscl45nm
+Wire Load Model Mode: top
+
+
+Global Operating Voltage = 1.1  
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1nW
+
+
+  Cell Internal Power  = 908.1089 uW   (86%)
+  Net Switching Power  = 143.6456 uW   (14%)
+                         ---------
+Total Dynamic Power    =   1.0518 mW  (100%)
+
+Cell Leakage Power     =  77.9755 uW
+
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network      0.0000            0.0000            0.0000            0.0000  (   0.00%)
+register           0.7659        1.6697e-02        4.1013e+04            0.8236  (  72.90%)
+sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
+combinational      0.1422            0.1269        3.6962e+04            0.3061  (  27.10%)
+--------------------------------------------------------------------------------------------------
+Total              0.9081 mW         0.1436 mW     7.7975e+04 nW         1.1297 mW
+1
