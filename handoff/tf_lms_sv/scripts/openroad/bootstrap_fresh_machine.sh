@@ -86,12 +86,20 @@ assert_file() {
   [[ -e "$path" ]] || { echo "Missing file: $path" >&2; exit 1; }
 }
 
+assert_git_repo() {
+  git -C "$REPO_ROOT" rev-parse --is-inside-work-tree >/dev/null 2>&1 || {
+    echo "Not a git repository: $REPO_ROOT" >&2
+    exit 1
+  }
+}
+
 assert_repo() {
   assert_file "$REPO_ROOT/setup.sh"
   assert_file "$REPO_ROOT/build_openroad.sh"
   assert_file "$REPO_ROOT/flow/Makefile"
   assert_file "$SETUP_ENV"
   assert_file "$RUN_FLOW"
+  assert_git_repo
 }
 
 show_plan() {
@@ -106,13 +114,63 @@ Threads   : ${THREADS:-default}
 EOF
 }
 
+submodules_need_init() {
+  local status
+  status="$(git -C "$REPO_ROOT" submodule status --recursive || true)"
+  [[ -z "$status" ]] && return 1
+  echo "$status" | grep -Eq '^[+-U]'
+}
+
+ensure_submodules() {
+  if [[ ! -f "$REPO_ROOT/.gitmodules" ]]; then
+    return 0
+  fi
+  echo "[prep] Syncing and initializing git submodules"
+  (
+    cd "$REPO_ROOT"
+    git submodule sync --recursive
+    git submodule update --init --recursive
+  )
+}
+
+assert_tool_sources() {
+  local missing=0
+  for required_path in \
+    "$REPO_ROOT/tools/OpenROAD/etc/DependencyInstaller.sh" \
+    "$REPO_ROOT/tools/OpenROAD/etc/Build.sh" \
+    "$REPO_ROOT/tools/yosys/Makefile" \
+    "$REPO_ROOT/tools/yosys-slang/Makefile"; do
+    if [[ ! -e "$required_path" ]]; then
+      echo "Missing required dependency source: $required_path" >&2
+      missing=1
+    fi
+  done
+  if [[ "$missing" -ne 0 ]]; then
+    echo "Fix: git submodule update --init --recursive" >&2
+    exit 1
+  fi
+}
+
+verify_flow_setup() {
+  echo "[verify] Validating resolved toolchain and design files"
+  (cd "$REPO_ROOT" && "$RUN_FLOW" check)
+}
+
 run_deps() {
   echo "[1/4] Running ORFS dependency installer with sudo"
+  command -v sudo >/dev/null 2>&1 || {
+    echo "Missing required command: sudo" >&2
+    exit 1
+  }
+  ensure_submodules
+  assert_tool_sources
   (cd "$REPO_ROOT" && sudo ./setup.sh)
 }
 
 run_build() {
   echo "[2/4] Building OpenROAD and Yosys locally"
+  ensure_submodules
+  assert_tool_sources
   local args=(--local)
   if [[ -n "$THREADS" ]]; then
     args+=(--threads "$THREADS")
@@ -134,6 +192,15 @@ assert_repo
 show_plan
 
 if [[ "$CHECK_ONLY" -eq 1 ]]; then
+  if submodules_need_init; then
+    echo "Warning: some recursive submodules are not initialized or out of sync." >&2
+    echo "They will be initialized automatically during --deps/--build." >&2
+  fi
+  assert_tool_sources
+  if ! (cd "$REPO_ROOT" && "$SETUP_ENV" --check); then
+    echo "setup_env --check failed. Ensure OpenROAD/Yosys/KLayout are installed." >&2
+    exit 1
+  fi
   echo "Check complete."
   echo "Typical command:"
   echo "  $SCRIPT_DIR/bootstrap_fresh_machine.sh --all"
@@ -154,6 +221,10 @@ if [[ "$DO_BUILD" -eq 1 ]]; then
 fi
 
 install_tf_lms_env
+
+if [[ "$DO_BUILD" -eq 1 || "$DO_RERUN" -eq 1 ]]; then
+  verify_flow_setup
+fi
 
 if [[ "$DO_RERUN" -eq 1 ]]; then
   rerun_flow

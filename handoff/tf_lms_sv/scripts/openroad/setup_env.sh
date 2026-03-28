@@ -79,25 +79,34 @@ while [[ $# -gt 0 ]]; do
 done
 
 detect_exe() {
-  local current="$1"
-  shift
+  local tool_name="$1"
+  local current="$2"
+  shift 2
   local candidate
+  local checked=()
   if [[ -n "$current" ]]; then
+    checked+=("$current")
     if [[ -x "$current" ]]; then
       printf '%s\n' "$current"
       return 0
     fi
-    echo "Executable not found or not executable: $current" >&2
+    echo "$tool_name executable not found or not executable: $current" >&2
     return 1
   fi
 
   for candidate in "$@"; do
-    if [[ -n "$candidate" && -x "$candidate" ]]; then
+    [[ -z "$candidate" ]] && continue
+    checked+=("$candidate")
+    if [[ -x "$candidate" ]]; then
       printf '%s\n' "$candidate"
       return 0
     fi
   done
 
+  echo "Unable to detect $tool_name executable. Checked paths:" >&2
+  for candidate in "${checked[@]}"; do
+    echo "  - $candidate" >&2
+  done
   return 1
 }
 
@@ -171,16 +180,16 @@ if [[ "$RESTORE_ONLY" -eq 1 ]]; then
   exit 0
 fi
 
-OPENROAD_BIN="$(detect_exe "$OPENROAD_BIN" \
+OPENROAD_BIN="$(detect_exe "OpenROAD" "$OPENROAD_BIN" \
   "$(command -v openroad 2>/dev/null || true)" \
   "$REPO_ROOT/tools/install/OpenROAD/bin/openroad")"
 
-YOSYS_BIN="$(detect_exe "$YOSYS_BIN" \
+YOSYS_BIN="$(detect_exe "Yosys" "$YOSYS_BIN" \
   "$(command -v yosys 2>/dev/null || true)" \
   "$REPO_ROOT/tools/install/yosys/bin/yosys" \
   "$REPO_ROOT/tools/oss-cad/oss-cad-suite/bin/yosys")"
 
-KLAYOUT_BIN="$(detect_exe "$KLAYOUT_BIN" \
+KLAYOUT_BIN="$(detect_exe "KLayout" "$KLAYOUT_BIN" \
   "$(command -v klayout 2>/dev/null || true)" \
   "$REPO_ROOT/tools/install/klayout/klayout")"
 
