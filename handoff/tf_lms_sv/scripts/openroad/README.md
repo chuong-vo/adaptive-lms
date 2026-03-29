@@ -9,9 +9,9 @@ Nếu bạn cần tài liệu đầy đủ từ lúc chuẩn bị Linux, clone r
 ## Script nên dùng
 
 - `./setup_tools.sh`
-  Dùng cho máy mới. Cài dependency và build tool.
+  Dùng cho máy mới. Chỉ cài dependency và build tool.
 - `./configure_flow.sh`
-  Detect tool local, cài collateral patch, sinh `env.sh`.
+  Chỉ cấu hình flow local, sinh `env.sh`.
 - `./flow.sh`
   Chạy flow và in trạng thái từng bước.
 
@@ -28,16 +28,16 @@ Tên cũ vẫn còn để tương thích ngược:
 ```bash
 cd ~/adaptive-lms/handoff/tf_lms_sv/scripts/openroad
 ./setup_tools.sh --check-only
-./setup_tools.sh --deps --build
+./setup_tools.sh --all --threads 8
 ./configure_flow.sh
-./flow.sh check
 ```
 
-### Setup xong và chạy full flow
+### Chạy full flow
 
 ```bash
 cd ~/adaptive-lms/handoff/tf_lms_sv/scripts/openroad
-./setup_tools.sh --all --threads 8
+./flow.sh check
+./flow.sh rerun -j 8
 ```
 
 ### Chạy lại flow sau này
