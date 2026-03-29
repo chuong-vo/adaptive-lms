@@ -19,6 +19,16 @@ OPENROAD_APP_REMOTE="origin"
 OPENROAD_APP_BRANCH="master"
 
 INSTALL_PATH="$(pwd)/tools/install"
+BUILD_STATE_FILE=""
+STATE_WRITE_OPENROAD_SRC=""
+STATE_WRITE_YOSYS_SRC=""
+STATE_WRITE_YOSYSSLANG_SRC=""
+STATE_WRITE_KEPLER_SRC=""
+STATE_WRITE_OPENROAD_ARGS=""
+STATE_WRITE_YOSYS_ARGS=""
+STATE_WRITE_CXX=""
+STATE_WRITE_WITH_VERIFIC=""
+STATE_WRITE_VERIFIC_DIR=""
 
 YOSYS_USER_ARGS=""
 YOSYS_ARGS=""
@@ -129,6 +139,87 @@ install_yosys_plugin() {
 
 install_kepler_bin() {
         echo "${INSTALL_PATH}/kepler-formal/bin/kepler-formal"
+}
+
+build_state_file() {
+        echo "${INSTALL_PATH}/.build-state.env"
+}
+
+shell_quote() {
+        printf '%q' "$1"
+}
+
+source_tree_fingerprint() {
+        local path="$1"
+        local rev
+        rev="$(git -C "$path" rev-parse HEAD 2>/dev/null || echo missing)"
+        if [[ "$rev" == "missing" ]]; then
+                echo ""
+                return 0
+        fi
+
+        if [[ -n "$(git -C "$path" status --porcelain --untracked-files=normal 2>/dev/null | head -n1)" ]]; then
+                echo ""
+                return 0
+        fi
+
+        echo "${rev}"
+}
+
+load_build_state() {
+        BUILD_STATE_FILE="$(build_state_file)"
+        if [[ -f "${BUILD_STATE_FILE}" ]]; then
+                # shellcheck disable=SC1090
+                source "${BUILD_STATE_FILE}"
+        fi
+}
+
+write_build_state() {
+        BUILD_STATE_FILE="$(build_state_file)"
+        mkdir -p "$(dirname "${BUILD_STATE_FILE}")"
+        cat > "${BUILD_STATE_FILE}" << EOF
+BUILD_STATE_OPENROAD_SRC=$(shell_quote "${STATE_WRITE_OPENROAD_SRC}")
+BUILD_STATE_YOSYS_SRC=$(shell_quote "${STATE_WRITE_YOSYS_SRC}")
+BUILD_STATE_YOSYSSLANG_SRC=$(shell_quote "${STATE_WRITE_YOSYSSLANG_SRC}")
+BUILD_STATE_KEPLER_SRC=$(shell_quote "${STATE_WRITE_KEPLER_SRC}")
+BUILD_STATE_OPENROAD_ARGS=$(shell_quote "${STATE_WRITE_OPENROAD_ARGS}")
+BUILD_STATE_YOSYS_ARGS=$(shell_quote "${STATE_WRITE_YOSYS_ARGS}")
+BUILD_STATE_CXX=$(shell_quote "${STATE_WRITE_CXX}")
+BUILD_STATE_WITH_VERIFIC=$(shell_quote "${STATE_WRITE_WITH_VERIFIC}")
+BUILD_STATE_VERIFIC_DIR=$(shell_quote "${STATE_WRITE_VERIFIC_DIR}")
+EOF
+}
+
+openroad_build_state_matches() {
+        load_build_state
+        [[ -n "${BUILD_STATE_OPENROAD_SRC:-}" ]] || return 1
+        [[ "${BUILD_STATE_OPENROAD_SRC}" == "$(source_tree_fingerprint "${DIR}/tools/OpenROAD")" ]] || return 1
+        [[ "${BUILD_STATE_OPENROAD_ARGS:-}" == "${OPENROAD_APP_ARGS}" ]] || return 1
+}
+
+yosys_build_state_matches() {
+        load_build_state
+        [[ -n "${BUILD_STATE_YOSYS_SRC:-}" ]] || return 1
+        [[ "${BUILD_STATE_YOSYS_SRC}" == "$(source_tree_fingerprint "${DIR}/tools/yosys")" ]] || return 1
+        [[ "${BUILD_STATE_YOSYS_ARGS:-}" == "${YOSYS_ARGS}" ]] || return 1
+        [[ "${BUILD_STATE_WITH_VERIFIC:-0}" == "${WITH_VERIFIC}" ]] || return 1
+        [[ "${BUILD_STATE_VERIFIC_DIR:-}" == "${VERIFIC_DIR}" ]] || return 1
+        [[ "${BUILD_STATE_CXX:-}" == "${CXX:-}" ]] || return 1
+}
+
+yosys_slang_build_state_matches() {
+        load_build_state
+        [[ -n "${BUILD_STATE_YOSYSSLANG_SRC:-}" ]] || return 1
+        [[ "${BUILD_STATE_YOSYSSLANG_SRC}" == "$(source_tree_fingerprint "${DIR}/tools/yosys-slang")" ]] || return 1
+        [[ "${BUILD_STATE_YOSYS_SRC:-}" == "$(source_tree_fingerprint "${DIR}/tools/yosys")" ]] || return 1
+        [[ "${BUILD_STATE_CXX:-}" == "${CXX:-}" ]] || return 1
+}
+
+kepler_build_state_matches() {
+        load_build_state
+        [[ -n "${BUILD_STATE_KEPLER_SRC:-}" ]] || return 1
+        [[ "${BUILD_STATE_KEPLER_SRC}" == "$(source_tree_fingerprint "${DIR}/tools/kepler-formal")" ]] || return 1
+        [[ "${BUILD_STATE_CXX:-}" == "${CXX:-}" ]] || return 1
 }
 
 validate_openroad_install() {
@@ -461,6 +552,15 @@ __docker_build()
 __local_build()
 {
         preflight_local_build
+        STATE_WRITE_OPENROAD_SRC=""
+        STATE_WRITE_YOSYS_SRC=""
+        STATE_WRITE_YOSYSSLANG_SRC=""
+        STATE_WRITE_KEPLER_SRC=""
+        STATE_WRITE_OPENROAD_ARGS=""
+        STATE_WRITE_YOSYS_ARGS=""
+        STATE_WRITE_CXX="${CXX:-}"
+        STATE_WRITE_WITH_VERIFIC="${WITH_VERIFIC}"
+        STATE_WRITE_VERIFIC_DIR="${VERIFIC_DIR}"
         if [[ "$OSTYPE" == "darwin"* ]]; then
           export PATH="$(brew --prefix bison)/bin:$(brew --prefix flex)/bin:$(brew --prefix tcl-tk)/bin:$PATH"
           export CMAKE_PREFIX_PATH=$(brew --prefix or-tools)
@@ -484,10 +584,15 @@ __local_build()
                 && [ -z "${CLEAN_BEFORE+x}" ] \
                 && [ -z "${OPENROAD_APP_USER_ARGS}" ] \
                 && [ -z "${OPENROAD_APP_OVERWRITE_ARGS+x}" ] \
+                && openroad_build_state_matches \
                 && validate_openroad_install; then
                 echo "[INFO FLW-0042] OpenROAD already installed and passes sanity checks. Skipping rebuild."
+                STATE_WRITE_OPENROAD_SRC="$(source_tree_fingerprint "${DIR}/tools/OpenROAD")"
+                STATE_WRITE_OPENROAD_ARGS="${OPENROAD_APP_ARGS}"
             else
                 build_openroad_component
+                STATE_WRITE_OPENROAD_SRC="$(source_tree_fingerprint "${DIR}/tools/OpenROAD")"
+                STATE_WRITE_OPENROAD_ARGS="${OPENROAD_APP_ARGS}"
             fi
         fi
 
@@ -510,28 +615,39 @@ __local_build()
                 && [ -z "${YOSYS_USER_ARGS}" ] \
                 && [ -z "${YOSYS_OVERWRITE_ARGS+x}" ] \
                 && [ "${WITH_VERIFIC}" -eq 0 ] \
+                && yosys_build_state_matches \
                 && validate_yosys_install; then
                 echo "[INFO FLW-0043] Yosys already installed and passes sanity checks. Skipping rebuild."
+                STATE_WRITE_YOSYS_SRC="$(source_tree_fingerprint "${DIR}/tools/yosys")"
+                STATE_WRITE_YOSYS_ARGS="${YOSYS_ARGS}"
         else
                 build_yosys_component
+                STATE_WRITE_YOSYS_SRC="$(source_tree_fingerprint "${DIR}/tools/yosys")"
+                STATE_WRITE_YOSYS_ARGS="${YOSYS_ARGS}"
         fi
 
-        if [ -z "${CLEAN_BEFORE+x}" ] && [ "${WITH_VERIFIC}" -eq 0 ] && validate_yosys_slang_install; then
+        if [ -z "${CLEAN_BEFORE+x}" ] && [ "${WITH_VERIFIC}" -eq 0 ] && yosys_slang_build_state_matches && validate_yosys_slang_install; then
                 echo "[INFO FLW-0044] yosys-slang already installed and passes sanity checks. Skipping rebuild."
+                STATE_WRITE_YOSYSSLANG_SRC="$(source_tree_fingerprint "${DIR}/tools/yosys-slang")"
         else
                 build_yosys_slang_component
+                STATE_WRITE_YOSYSSLANG_SRC="$(source_tree_fingerprint "${DIR}/tools/yosys-slang")"
         fi
 
-        if validate_kepler_install && [ -z "${CLEAN_BEFORE+x}" ]; then
+        if validate_kepler_install && [ -z "${CLEAN_BEFORE+x}" ] && kepler_build_state_matches; then
                 echo "[INFO FLW-0045] kepler-formal already installed and passes sanity checks. Skipping rebuild."
+                STATE_WRITE_KEPLER_SRC="$(source_tree_fingerprint "${DIR}/tools/kepler-formal")"
         else
                 build_kepler_component
+                STATE_WRITE_KEPLER_SRC="$(source_tree_fingerprint "${DIR}/tools/kepler-formal")"
         fi
 
         if [ ${WITH_VERIFIC} -eq 1 ]; then
                 echo "[INFO FLW-0032] Cleaning up Verific components."
                 rm -rf verific
         fi
+
+        write_build_state
 }
 
 __update_openroad_app_remote()
