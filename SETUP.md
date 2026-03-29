@@ -115,34 +115,9 @@ Tách bạch theo đúng vai trò:
 3. `flow.sh`
    Chỉ chạy flow.
 
-## 6. Setup máy mới, không chạy flow
+## 6. Máy mới hoàn toàn
 
-Nếu bạn chỉ muốn cài tool và cấu hình môi trường, chưa chạy flow:
-
-```bash
-cd ~
-git clone --recursive https://github.com/chuong-vo/adaptive-lms.git
-cd adaptive-lms
-git pull
-git submodule sync --recursive
-git submodule update --init --recursive
-
-cd handoff/tf_lms_sv/scripts/openroad
-./setup_tools.sh --check-only
-./setup_tools.sh --deps --build
-./configure_flow.sh
-./flow.sh check
-```
-
-Nếu muốn giới hạn số luồng:
-
-```bash
-./setup_tools.sh --deps --build --threads 8
-```
-
-## 7. Setup máy mới
-
-Nếu muốn cài xong tool rồi dừng ở đó:
+### Cách chuẩn nhất
 
 ```bash
 cd ~
@@ -154,29 +129,40 @@ git submodule update --init --recursive
 
 cd handoff/tf_lms_sv/scripts/openroad
 ./setup_tools.sh --check-only
-./setup_tools.sh --all
-```
-
-Nếu muốn giới hạn số luồng:
-
-```bash
 ./setup_tools.sh --all --threads 8
-```
-
-Sau đó cấu hình flow bằng script riêng:
-
-```bash
 ./configure_flow.sh
 ./flow.sh check
-```
-
-Khi nào muốn chạy thì dùng:
-
-```bash
 ./flow.sh rerun -j 8
 ```
 
-## 8. Chạy lại sau khi đã setup xong
+### Nếu chỉ muốn setup tool, chưa chạy flow
+
+```bash
+cd ~/adaptive-lms/handoff/tf_lms_sv/scripts/openroad
+./setup_tools.sh --check-only
+./setup_tools.sh --all --threads 8
+```
+
+Khi nào cần cấu hình và chạy flow:
+
+```bash
+./configure_flow.sh
+./flow.sh check
+./flow.sh rerun -j 8
+```
+
+### Nếu muốn tự chọn từng bước setup
+
+```bash
+./setup_tools.sh --check-only
+./setup_tools.sh --deps --build --threads 8
+./configure_flow.sh
+./flow.sh check
+```
+
+Nếu không muốn giới hạn số luồng, thay `8` bằng `auto`.
+
+## 7. Chạy lại sau khi đã setup xong
 
 Sau khi tool đã build xong, lần sau chỉ cần:
 
@@ -186,7 +172,7 @@ cd ~/adaptive-lms/handoff/tf_lms_sv/scripts/openroad
 ./flow.sh rerun
 ```
 
-## 9. Chạy từng bước
+## 8. Chạy từng bước
 
 ```bash
 ./flow.sh synth
@@ -214,7 +200,7 @@ Nếu muốn truyền thêm tham số cho `make`, ví dụ số luồng:
 ./flow.sh rerun -j 8
 ```
 
-## 10. Input của flow là gì
+## 9. Input của flow là gì
 
 Thiết kế `tf_lms_sv` dùng các input chính sau:
 
@@ -229,7 +215,7 @@ Thiết kế `tf_lms_sv` dùng các input chính sau:
 - DRC deck:
   [FreePDK45_beol_noant.lydrc](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/klayout/FreePDK45_beol_noant.lydrc)
 
-## 11. Output nằm ở đâu
+## 10. Output nằm ở đâu
 
 Output chính của flow nằm ở 4 thư mục:
 
@@ -262,7 +248,7 @@ File signoff quan trọng:
 - DRC count:
   [6_drc_count.rpt](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base/6_drc_count.rpt)
 
-## 12. Output trên terminal sẽ trông như thế nào
+## 11. Output trên terminal sẽ trông như thế nào
 
 `flow.sh` in ngắn gọn theo từng bước.
 
@@ -287,32 +273,7 @@ Nếu fail:
 Stopped at: Routing (4/6 steps passed)
 ```
 
-## 13. Trình tự khuyến nghị cho người mới
-
-### Cách an toàn nhất
-
-```bash
-./setup_tools.sh --check-only
-./setup_tools.sh --deps --build
-./configure_flow.sh
-./flow.sh check
-./flow.sh all -j 8
-```
-
-### Cách nhanh nhất để setup
-
-```bash
-./setup_tools.sh --all --threads 8
-```
-
-Sau đó:
-
-```bash
-./configure_flow.sh
-./flow.sh rerun -j 8
-```
-
-## 14. Xử lý lỗi thường gặp
+## 12. Xử lý lỗi thường gặp
 
 ### Thiếu submodule
 
@@ -392,7 +353,7 @@ Nếu muốn kiểm tra tool nào đang được dùng:
 ./flow.sh show-env
 ```
 
-## 15. Dọn output hoặc khôi phục patch
+## 13. Dọn output hoặc khôi phục patch
 
 Xóa artifact flow của `tf_lms_sv`:
 
@@ -406,7 +367,7 @@ Khôi phục các file repo đã bị `configure_flow.sh` patch:
 ./configure_flow.sh --restore
 ```
 
-## 16. Tài liệu liên quan
+## 14. Tài liệu liên quan
 
 - Hướng dẫn nhanh cho script:
   [handoff/tf_lms_sv/scripts/openroad/README.md](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/README.md)
