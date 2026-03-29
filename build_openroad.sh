@@ -2,10 +2,10 @@
 # This script builds the OpenROAD Flow tools locally or in a Docker image.
 
 # Exit on first error, do not allow unbound variables
-set -eu
+set -Eeuo pipefail
 
 # Make sure we are on the correct folder before beginning
-DIR="$(dirname $(readlink -f $0))"
+DIR="$(dirname "$(readlink -f "$0")")"
 cd "$DIR"
 
 # Set up paths to dependencies, such as cmake and boost. Safe no-op
@@ -32,6 +32,219 @@ PROC=-1
 VERIFIC_COMPONENTS='database util containers pct hier_tree verilog'
 WITH_VERIFIC=0
 VERIFIC_DIR=""
+
+log_error_context() {
+        local exit_code=$?
+        trap - ERR
+        local line="${BASH_LINENO[0]:-unknown}"
+        cat >&2 << EOF
+[ERROR FLW-0099] build_openroad.sh failed at line ${line} (exit ${exit_code}).
+Check the logs:
+  - ${DIR}/build_openroad.log
+  - ${DIR}/tools/OpenROAD/build/openroad_build.log
+
+Common fixes:
+  - Re-sync sources: git submodule update --init --recursive
+  - Reinstall missing build deps: sudo ./setup.sh
+  - Remove stale outputs before retry: ./build_openroad.sh --clean-force --local
+EOF
+        exit "${exit_code}"
+}
+trap log_error_context ERR
+
+warn_if_windows_mount() {
+        case "$DIR" in
+                /mnt/[A-Za-z]/*)
+                        cat << EOF
+[WARNING FLW-0033] Repository is under a Windows-mounted filesystem (${DIR}).
+Building OpenROAD and Yosys on /mnt/<drive> under WSL is slower and more failure-prone.
+Prefer moving the repo under the Linux filesystem, e.g. ~/adaptive-lms.
+EOF
+                        ;;
+        esac
+}
+
+require_file() {
+        local path="$1"
+        local description="$2"
+        if [[ ! -e "$path" ]]; then
+                echo "[ERROR FLW-0034] Missing ${description}: ${path}" >&2
+                echo "Run: git submodule update --init --recursive" >&2
+                exit 1
+        fi
+}
+
+check_command() {
+        local cmd="$1"
+        local hint="$2"
+        if ! command -v "$cmd" >/dev/null 2>&1; then
+                echo "[ERROR FLW-0035] Missing required command: ${cmd}" >&2
+                echo "Hint: ${hint}" >&2
+                exit 1
+        fi
+}
+
+compiler_major_version() {
+        local compiler_path="$1"
+        if [[ "$compiler_path" == *clang* ]]; then
+                "$compiler_path" --version 2>/dev/null | sed -n 's/.*clang version \([0-9][0-9]*\).*/\1/p' | head -n1
+        else
+                "$compiler_path" -dumpfullversion -dumpversion 2>/dev/null | awk -F. 'NF { print $1; exit }'
+        fi
+}
+
+ensure_supported_yosys_slang_compiler() {
+        local cxx="$1"
+        local major
+        major="$(compiler_major_version "$cxx")"
+        if [[ -z "$major" ]]; then
+                echo "[ERROR FLW-0036] Unable to determine compiler version for ${cxx}" >&2
+                exit 1
+        fi
+
+        if [[ "$cxx" == *clang* ]]; then
+                if (( major < 17 )); then
+                        echo "[ERROR FLW-0037] yosys-slang requires clang 17+ but found ${cxx} (${major})." >&2
+                        exit 1
+                fi
+        else
+                if (( major < 11 )); then
+                        echo "[ERROR FLW-0038] yosys-slang requires GCC 11+ but found ${cxx} (${major})." >&2
+                        exit 1
+                fi
+        fi
+}
+
+install_openroad_bin() {
+        echo "${INSTALL_PATH}/OpenROAD/bin/openroad"
+}
+
+install_yosys_bin() {
+        echo "${INSTALL_PATH}/yosys/bin/yosys"
+}
+
+install_yosys_plugin() {
+        echo "${INSTALL_PATH}/yosys/share/yosys/plugins/slang.so"
+}
+
+install_kepler_bin() {
+        echo "${INSTALL_PATH}/kepler-formal/bin/kepler-formal"
+}
+
+validate_openroad_install() {
+        local bin
+        bin="$(install_openroad_bin)"
+        [[ -x "$bin" ]] || return 1
+        "$bin" -version >/dev/null 2>&1
+}
+
+validate_yosys_install() {
+        local bin
+        bin="$(install_yosys_bin)"
+        [[ -x "$bin" ]] || return 1
+        "$bin" -V >/dev/null 2>&1
+}
+
+validate_yosys_slang_install() {
+        local yosys_bin plugin
+        yosys_bin="$(install_yosys_bin)"
+        plugin="$(install_yosys_plugin)"
+        [[ -x "$yosys_bin" && -f "$plugin" ]] || return 1
+        "$yosys_bin" -m slang -p 'help read_slang' >/dev/null 2>&1
+}
+
+validate_kepler_install() {
+        local bin
+        bin="$(install_kepler_bin)"
+        [[ -x "$bin" ]] || return 1
+        "$bin" --help >/dev/null 2>&1
+}
+
+verify_component() {
+        local name="$1"
+        shift
+        if "$@"; then
+                echo "[INFO FLW-0039] Verified ${name} install."
+                return 0
+        fi
+
+        echo "[ERROR FLW-0040] ${name} build/install did not produce a usable binary." >&2
+        case "$name" in
+                OpenROAD)
+                        echo "Check tools/OpenROAD/build/openroad_build.log for the failing CMake or compiler step." >&2
+                        ;;
+                Yosys)
+                        echo "Check tools/yosys build output in build_openroad.log; common causes are missing flex/bison/libffi/readline/zlib headers." >&2
+                        ;;
+                yosys-slang)
+                        echo "Check build_openroad.log; common causes are a compiler older than GCC 11 / clang 17 or an unusable local Yosys install." >&2
+                        ;;
+                kepler-formal)
+                        echo "Check build_openroad.log; common causes are missing CMake dependencies or an incomplete third-party checkout." >&2
+                        ;;
+        esac
+        exit 1
+}
+
+preflight_local_build() {
+        warn_if_windows_mount
+        mkdir -p "${INSTALL_PATH}"
+        if [[ ! -w "${INSTALL_PATH}" ]]; then
+                echo "[ERROR FLW-0041] Install path is not writable: ${INSTALL_PATH}" >&2
+                exit 1
+        fi
+        require_file "${DIR}/tools/OpenROAD/etc/Build.sh" "OpenROAD build script"
+        require_file "${DIR}/tools/yosys/Makefile" "Yosys source tree"
+        require_file "${DIR}/tools/yosys-slang/Makefile" "yosys-slang source tree"
+        require_file "${DIR}/tools/kepler-formal/CMakeLists.txt" "kepler-formal source tree"
+
+        check_command git "Run the system package installer first."
+        check_command make "Run the system package installer first."
+        check_command cmake "Run the system package installer first."
+        check_command python3 "Run the system package installer first."
+        check_command pkg-config "Run the system package installer first."
+
+        if [ -z "${SKIP_OPENROAD+x}" ]; then
+                check_command bison "OpenROAD local builds require bison."
+                check_command flex "OpenROAD local builds require flex."
+                check_command swig "OpenROAD local builds require swig."
+        fi
+}
+
+build_openroad_component() {
+        echo "[INFO FLW-0018] Compiling OpenROAD."
+        eval ${NICE} ./tools/OpenROAD/etc/Build.sh -dir="$DIR/tools/OpenROAD/build" -threads=${PROC} -cmake=\'${OPENROAD_APP_ARGS}\'
+        ${NICE} cmake --build tools/OpenROAD/build --target install -j "${PROC}"
+        verify_component "OpenROAD" validate_openroad_install
+}
+
+build_yosys_component() {
+        echo "[INFO FLW-0017] Compiling Yosys."
+        eval ${NICE} make install -C tools/yosys -j "${PROC}" ${YOSYS_ARGS}
+        verify_component "Yosys" validate_yosys_install
+}
+
+build_yosys_slang_component() {
+        echo "[INFO FLW-0030] Compiling yosys-slang."
+        ensure_supported_yosys_slang_compiler "${CXX}"
+        ${NICE} make install -C tools/yosys-slang -j "${PROC}" YOSYS_PREFIX="${INSTALL_PATH}/yosys/bin/" CMAKE_FLAGS="-DYOSYS_SLANG_REVISION=unknown -DSLANG_REVISION=unknown"
+        verify_component "yosys-slang" validate_yosys_slang_install
+}
+
+build_kepler_component() {
+        echo "[INFO FLW-0031] Compiling kepler-formal"
+        ${NICE} cmake -B tools/kepler-formal/build tools/kepler-formal \
+                -DCMAKE_BUILD_TYPE=Release \
+                -DCMAKE_CXX_FLAGS_RELEASE="-Ofast -march=native -ffast-math -flto" \
+                -DCMAKE_EXE_LINKER_FLAGS="-flto" \
+                -DCMAKE_BUILD_RPATH="${DIR}/tools/kepler-formal/build/thirdparty/naja/src/dnl:${DIR}/tools/kepler-formal/build/thirdparty/naja/src/nl/nl:${DIR}/tools/kepler-formal/build/thirdparty/naja/src/optimization" \
+                -DCMAKE_INSTALL_RPATH="${INSTALL_PATH}/kepler-formal/lib" \
+                -DCMAKE_BUILD_WITH_INSTALL_RPATH=OFF \
+                -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF \
+                -DCMAKE_INSTALL_PREFIX="${INSTALL_PATH}/kepler-formal"
+        ${NICE} cmake --build tools/kepler-formal/build --target install -j "${PROC}"
+        verify_component "kepler-formal" validate_kepler_install
+}
 
 function usage() {
         cat << EOF
@@ -247,6 +460,7 @@ __docker_build()
 
 __local_build()
 {
+        preflight_local_build
         if [[ "$OSTYPE" == "darwin"* ]]; then
           export PATH="$(brew --prefix bison)/bin:$(brew --prefix flex)/bin:$(brew --prefix tcl-tk)/bin:$PATH"
           export CMAKE_PREFIX_PATH=$(brew --prefix or-tools)
@@ -264,9 +478,17 @@ __local_build()
         fi
 
         if [ -z "${SKIP_OPENROAD+x}" ]; then
-            echo "[INFO FLW-0018] Compiling OpenROAD."
-            eval ${NICE} ./tools/OpenROAD/etc/Build.sh -dir="$DIR/tools/OpenROAD/build" -threads=${PROC} -cmake=\'${OPENROAD_APP_ARGS}\'
-            ${NICE} cmake --build tools/OpenROAD/build --target install -j "${PROC}"
+            if [ -z "${USE_OPENROAD_APP_LATEST+x}" ] \
+                && [ "${OPENROAD_APP_BRANCH}" = "master" ] \
+                && [ -z "${OPENROAD_APP_GIT_URL+x}" ] \
+                && [ -z "${CLEAN_BEFORE+x}" ] \
+                && [ -z "${OPENROAD_APP_USER_ARGS}" ] \
+                && [ -z "${OPENROAD_APP_OVERWRITE_ARGS+x}" ] \
+                && validate_openroad_install; then
+                echo "[INFO FLW-0042] OpenROAD already installed and passes sanity checks. Skipping rebuild."
+            else
+                build_openroad_component
+            fi
         fi
 
         YOSYS_ABC_PATH=tools/yosys/abc
@@ -284,24 +506,27 @@ __local_build()
                 done
         fi
 
-        echo "[INFO FLW-0017] Compiling Yosys."
-        eval ${NICE} make install -C tools/yosys -j "${PROC}" ${YOSYS_ARGS}
+        if [ -z "${CLEAN_BEFORE+x}" ] \
+                && [ -z "${YOSYS_USER_ARGS}" ] \
+                && [ -z "${YOSYS_OVERWRITE_ARGS+x}" ] \
+                && [ "${WITH_VERIFIC}" -eq 0 ] \
+                && validate_yosys_install; then
+                echo "[INFO FLW-0043] Yosys already installed and passes sanity checks. Skipping rebuild."
+        else
+                build_yosys_component
+        fi
 
-        echo "[INFO FLW-0030] Compiling yosys-slang."
-        # CMAKE_FLAGS added to work around yosys-slang#141 (unable to build outside of git checkout)
-        ${NICE} make install -C tools/yosys-slang -j "${PROC}" YOSYS_PREFIX="${INSTALL_PATH}/yosys/bin/" CMAKE_FLAGS="-DYOSYS_SLANG_REVISION=unknown -DSLANG_REVISION=unknown"
+        if [ -z "${CLEAN_BEFORE+x}" ] && [ "${WITH_VERIFIC}" -eq 0 ] && validate_yosys_slang_install; then
+                echo "[INFO FLW-0044] yosys-slang already installed and passes sanity checks. Skipping rebuild."
+        else
+                build_yosys_slang_component
+        fi
 
-        echo "[INFO FLW-0031] Compiling kepler-formal"
-        ${NICE} cmake -B tools/kepler-formal/build tools/kepler-formal \
-                -DCMAKE_BUILD_TYPE=Release \
-                -DCMAKE_CXX_FLAGS_RELEASE="-Ofast -march=native -ffast-math -flto" \
-                -DCMAKE_EXE_LINKER_FLAGS="-flto" \
-                -DCMAKE_BUILD_RPATH="${DIR}/tools/kepler-formal/build/thirdparty/naja/src/dnl:${DIR}/tools/kepler-formal/build/thirdparty/naja/src/nl/nl:${DIR}/tools/kepler-formal/build/thirdparty/naja/src/optimization" \
-                -DCMAKE_INSTALL_RPATH="${INSTALL_PATH}/kepler-formal/lib" \
-                -DCMAKE_BUILD_WITH_INSTALL_RPATH=OFF \
-                -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF \
-                -DCMAKE_INSTALL_PREFIX="${INSTALL_PATH}/kepler-formal"
-        ${NICE} cmake --build tools/kepler-formal/build --target install -j "${PROC}"
+        if validate_kepler_install && [ -z "${CLEAN_BEFORE+x}" ]; then
+                echo "[INFO FLW-0045] kepler-formal already installed and passes sanity checks. Skipping rebuild."
+        else
+                build_kepler_component
+        fi
 
         if [ ${WITH_VERIFIC} -eq 1 ]; then
                 echo "[INFO FLW-0032] Cleaning up Verific components."

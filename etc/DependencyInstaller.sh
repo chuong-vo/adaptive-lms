@@ -23,17 +23,50 @@ _installORDependencies() {
     ./tools/OpenROAD/etc/DependencyInstaller.sh ${OR_INSTALLER_ARGS}
 }
 
+_pythonModuleInstalled() {
+    python3 - "$1" >/dev/null 2>&1 <<'PY'
+import importlib
+import sys
+
+importlib.import_module(sys.argv[1])
+PY
+}
+
 _installPipCommon() {
     if [[ -f /opt/rh/rh-python38/enable ]]; then
         set +u
         source /opt/rh/rh-python38/enable
         set -u
     fi
-    local pkgs="pandas numpy firebase_admin click pyyaml yamlfix"
+    if ! command -v pip3 >/dev/null 2>&1; then
+        echo "ERROR: pip3 is required to install common Python dependencies" >&2
+        exit 1
+    fi
+
+    local -a pkgs=()
+    local spec module
+    for spec in \
+        "pandas:pandas" \
+        "numpy:numpy" \
+        "firebase_admin:firebase_admin" \
+        "click:click" \
+        "pyyaml:yaml" \
+        "yamlfix:yamlfix"; do
+        module="${spec#*:}"
+        if ! _pythonModuleInstalled "${module}"; then
+            pkgs+=("${spec%%:*}")
+        fi
+    done
+
+    if [[ ${#pkgs[@]} -eq 0 ]]; then
+        echo "Common Python dependencies already installed, skipping pip."
+        return 0
+    fi
+
     if [[ $(id -u) == 0 ]]; then
-        pip3 install --no-cache-dir -U $pkgs
+        pip3 install --no-cache-dir -U "${pkgs[@]}"
     else
-        pip3 install --no-cache-dir --user -U $pkgs
+        pip3 install --no-cache-dir --user -U "${pkgs[@]}"
     fi
 }
 

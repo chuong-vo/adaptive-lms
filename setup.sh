@@ -30,6 +30,141 @@ detect_cpu_threads() {
   echo 1
 }
 
+KLAYOUT_MIN_VERSION="0.30.3"
+
+version_ge() {
+  local lhs="$1"
+  local rhs="$2"
+  [[ "$(printf '%s\n%s\n' "$rhs" "$lhs" | sort -V | tail -n1)" == "$lhs" ]]
+}
+
+extract_semver() {
+  printf '%s\n' "$1" | sed -n 's/.*\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/p' | head -n1
+}
+
+python_module_ok() {
+  local module="$1"
+  python3 - "$module" >/dev/null 2>&1 <<'PY'
+import importlib
+import sys
+
+importlib.import_module(sys.argv[1])
+PY
+}
+
+append_if_missing() {
+  local value="$1"
+  shift
+  local -n target="$1"
+  target+=("$value")
+}
+
+path_exists_any() {
+  local path
+  for path in "$@"; do
+    [[ -e "$path" ]] && return 0
+  done
+  return 1
+}
+
+base_dependencies_ready() {
+  local missing=()
+  local cmd
+  for cmd in git make cmake gcc g++ bison flex swig pkg-config python3 pip3 curl; do
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+      append_if_missing "$cmd" missing
+    fi
+  done
+
+  if ! command -v klayout >/dev/null 2>&1; then
+    append_if_missing "klayout>=${KLAYOUT_MIN_VERSION}" missing
+  else
+    local klayout_version
+    klayout_version="$(klayout -v 2>/dev/null | sed -n 's/.*KLayout \([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/p' | head -n1)"
+    if [[ -z "$klayout_version" ]] || ! version_ge "$klayout_version" "$KLAYOUT_MIN_VERSION"; then
+      append_if_missing "klayout>=${KLAYOUT_MIN_VERSION}" missing
+    fi
+  fi
+
+  if ((${#missing[@]})); then
+    echo "Base dependency check is incomplete. Missing:"
+    printf '  - %s\n' "${missing[@]}"
+    return 1
+  fi
+}
+
+common_dependencies_ready() {
+  local missing=()
+  local module
+
+  if [[ ! -f "$DIR/dependencies/env.sh" ]]; then
+    append_if_missing "dependencies/env.sh" missing
+  fi
+
+  if [[ ! -f "$DIR/tools/OpenROAD/etc/openroad_deps_prefixes.txt" ]]; then
+    append_if_missing "tools/OpenROAD/etc/openroad_deps_prefixes.txt" missing
+  fi
+
+  if ! pkg-config --exists libpcre2-8 2>/dev/null && ! path_exists_any \
+    "$DIR/dependencies/include/pcre2.h" \
+    /usr/include/pcre2.h \
+    /usr/include/x86_64-linux-gnu/pcre2.h; then
+    append_if_missing "pcre2" missing
+  fi
+
+  if ! pkg-config --exists yaml-cpp 2>/dev/null && ! path_exists_any \
+    "$DIR/dependencies/include/yaml-cpp/yaml.h" \
+    /usr/include/yaml-cpp/yaml.h; then
+    append_if_missing "yaml-cpp" missing
+  fi
+
+  if ! pkg-config --exists spdlog 2>/dev/null && ! path_exists_any \
+    "$DIR/dependencies/include/spdlog/spdlog.h" \
+    /usr/include/spdlog/spdlog.h; then
+    append_if_missing "spdlog" missing
+  fi
+
+  if ! path_exists_any "$DIR/dependencies/include/boost/version.hpp" /usr/include/boost/version.hpp; then
+    append_if_missing "boost" missing
+  fi
+
+  if ! path_exists_any "$DIR/dependencies/include/eigen3/Eigen/Core" /usr/include/eigen3/Eigen/Core; then
+    append_if_missing "eigen3" missing
+  fi
+
+  if ! path_exists_any "$DIR/dependencies/include/gtest/gtest.h" /usr/include/gtest/gtest.h; then
+    append_if_missing "gtest" missing
+  fi
+
+  if ! path_exists_any "$DIR/dependencies/include/lemon/list_graph.h" /usr/include/lemon/list_graph.h; then
+    append_if_missing "lemon" missing
+  fi
+
+  if ! path_exists_any "$DIR/dependencies/include/cudd.h" /usr/include/cudd.h; then
+    append_if_missing "cudd" missing
+  fi
+
+  if ! path_exists_any \
+    "$DIR/dependencies/lib/cmake/ortools/ortoolsConfig.cmake" \
+    "$DIR/dependencies/lib64/cmake/ortools/ortoolsConfig.cmake" \
+    /opt/or-tools/lib/cmake/ortools/ortoolsConfig.cmake \
+    /opt/or-tools/lib64/cmake/ortools/ortoolsConfig.cmake; then
+    append_if_missing "or-tools" missing
+  fi
+
+  for module in pandas numpy firebase_admin click yamlfix yaml; do
+    if ! python_module_ok "$module"; then
+      append_if_missing "python:${module}" missing
+    fi
+  done
+
+  if ((${#missing[@]})); then
+    echo "Common dependency check is incomplete. Missing:"
+    printf '  - %s\n' "${missing[@]}"
+    return 1
+  fi
+}
+
 THREADS=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -120,5 +255,27 @@ if [[ -n "$THREADS" ]]; then
   installer_threads_arg=(-threads="$THREADS")
 fi
 
-"$DIR/etc/DependencyInstaller.sh" -base "${installer_threads_arg[@]}"
-sudo -u "$SUDO_USER" "$DIR/etc/DependencyInstaller.sh" -common -prefix="$DIR/dependencies" "${installer_threads_arg[@]}"
+run_base=1
+if base_dependencies_ready; then
+  echo "Base dependencies already satisfy the setup preflight. Skipping -base."
+  run_base=0
+fi
+
+run_common=1
+if common_dependencies_ready; then
+  echo "Common dependencies already satisfy the setup preflight. Skipping -common."
+  run_common=0
+fi
+
+if [[ "$run_base" -eq 0 && "$run_common" -eq 0 ]]; then
+  echo "Setup preflight passed. Nothing to install."
+  exit 0
+fi
+
+if [[ "$run_base" -eq 1 ]]; then
+  "$DIR/etc/DependencyInstaller.sh" -base "${installer_threads_arg[@]}"
+fi
+
+if [[ "$run_common" -eq 1 ]]; then
+  sudo -u "$SUDO_USER" "$DIR/etc/DependencyInstaller.sh" -common -prefix="$DIR/dependencies" "${installer_threads_arg[@]}"
+fi

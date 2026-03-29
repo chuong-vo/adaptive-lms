@@ -33,6 +33,7 @@ REPO_ROOT="$(cd "$HANDOFF_DIR/../.." && pwd)"
 BACKUP_DIR="$SCRIPT_DIR/.backup"
 STATE_FILE="$SCRIPT_DIR/.install-state.tsv"
 ENV_FILE="$SCRIPT_DIR/env.sh"
+KLAYOUT_MIN_VERSION="0.30.3"
 
 CHECK_ONLY=0
 RESTORE_ONLY=0
@@ -110,6 +111,69 @@ detect_exe() {
   return 1
 }
 
+version_ge() {
+  local lhs="$1"
+  local rhs="$2"
+  [[ "$(printf '%s\n%s\n' "$rhs" "$lhs" | sort -V | tail -n1)" == "$lhs" ]]
+}
+
+extract_semver() {
+  printf '%s\n' "$1" | sed -n 's/.*\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/p' | head -n1
+}
+
+validate_openroad() {
+  local out
+  if ! out="$("$OPENROAD_BIN" -version 2>&1)"; then
+    echo "$out" >&2
+    echo "OpenROAD executable exists but failed to run: $OPENROAD_BIN" >&2
+    return 1
+  fi
+  if [[ -z "$out" ]]; then
+    echo "OpenROAD executable exists but failed to report its version: $OPENROAD_BIN" >&2
+    return 1
+  fi
+}
+
+validate_yosys() {
+  local out
+  if ! out="$("$YOSYS_BIN" -V 2>&1)"; then
+    echo "$out" >&2
+    echo "Yosys executable exists but failed to run: $YOSYS_BIN" >&2
+    return 1
+  fi
+  if [[ -z "$out" ]]; then
+    echo "Yosys executable exists but failed to report its version: $YOSYS_BIN" >&2
+    return 1
+  fi
+}
+
+validate_klayout() {
+  local out version
+  if ! out="$("$KLAYOUT_BIN" -v 2>&1)"; then
+    echo "$out" >&2
+    echo "KLayout executable exists but failed to run: $KLAYOUT_BIN" >&2
+    return 1
+  fi
+  version="$(extract_semver "$out")"
+  if [[ -z "$version" ]]; then
+    echo "KLayout executable exists but failed to report a semantic version: $KLAYOUT_BIN" >&2
+    return 1
+  fi
+  if ! version_ge "$version" "$KLAYOUT_MIN_VERSION"; then
+    echo "KLayout version $version is too old; need at least $KLAYOUT_MIN_VERSION" >&2
+    return 1
+  fi
+}
+
+warn_yosys_slang() {
+  if ! "$YOSYS_BIN" -m slang -p 'help read_slang' >/dev/null 2>&1; then
+    cat >&2 <<'EOF'
+Warning: yosys-slang plugin is not available in the resolved Yosys install.
+Designs that set SYNTH_HDL_FRONTEND=slang will fail until yosys-slang is built and installed.
+EOF
+  fi
+}
+
 shell_quote() {
   printf '%q' "$1"
 }
@@ -181,17 +245,17 @@ if [[ "$RESTORE_ONLY" -eq 1 ]]; then
 fi
 
 OPENROAD_BIN="$(detect_exe "OpenROAD" "$OPENROAD_BIN" \
-  "$(command -v openroad 2>/dev/null || true)" \
-  "$REPO_ROOT/tools/install/OpenROAD/bin/openroad")"
+  "$REPO_ROOT/tools/install/OpenROAD/bin/openroad" \
+  "$(command -v openroad 2>/dev/null || true)")"
 
 YOSYS_BIN="$(detect_exe "Yosys" "$YOSYS_BIN" \
-  "$(command -v yosys 2>/dev/null || true)" \
   "$REPO_ROOT/tools/install/yosys/bin/yosys" \
-  "$REPO_ROOT/tools/oss-cad/oss-cad-suite/bin/yosys")"
+  "$REPO_ROOT/tools/oss-cad/oss-cad-suite/bin/yosys" \
+  "$(command -v yosys 2>/dev/null || true)")"
 
 KLAYOUT_BIN="$(detect_exe "KLayout" "$KLAYOUT_BIN" \
-  "$(command -v klayout 2>/dev/null || true)" \
-  "$REPO_ROOT/tools/install/klayout/klayout")"
+  "$REPO_ROOT/tools/install/klayout/klayout" \
+  "$(command -v klayout 2>/dev/null || true)")"
 
 for required_file in \
   "$HANDOFF_DIR/scripts/openroad/design/config.mk" \
@@ -204,6 +268,11 @@ for required_file in \
     exit 1
   fi
 done
+
+validate_openroad
+validate_yosys
+validate_klayout
+warn_yosys_slang
 
 print_detected
 

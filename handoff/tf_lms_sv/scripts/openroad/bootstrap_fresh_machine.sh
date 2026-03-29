@@ -58,6 +58,171 @@ detect_cpu_threads() {
   echo 1
 }
 
+KLAYOUT_MIN_VERSION="0.30.3"
+
+version_ge() {
+  local lhs="$1"
+  local rhs="$2"
+  [[ "$(printf '%s\n%s\n' "$rhs" "$lhs" | sort -V | tail -n1)" == "$lhs" ]]
+}
+
+extract_semver() {
+  printf '%s\n' "$1" | sed -n 's/.*\([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/p' | head -n1
+}
+
+append_gap() {
+  local -n target_ref="$1"
+  target_ref+=("$2")
+}
+
+path_exists_any() {
+  local path
+  for path in "$@"; do
+    [[ -e "$path" ]] && return 0
+  done
+  return 1
+}
+
+python_module_ok() {
+  local module="$1"
+  python3 - "$module" >/dev/null 2>&1 <<'PY'
+import importlib
+import sys
+
+importlib.import_module(sys.argv[1])
+PY
+}
+
+collect_base_dependency_gaps() {
+  local -n gaps_ref="$1"
+  local cmd
+  for cmd in git make cmake gcc g++ bison flex swig pkg-config python3 pip3 curl; do
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+      append_gap gaps_ref "$cmd"
+    fi
+  done
+
+  if ! command -v klayout >/dev/null 2>&1; then
+    append_gap gaps_ref "klayout>=${KLAYOUT_MIN_VERSION}"
+    return
+  fi
+
+  local version
+  version="$(extract_semver "$(klayout -v 2>/dev/null || true)")"
+  if [[ -z "$version" ]] || ! version_ge "$version" "$KLAYOUT_MIN_VERSION"; then
+    append_gap gaps_ref "klayout>=${KLAYOUT_MIN_VERSION}"
+  fi
+}
+
+collect_common_dependency_gaps() {
+  local -n gaps_ref="$1"
+  local module
+
+  if [[ ! -f "$REPO_ROOT/dependencies/env.sh" ]]; then
+    append_gap gaps_ref "dependencies/env.sh"
+  fi
+
+  if [[ ! -f "$REPO_ROOT/tools/OpenROAD/etc/openroad_deps_prefixes.txt" ]]; then
+    append_gap gaps_ref "tools/OpenROAD/etc/openroad_deps_prefixes.txt"
+  fi
+
+  if ! pkg-config --exists libpcre2-8 2>/dev/null && ! path_exists_any \
+    "$REPO_ROOT/dependencies/include/pcre2.h" \
+    /usr/include/pcre2.h \
+    /usr/include/x86_64-linux-gnu/pcre2.h; then
+    append_gap gaps_ref "pcre2"
+  fi
+
+  if ! pkg-config --exists yaml-cpp 2>/dev/null && ! path_exists_any \
+    "$REPO_ROOT/dependencies/include/yaml-cpp/yaml.h" \
+    /usr/include/yaml-cpp/yaml.h; then
+    append_gap gaps_ref "yaml-cpp"
+  fi
+
+  if ! pkg-config --exists spdlog 2>/dev/null && ! path_exists_any \
+    "$REPO_ROOT/dependencies/include/spdlog/spdlog.h" \
+    /usr/include/spdlog/spdlog.h; then
+    append_gap gaps_ref "spdlog"
+  fi
+
+  if ! path_exists_any "$REPO_ROOT/dependencies/include/boost/version.hpp" /usr/include/boost/version.hpp; then
+    append_gap gaps_ref "boost"
+  fi
+
+  if ! path_exists_any "$REPO_ROOT/dependencies/include/eigen3/Eigen/Core" /usr/include/eigen3/Eigen/Core; then
+    append_gap gaps_ref "eigen3"
+  fi
+
+  if ! path_exists_any "$REPO_ROOT/dependencies/include/gtest/gtest.h" /usr/include/gtest/gtest.h; then
+    append_gap gaps_ref "gtest"
+  fi
+
+  if ! path_exists_any "$REPO_ROOT/dependencies/include/lemon/list_graph.h" /usr/include/lemon/list_graph.h; then
+    append_gap gaps_ref "lemon"
+  fi
+
+  if ! path_exists_any "$REPO_ROOT/dependencies/include/cudd.h" /usr/include/cudd.h; then
+    append_gap gaps_ref "cudd"
+  fi
+
+  if ! path_exists_any \
+    "$REPO_ROOT/dependencies/lib/cmake/ortools/ortoolsConfig.cmake" \
+    "$REPO_ROOT/dependencies/lib64/cmake/ortools/ortoolsConfig.cmake" \
+    /opt/or-tools/lib/cmake/ortools/ortoolsConfig.cmake \
+    /opt/or-tools/lib64/cmake/ortools/ortoolsConfig.cmake; then
+    append_gap gaps_ref "or-tools"
+  fi
+
+  for module in pandas numpy firebase_admin click yamlfix yaml; do
+    if ! python_module_ok "$module"; then
+      append_gap gaps_ref "python:${module}"
+    fi
+  done
+}
+
+validate_local_openroad() {
+  local bin="$REPO_ROOT/tools/install/OpenROAD/bin/openroad"
+  [[ -x "$bin" ]] && "$bin" -version >/dev/null 2>&1
+}
+
+validate_local_yosys() {
+  local bin="$REPO_ROOT/tools/install/yosys/bin/yosys"
+  [[ -x "$bin" ]] && "$bin" -V >/dev/null 2>&1
+}
+
+validate_local_yosys_slang() {
+  local yosys_bin="$REPO_ROOT/tools/install/yosys/bin/yosys"
+  local plugin="$REPO_ROOT/tools/install/yosys/share/yosys/plugins/slang.so"
+  [[ -x "$yosys_bin" && -f "$plugin" ]] || return 1
+  "$yosys_bin" -m slang -p 'help read_slang' >/dev/null 2>&1
+}
+
+validate_local_kepler() {
+  local bin="$REPO_ROOT/tools/install/kepler-formal/bin/kepler-formal"
+  [[ -x "$bin" ]] && "$bin" --help >/dev/null 2>&1
+}
+
+collect_build_gaps() {
+  local -n gaps_ref="$1"
+  validate_local_openroad || append_gap gaps_ref "OpenROAD local install"
+  validate_local_yosys || append_gap gaps_ref "Yosys local install"
+  validate_local_yosys_slang || append_gap gaps_ref "yosys-slang local install"
+  validate_local_kepler || append_gap gaps_ref "kepler-formal local install"
+}
+
+print_gap_report() {
+  local header="$1"
+  shift
+  local gaps=("$@")
+  if ((${#gaps[@]} == 0)); then
+    echo "$header: ready"
+    return 0
+  fi
+
+  echo "$header: missing"
+  printf '  - %s\n' "${gaps[@]}"
+}
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --deps)
@@ -187,7 +352,16 @@ verify_flow_setup() {
 }
 
 run_deps() {
+  local dep_gaps=()
+  collect_base_dependency_gaps dep_gaps
+  collect_common_dependency_gaps dep_gaps
+  if ((${#dep_gaps[@]} == 0)); then
+    echo "[1/4] Dependency preflight already passes. Skipping setup.sh"
+    return 0
+  fi
+
   echo "[1/4] Running ORFS dependency installer with sudo"
+  print_gap_report "[deps] Setup prerequisites before install" "${dep_gaps[@]}"
   command -v sudo >/dev/null 2>&1 || {
     echo "Missing required command: sudo" >&2
     exit 1
@@ -199,10 +373,26 @@ run_deps() {
     setup_args+=(--threads "$THREADS")
   fi
   (cd "$REPO_ROOT" && sudo ./setup.sh "${setup_args[@]}")
+
+  dep_gaps=()
+  collect_base_dependency_gaps dep_gaps
+  collect_common_dependency_gaps dep_gaps
+  if ((${#dep_gaps[@]} != 0)); then
+    print_gap_report "[deps] Remaining issues after setup" "${dep_gaps[@]}"
+    exit 1
+  fi
 }
 
 run_build() {
+  local build_gaps=()
+  collect_build_gaps build_gaps
+  if ((${#build_gaps[@]} == 0)); then
+    echo "[2/4] Local toolchain already passes sanity checks. Skipping build_openroad.sh"
+    return 0
+  fi
+
   echo "[2/4] Building OpenROAD and Yosys locally"
+  print_gap_report "[build] Missing or invalid local artifacts" "${build_gaps[@]}"
   ensure_submodules
   assert_tool_sources
   local args=(--local)
@@ -210,6 +400,13 @@ run_build() {
     args+=(--threads "$THREADS")
   fi
   (cd "$REPO_ROOT" && ./build_openroad.sh "${args[@]}")
+
+  build_gaps=()
+  collect_build_gaps build_gaps
+  if ((${#build_gaps[@]} != 0)); then
+    print_gap_report "[build] Remaining issues after build" "${build_gaps[@]}"
+    exit 1
+  fi
 }
 
 install_tf_lms_env() {
@@ -226,16 +423,30 @@ assert_repo
 show_plan
 
 if [[ "$CHECK_ONLY" -eq 1 ]]; then
+  dep_gaps=()
+  build_gaps=()
   if submodules_need_init; then
     echo "Warning: some recursive submodules are not initialized or out of sync." >&2
     echo "They will be initialized automatically during --deps/--build." >&2
   fi
   assert_tool_sources
+  collect_base_dependency_gaps dep_gaps
+  collect_common_dependency_gaps dep_gaps
+  collect_build_gaps build_gaps
+  print_gap_report "Dependency status" "${dep_gaps[@]}"
+  print_gap_report "Local build status" "${build_gaps[@]}"
   if ! (cd "$REPO_ROOT" && "$SETUP_ENV" --check); then
-    echo "setup_env --check failed. Ensure OpenROAD/Yosys/KLayout are installed." >&2
+    echo "setup_env --check failed." >&2
+    if ((${#build_gaps[@]} != 0)); then
+      echo "Local tools are not ready yet; run --build or --all." >&2
+    fi
+    if ((${#dep_gaps[@]} != 0)); then
+      echo "Some setup dependencies are still missing; run --deps or --all." >&2
+    fi
+    echo "Ensure OpenROAD, Yosys, and KLayout resolve either from PATH or from tools/install." >&2
     exit 1
   fi
-  echo "Check complete."
+  echo "Bootstrap preflight complete."
   echo "Typical command:"
   echo "  $SCRIPT_DIR/bootstrap_fresh_machine.sh --all"
   exit 0
