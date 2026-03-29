@@ -4,10 +4,10 @@ set -euo pipefail
 usage() {
   cat <<'EOF'
 Usage:
-  ./setup_env.sh
-  ./setup_env.sh --check
-  ./setup_env.sh --restore
-  ./setup_env.sh --openroad /path/to/openroad --yosys /path/to/yosys --klayout /path/to/klayout
+  ./configure_flow.sh
+  ./configure_flow.sh --check
+  ./configure_flow.sh --restore
+  ./configure_flow.sh --openroad /path/to/openroad --yosys /path/to/yosys --klayout /path/to/klayout
 
 What it does:
   1. Detects OpenROAD, Yosys, and KLayout.
@@ -310,5 +310,5 @@ chmod +x "$ENV_FILE"
 echo "Wrote env file: $ENV_FILE"
 echo "Next:"
 echo "  source $ENV_FILE"
-echo "  $SCRIPT_DIR/run_flow.sh check"
-echo "  $SCRIPT_DIR/run_flow.sh rerun"
+echo "  $SCRIPT_DIR/flow.sh check"
+echo "  $SCRIPT_DIR/flow.sh rerun"

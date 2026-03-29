@@ -1,114 +1,91 @@
-# `tf_lms_sv` OpenROAD rerun scripts
+# `tf_lms_sv` OpenROAD scripts
 
-## Mục tiêu
+Đây là thư mục script để setup và chạy flow OpenROAD cho `tf_lms_sv`.
 
-Bộ script này dùng để:
+Nếu bạn cần tài liệu đầy đủ từ lúc chuẩn bị Linux, clone repo, setup tool, chạy flow, xem input/output và xử lý lỗi:
 
-- dựng lại môi trường chạy `tf_lms_sv`
-- cài các patch ORFS cần cho flow hiện tại
-- sinh file `env.sh` với path local của từng máy
-- cho phép thành viên khác trong nhóm chạy lại toàn bộ flow bằng một lệnh
+- xem [SETUP.md](/home/chuongvo/adaptive-lms/SETUP.md)
 
-## File chính
+## Script nên dùng
 
-- `bootstrap_fresh_machine.sh`: wrapper cho máy mới, dùng `setup.sh` + `build_openroad.sh` của ORFS rồi nối sang flow `tf_lms_sv`
-- `setup_env.sh`: detect tool, cài collateral vào repo, sinh `env.sh`
-- `run_flow.sh`: wrapper để chạy lại từng bước hoặc toàn bộ flow
-- `design/config.mk`: design config đã dùng cho `tf_lms_sv`
-- `flow/global_place.tcl`: bản vá placer tương thích với OpenROAD hiện tại
-- `flow/util.tcl`: bản vá `repair_timing` để nhận `MAX_BUFFER_PERCENT` và `MAX_UTILIZATION`
-- `klayout/FreePDK45_orfs_lvs.lylvs`: deck LVS đã dùng
-- `klayout/FreePDK45_beol_noant.lydrc`: deck DRC đã dùng
+- `./setup_tools.sh`
+  Dùng cho máy mới. Cài dependency và build tool.
+- `./configure_flow.sh`
+  Detect tool local, cài collateral patch, sinh `env.sh`.
+- `./flow.sh`
+  Chạy flow và in trạng thái từng bước.
 
-## Yêu cầu
+Tên cũ vẫn còn để tương thích ngược:
 
-Máy chạy cần có:
+- `bootstrap_fresh_machine.sh`
+- `setup_env.sh`
+- `run_flow.sh`
 
-- `openroad`
-- `yosys`
-- `klayout`
-- `make`
-- repo này với cây `handoff/tf_lms_sv/` còn nguyên
+## Quick start
 
-Nếu tool không ở `PATH`, có thể truyền path tường minh:
+### Setup môi trường, chưa chạy flow
 
 ```bash
-./setup_env.sh \
-  --openroad /path/to/openroad \
-  --yosys /path/to/yosys \
-  --klayout /path/to/klayout
+cd ~/adaptive-lms/handoff/tf_lms_sv/scripts/openroad
+./setup_tools.sh --check-only
+./setup_tools.sh --deps --build
+./configure_flow.sh
+./flow.sh check
 ```
 
-## Cách dùng
-
-Từ repo root:
+### Setup xong và chạy full flow
 
 ```bash
-cd handoff/tf_lms_sv/scripts/openroad
-./setup_env.sh
-./run_flow.sh check
-./run_flow.sh rerun
+cd ~/adaptive-lms/handoff/tf_lms_sv/scripts/openroad
+./setup_tools.sh --all --threads 8
 ```
 
-## Máy mới hoàn toàn
-
-Nếu là máy mới, clone repo trước:
+### Chạy lại flow sau này
 
 ```bash
-git clone --recursive <repo-url>
-cd OpenROAD-flow-scripts
-```
-
-Sau đó chạy wrapper bootstrap:
-
-```bash
-cd handoff/tf_lms_sv/scripts/openroad
-./bootstrap_fresh_machine.sh --all
-```
-
-Wrapper này sẽ:
-
-1. chạy `sudo ./setup.sh`
-2. chạy `./build_openroad.sh --local`
-3. cài collateral `tf_lms_sv`
-4. rerun full flow
-
-Nếu chỉ muốn cài dependency + build tool, chưa chạy flow:
-
-```bash
-./bootstrap_fresh_machine.sh --deps --build
+cd ~/adaptive-lms/handoff/tf_lms_sv/scripts/openroad
+./flow.sh rerun -j 8
 ```
 
 ## Lệnh thường dùng
 
 ```bash
-./run_flow.sh synth
-./run_flow.sh floorplan
-./run_flow.sh place
-./run_flow.sh cts
-./run_flow.sh route
-./run_flow.sh finish
-./run_flow.sh lvs
-./run_flow.sh drc
-./run_flow.sh signoff
-./run_flow.sh rerun
+./flow.sh check
+./flow.sh clean
+./flow.sh synth
+./flow.sh floorplan
+./flow.sh place
+./flow.sh cts
+./flow.sh route
+./flow.sh finish
+./flow.sh lvs
+./flow.sh drc
+./flow.sh signoff
+./flow.sh all -j 8
+./flow.sh rerun -j 8
 ```
 
-## Kết quả nằm ở đâu
+## File chính trong thư mục này
 
-- Flow log/report/result:
-  - `flow/logs/nangate45/tf_lms_sv/base/`
-  - `flow/reports/nangate45/tf_lms_sv/base/`
-  - `flow/results/nangate45/tf_lms_sv/base/`
-- Signoff copy đã gom:
-  - `handoff/tf_lms_sv/signoff/`
+- [`flow.sh`](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/flow.sh)
+- [`configure_flow.sh`](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/configure_flow.sh)
+- [`setup_tools.sh`](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/setup_tools.sh)
+- [`env.sh`](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/env.sh)
+- [`design/config.mk`](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/design/config.mk)
+- [`klayout/FreePDK45_orfs_lvs.lylvs`](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/klayout/FreePDK45_orfs_lvs.lylvs)
+- [`klayout/FreePDK45_beol_noant.lydrc`](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/klayout/FreePDK45_beol_noant.lydrc)
 
-## Restore patch
+## Output của flow nằm ở đâu
 
-Nếu cần trả repo về trạng thái trước khi chạy `setup_env.sh`:
+- Results:
+  [flow/results/nangate45/tf_lms_sv/base](/home/chuongvo/adaptive-lms/flow/results/nangate45/tf_lms_sv/base)
+- Logs:
+  [flow/logs/nangate45/tf_lms_sv/base](/home/chuongvo/adaptive-lms/flow/logs/nangate45/tf_lms_sv/base)
+- Reports:
+  [flow/reports/nangate45/tf_lms_sv/base](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base)
 
-```bash
-./setup_env.sh --restore
-```
+## Ghi chú
 
-Script sẽ dùng backup trong `scripts/openroad/.backup/`.
+- Khuyến nghị build trong Linux filesystem, ví dụ `~/adaptive-lms`
+- Không khuyến nghị build trong `/mnt/c/...` nếu đang dùng WSL
+- `flow.sh show-env` cho biết chính xác flow đang dùng tool nào

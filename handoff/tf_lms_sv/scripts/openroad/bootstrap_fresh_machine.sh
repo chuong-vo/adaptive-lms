@@ -4,20 +4,20 @@ set -euo pipefail
 usage() {
   cat <<'EOF'
 Usage:
-  ./bootstrap_fresh_machine.sh [options]
+  ./setup_tools.sh [options]
 
 Run this script from inside a cloned OpenROAD-flow-scripts repo.
 
 What it does:
   1. Runs ORFS dependency setup (`setup.sh`) if requested.
   2. Builds OpenROAD/Yosys locally using ORFS (`build_openroad.sh --local`).
-  3. Installs tf_lms_sv collateral (`setup_env.sh`).
-  4. Optionally reruns the full flow (`run_flow.sh rerun`).
+  3. Installs tf_lms_sv collateral (`configure_flow.sh`).
+  4. Optionally reruns the full flow (`flow.sh rerun`).
 
 Options:
   --deps          Run `sudo ./setup.sh`.
   --build         Run `./build_openroad.sh --local`.
-  --rerun         Run `run_flow.sh rerun` after setup/build.
+  --rerun         Run `flow.sh rerun` after setup/build.
   --threads N     Parallel jobs for dependency setup, submodule update, and build.
   --threads auto  Auto-detect jobs from CPU count (default).
   --check-only    Only validate repo layout and print next steps.
@@ -25,9 +25,9 @@ Options:
   -h, --help      Show help.
 
 Examples:
-  ./bootstrap_fresh_machine.sh --all
-  ./bootstrap_fresh_machine.sh --deps --build
-  ./bootstrap_fresh_machine.sh --build --threads 8 --rerun
+  ./setup_tools.sh --all
+  ./setup_tools.sh --deps --build
+  ./setup_tools.sh --build --threads 8 --rerun
 EOF
 }
 
@@ -35,6 +35,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
 SETUP_ENV="$SCRIPT_DIR/setup_env.sh"
 RUN_FLOW="$SCRIPT_DIR/run_flow.sh"
+CONFIGURE_FLOW_ALIAS="$SCRIPT_DIR/configure_flow.sh"
+FLOW_ALIAS="$SCRIPT_DIR/flow.sh"
+SETUP_TOOLS_ALIAS="$SCRIPT_DIR/setup_tools.sh"
 
 DO_DEPS=0
 DO_BUILD=0
@@ -296,8 +299,8 @@ assert_repo() {
 show_plan() {
   cat <<EOF
 Repo root : $REPO_ROOT
-Setup env : $SETUP_ENV
-Run flow  : $RUN_FLOW
+Configure : $CONFIGURE_FLOW_ALIAS
+Flow      : $FLOW_ALIAS
 Deps      : $DO_DEPS
 Build     : $DO_BUILD
 Rerun     : $DO_RERUN
@@ -448,7 +451,7 @@ if [[ "$CHECK_ONLY" -eq 1 ]]; then
   fi
   echo "Bootstrap preflight complete."
   echo "Typical command:"
-  echo "  $SCRIPT_DIR/bootstrap_fresh_machine.sh --all"
+  echo "  $SETUP_TOOLS_ALIAS --all"
   exit 0
 fi
 
@@ -478,5 +481,5 @@ fi
 echo "Done."
 echo "Next useful commands:"
 echo "  cd $REPO_ROOT"
-echo "  $RUN_FLOW check"
-echo "  $RUN_FLOW rerun"
+echo "  $FLOW_ALIAS check"
+echo "  $FLOW_ALIAS rerun"
