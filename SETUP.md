@@ -1,192 +1,78 @@
-# Setup và chạy OpenROAD cho `tf_lms_sv`
+# Hướng dẫn setup và chạy OpenROAD cho `tf_lms_sv`
 
-Tài liệu này dành cho người mới clone repo về và muốn đi từ máy Linux trống đến lúc:
+Tài liệu này mô tả quy trình chuẩn để:
 
-- cài dependency và build tool
-- cấu hình flow cho máy local
-- chạy từng bước hoặc chạy full flow
-- biết input nào được dùng và output nằm ở đâu
-- biết cách đọc lỗi thường gặp
+- cài dependency và build tool trên máy Linux mới
+- cấu hình flow `tf_lms_sv` cho máy local
+- chạy flow và đọc output chính
 
-Tài liệu chính dùng các tên script thân thiện:
+Ba script chính của flow:
 
 - `setup_tools.sh`: cài dependency và build tool
-- `configure_flow.sh`: cấu hình flow cho máy local
+- `configure_flow.sh`: cấu hình flow local, sinh `env.sh`
 - `flow.sh`: chạy flow
-
-Tên cũ vẫn còn để tương thích ngược:
-
-- `bootstrap_fresh_machine.sh`
-- `setup_env.sh`
-- `run_flow.sh`
 
 ## 1. Môi trường khuyến nghị
 
 - Linux native hoặc WSL2
-- Khuyến nghị Ubuntu 22.04 hoặc tương đương
-- Có `git`, `sudo`, internet ổn định
-- Có đủ dung lượng đĩa để build OpenROAD/Yosys
+- Ubuntu 22.04 hoặc tương đương
+- Có `git`, `sudo`, kết nối internet ổn định
+- Có đủ dung lượng đĩa để build OpenROAD và Yosys
 
 Nếu dùng WSL:
 
-- nên đặt repo trong Linux filesystem, ví dụ `~/adaptive-lms`
-- không nên build trong `/mnt/c/...` vì chậm và dễ lỗi hơn
+- đặt repo trong Linux filesystem, ví dụ `~/adaptive-lms`
+- không build trong `/mnt/c/...`
 
-## 2. Cài gói nền tảng trên Ubuntu
-
-Khuyến nghị cài sẵn các gói cơ bản này trước khi clone repo:
+## 2. Gói nền tảng trên Ubuntu
 
 ```bash
 sudo apt-get update
 sudo apt-get install -y git ca-certificates cmake swig
 ```
 
-Điều này giúp lần setup đầu tiên trên Ubuntu mượt hơn, nhất là khi bạn chỉ muốn kiểm tra nhanh môi trường trước khi build.
-
-## 3. Clone repo
+## 3. Clone và đồng bộ repo
 
 ```bash
-cd ~
-git clone --recursive https://github.com/chuong-vo/adaptive-lms.git
-cd adaptive-lms
-```
-
-Nếu repo đã clone từ trước:
-
-```bash
-git pull
-git submodule sync --recursive
-git submodule update --init --recursive
-```
-
-## 4. Vào đúng thư mục script
-
-Toàn bộ script setup và chạy flow của `tf_lms_sv` nằm ở:
-
-[`handoff/tf_lms_sv/scripts/openroad`](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad)
-
-Di chuyển vào đó:
-
-```bash
-cd handoff/tf_lms_sv/scripts/openroad
-```
-
-## 5. Ý nghĩa từng script
-
-### `./setup_tools.sh`
-
-Dùng cho máy mới hoặc máy chưa build tool.
-
-Nó có thể:
-
-- kiểm tra môi trường hiện tại
-- cài dependency hệ thống qua `setup.sh`
-- build local `OpenROAD`, `Yosys`, `yosys-slang`, `kepler-formal`
-- không cấu hình flow
-- không chạy flow
-
-### `./configure_flow.sh`
-
-Dùng để nối tool local của máy bạn vào flow `tf_lms_sv`.
-
-Nó sẽ:
-
-- detect `openroad`, `yosys`, `klayout`
-- cài collateral patch cần cho flow
-- sinh file [`env.sh`](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/env.sh)
-
-### `./flow.sh`
-
-Dùng để chạy flow.
-
-Nó hỗ trợ:
-
-- `check`
-- `clean`
-- `synth`
-- `floorplan`
-- `place`
-- `cts`
-- `route`
-- `finish`
-- `lvs`
-- `drc`
-- `signoff`
-- `all`
-- `rerun`
-
-## 6. Trình tự chuẩn
-
-Tách bạch theo đúng vai trò:
-
-1. `setup_tools.sh`
-   Chỉ cài dependency và build tool.
-2. `configure_flow.sh`
-   Chỉ cấu hình flow `tf_lms_sv` cho máy local.
-3. `flow.sh`
-   Chỉ chạy flow.
-
-## 7. Máy mới hoàn toàn
-
-### Cách chuẩn nhất
-
-```bash
-sudo apt-get update
-sudo apt-get install -y git ca-certificates cmake swig
-
 cd ~
 git clone --recursive https://github.com/chuong-vo/adaptive-lms.git
 cd adaptive-lms
 git pull
 git submodule sync --recursive
 git submodule update --init --recursive
-
-cd handoff/tf_lms_sv/scripts/openroad
-./setup_tools.sh --check-only
-./setup_tools.sh --all --threads 8
-./configure_flow.sh
-./flow.sh check
-./flow.sh rerun -j 8
 ```
 
-### Nếu chỉ muốn setup tool, chưa chạy flow
+## 4. Setup trên máy mới
 
 ```bash
 cd ~/adaptive-lms/handoff/tf_lms_sv/scripts/openroad
 ./setup_tools.sh --check-only
 ./setup_tools.sh --all --threads 8
-```
-
-Khi nào cần cấu hình và chạy flow:
-
-```bash
 ./configure_flow.sh
 ./flow.sh check
+```
+
+Ý nghĩa:
+
+- `setup_tools.sh` chỉ setup toolchain
+- `configure_flow.sh` chỉ cấu hình flow local
+- `flow.sh check` chỉ kiểm tra môi trường, chưa chạy PnR/signoff
+
+Nếu muốn để script tự chọn số luồng:
+
+```bash
+./setup_tools.sh --all --threads auto
+```
+
+## 5. Chạy flow
+
+Chạy toàn bộ flow:
+
+```bash
 ./flow.sh rerun -j 8
 ```
 
-### Nếu muốn tự chọn từng bước setup
-
-```bash
-./setup_tools.sh --check-only
-./setup_tools.sh --deps --build --threads 8
-./configure_flow.sh
-./flow.sh check
-```
-
-Nếu không muốn giới hạn số luồng, thay `8` bằng `auto`.
-
-## 8. Chạy lại sau khi đã setup xong
-
-Sau khi tool đã build xong, lần sau chỉ cần:
-
-```bash
-cd ~/adaptive-lms/handoff/tf_lms_sv/scripts/openroad
-./flow.sh check
-./flow.sh rerun
-```
-
-## 9. Chạy từng bước
+Chạy từng bước:
 
 ```bash
 ./flow.sh synth
@@ -202,190 +88,88 @@ cd ~/adaptive-lms/handoff/tf_lms_sv/scripts/openroad
 Các lệnh gộp:
 
 ```bash
-./flow.sh all
-./flow.sh signoff
-./flow.sh rerun
-```
-
-Nếu muốn truyền thêm tham số cho `make`, ví dụ số luồng:
-
-```bash
 ./flow.sh all -j 8
-./flow.sh rerun -j 8
+./flow.sh signoff
+./flow.sh clean
+./flow.sh show-env
 ```
 
-## 10. Input của flow là gì
+## 6. Input chính của flow
 
-Thiết kế `tf_lms_sv` dùng các input chính sau:
+Thiết kế `tf_lms_sv` dùng ba input do người dùng quản lý:
 
-- Design config:
-  [flow/designs/nangate45/tf_lms_sv/config.mk](/home/chuongvo/adaptive-lms/flow/designs/nangate45/tf_lms_sv/config.mk)
-- RTL:
-  [code/src/sv/rtl/adaptation_lms.sv](/home/chuongvo/adaptive-lms/code/src/sv/rtl/adaptation_lms.sv)
-- Constraint:
-  [code/constraints/tf_lms_sv.sdc](/home/chuongvo/adaptive-lms/code/constraints/tf_lms_sv.sdc)
-- LVS deck:
-  [FreePDK45_orfs_lvs.lylvs](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/klayout/FreePDK45_orfs_lvs.lylvs)
-- DRC deck:
-  [FreePDK45_beol_noant.lydrc](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/klayout/FreePDK45_beol_noant.lydrc)
+- RTL: [adaptation_lms.sv](/home/chuongvo/adaptive-lms/code/src/sv/rtl/adaptation_lms.sv)
+- Constraint: [tf_lms_sv.sdc](/home/chuongvo/adaptive-lms/code/constraints/tf_lms_sv.sdc)
+- Design config: [config.mk](/home/chuongvo/adaptive-lms/flow/designs/nangate45/tf_lms_sv/config.mk)
 
-## 11. Output nằm ở đâu
+Platform data, LEF/LIB, Tcl flow, LVS deck và DRC deck được lấy từ repo hiện tại.
 
-Output chính của flow nằm ở 4 thư mục:
+Lưu ý: thư mục `code/pdk` không còn được dùng cho flow OpenROAD này. Các file công nghệ cần thiết nằm trong [`flow/platforms`](/home/chuongvo/adaptive-lms/flow/platforms).
 
-- Results:
-  [flow/results/nangate45/tf_lms_sv/base](/home/chuongvo/adaptive-lms/flow/results/nangate45/tf_lms_sv/base)
-- Logs:
-  [flow/logs/nangate45/tf_lms_sv/base](/home/chuongvo/adaptive-lms/flow/logs/nangate45/tf_lms_sv/base)
-- Reports:
-  [flow/reports/nangate45/tf_lms_sv/base](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base)
-- Objects:
-  [flow/objects/nangate45/tf_lms_sv/base](/home/chuongvo/adaptive-lms/flow/objects/nangate45/tf_lms_sv/base)
+## 7. Output chính
 
-File final quan trọng nhất sau `finish`:
+Output của flow nằm ở:
 
-- GDS:
-  [6_final.gds](/home/chuongvo/adaptive-lms/flow/results/nangate45/tf_lms_sv/base/6_final.gds)
-- DEF:
-  [6_final.def](/home/chuongvo/adaptive-lms/flow/results/nangate45/tf_lms_sv/base/6_final.def)
-- Netlist final:
-  [6_final.v](/home/chuongvo/adaptive-lms/flow/results/nangate45/tf_lms_sv/base/6_final.v)
-- SPEF:
-  [6_final.spef](/home/chuongvo/adaptive-lms/flow/results/nangate45/tf_lms_sv/base/6_final.spef)
+- Results: [flow/results/nangate45/tf_lms_sv/base](/home/chuongvo/adaptive-lms/flow/results/nangate45/tf_lms_sv/base)
+- Logs: [flow/logs/nangate45/tf_lms_sv/base](/home/chuongvo/adaptive-lms/flow/logs/nangate45/tf_lms_sv/base)
+- Reports: [flow/reports/nangate45/tf_lms_sv/base](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base)
+- Objects: [flow/objects/nangate45/tf_lms_sv/base](/home/chuongvo/adaptive-lms/flow/objects/nangate45/tf_lms_sv/base)
 
-File signoff quan trọng:
+Artifact signoff quan trọng:
 
-- LVS log:
-  [6_lvs.log](/home/chuongvo/adaptive-lms/flow/logs/nangate45/tf_lms_sv/base/6_lvs.log)
-- DRC log:
-  [6_drc.log](/home/chuongvo/adaptive-lms/flow/logs/nangate45/tf_lms_sv/base/6_drc.log)
-- DRC count:
-  [6_drc_count.rpt](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base/6_drc_count.rpt)
+- GDS: [6_final.gds](/home/chuongvo/adaptive-lms/flow/results/nangate45/tf_lms_sv/base/6_final.gds)
+- DEF: [6_final.def](/home/chuongvo/adaptive-lms/flow/results/nangate45/tf_lms_sv/base/6_final.def)
+- Final netlist: [6_final.v](/home/chuongvo/adaptive-lms/flow/results/nangate45/tf_lms_sv/base/6_final.v)
+- LVS log: [6_lvs.log](/home/chuongvo/adaptive-lms/flow/logs/nangate45/tf_lms_sv/base/6_lvs.log)
+- DRC count: [6_drc_count.rpt](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base/6_drc_count.rpt)
 
-## 12. Output trên terminal sẽ trông như thế nào
+Ảnh OpenROAD GUI được xuất tự động ở bước `finish` và nằm trong thư mục report:
 
-`flow.sh` in ngắn gọn theo từng bước.
+- [final_all.webp](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base/final_all.webp)
+- [final_routing.webp](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base/final_routing.webp)
+- [final_placement.webp](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base/final_placement.webp)
+- [final_clocks.webp](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base/final_clocks.webp)
+- [cts_clk.webp](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base/cts_clk.webp)
+- [cts_clk_layout.webp](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base/cts_clk_layout.webp)
+- [final_resizer.webp](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base/final_resizer.webp)
+- [final_congestion.webp](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base/final_congestion.webp)
+- [final_ir_drop.webp](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base/final_ir_drop.webp)
+- [final_worst_path.webp](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base/final_worst_path.webp)
 
-Ví dụ:
+Các ảnh này là ảnh của trạng thái final, không phải snapshot riêng cho từng bước `synth`, `floorplan`, `place`, `cts`, `route`. Nếu chạy nhiều biến thể bằng `FLOW_VARIANT`, ảnh sẽ nằm dưới:
 
-```text
-[OK]   Synthesis    1_synth.odb 1_synth.sdc
-[OK]   Floorplan    2_floorplan.odb
-[OK]   Placement    3_place.odb
-[OK]   Clock tree   4_cts.odb
-[OK]   Routing      5_route.odb route.guide
-[OK]   Final export 6_final.gds 6_final.def 6_final.v
-[OK]   LVS          Netlists match
-[OK]   DRC          violations=0
-Done: 8/8 steps passed
-```
+- [flow/reports/nangate45/tf_lms_sv](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv)
 
-Nếu fail:
+Bản copy dùng cho handoff và so sánh nằm dưới:
 
-```text
-[FAIL] Routing      see /.../flow/logs/nangate45/tf_lms_sv/base/5_2_route.log
-Stopped at: Routing (4/6 steps passed)
-```
+- [handoff/tf_lms_sv/images/openroad](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/images/openroad)
 
-## 13. Xử lý lỗi thường gặp
+## 8. Lỗi thường gặp
 
-### Thiếu submodule
-
-Triệu chứng:
-
-- báo thiếu `tools/OpenROAD`
-- báo thiếu `tools/yosys`
-- báo thiếu source dependency
-
-Cách xử lý:
+Thiếu submodule:
 
 ```bash
 git submodule sync --recursive
 git submodule update --init --recursive
 ```
 
-### Thiếu package hệ thống sau `setup.sh`
-
-Triệu chứng:
-
-- `Remaining issues after setup: missing ...`
-
-Ví dụ:
-
-- `cmake`
-- `swig`
-
-Cách xử lý:
+Thiếu package nền tảng trên Ubuntu:
 
 ```bash
 sudo apt-get update
-sudo apt-get install -y cmake swig
+sudo apt-get install -y git ca-certificates cmake swig
 ```
 
-Sau đó chạy lại:
+`configure_flow.sh --check` không tìm thấy `openroad` hoặc `yosys`:
 
-```bash
-./setup_tools.sh --check-only
-```
+- chạy lại `./setup_tools.sh --build`
+- hoặc chỉ rõ path bằng `--openroad`, `--yosys`, `--klayout`
 
-### `configure_flow.sh --check` fail
-
-Triệu chứng:
-
-- không detect được `openroad`, `yosys`, hoặc `klayout`
-
-Cách xử lý:
-
-```bash
-./configure_flow.sh \
-  --openroad /path/to/openroad \
-  --yosys /path/to/yosys \
-  --klayout /path/to/klayout
-```
-
-### Build trên WSL nhưng để repo trong `/mnt/c`
-
-Triệu chứng:
-
-- build chậm bất thường
-- lỗi lặt vặt về file hoặc timestamp
-
-Cách xử lý:
+Build trên WSL nhưng repo nằm trong `/mnt/c/...`:
 
 - chuyển repo sang `~/adaptive-lms`
 
-### Build xong nhưng flow vẫn dùng nhầm tool hệ thống
+## 9. Tài liệu liên quan
 
-Tình trạng này đã được script giảm đáng kể:
-
-- `configure_flow.sh` ưu tiên binary local trong `tools/install/`
-- `build_openroad.sh` chỉ skip rebuild khi source và build-state còn khớp
-
-Nếu muốn kiểm tra tool nào đang được dùng:
-
-```bash
-./flow.sh show-env
-```
-
-## 14. Dọn output hoặc khôi phục patch
-
-Xóa artifact flow của `tf_lms_sv`:
-
-```bash
-./flow.sh clean
-```
-
-Khôi phục các file repo đã bị `configure_flow.sh` patch:
-
-```bash
-./configure_flow.sh --restore
-```
-
-## 15. Tài liệu liên quan
-
-- Hướng dẫn nhanh cho script:
-  [handoff/tf_lms_sv/scripts/openroad/README.md](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/README.md)
-- Handoff tổng:
-  [handoff/tf_lms_sv/README.md](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/README.md)
-- Signoff artifacts:
-  [handoff/tf_lms_sv/signoff/README.md](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/signoff/README.md)
+- Hướng dẫn nhanh cho thư mục script: [README.md](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/README.md)
+- OpenROAD build guide upstream trong repo: [Build.md](/home/chuongvo/adaptive-lms/tools/OpenROAD/docs/user/Build.md)

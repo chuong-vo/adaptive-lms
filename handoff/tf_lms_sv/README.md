@@ -14,5 +14,6 @@ Thư mục chính:
 Ghi chú:
 - `scripts/openroad/klayout/FreePDK45_orfs_lvs.lylvs` là deck LVS đã vá để chạy với ORFS hiện tại.
 - `scripts/openroad/klayout/FreePDK45_beol_noant.lydrc` là deck DRC đã dùng cho kiểm tra top-level backend (`BEOL + off-grid`).
-- `scripts/openroad/setup_env.sh` và `scripts/openroad/run_flow.sh` dùng để thành viên khác setup môi trường local và chạy lại toàn bộ flow.
+- `scripts/openroad/setup_tools.sh`, `scripts/openroad/configure_flow.sh` và `scripts/openroad/flow.sh` là bộ script chuẩn để setup và chạy lại flow.
+- Flow OpenROAD hiện dùng dữ liệu công nghệ từ `flow/platforms`; thư mục `code/pdk` không còn là dependency bắt buộc.
 - Danh sách đầy đủ file nằm trong `MANIFEST.txt`.

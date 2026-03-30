@@ -1,8 +1,0 @@
-DEFINE basic $CDSHOME/tools/dfII/etc/cdslib/basic 
-DEFINE analogLib $CDSHOME/tools/dfII/etc/cdslib/artist/analogLib
-DEFINE tsmc18 ./tsmc18
-DEFINE avTech /usr/Cadence614/ASSURA41/tools/assura/etc/avtech/avTech
-#Removed by ddDeleteObj: DEFINE myLib /root/TSMC180PDK/analog_training_pdk/myLib
-#Removed by ddDeleteObj: DEFINE myLib /root/TSMC180PDK/analog_training_pdk/myLib
-DEFINE PhucLib /root/TSMC180PDK/analog_training_pdk/PhucLib
-DEFINE QH /root/TSMC180PDK/analog_training_pdk/QH

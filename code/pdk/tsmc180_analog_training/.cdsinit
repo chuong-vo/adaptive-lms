@@ -1,2 +1,0 @@
-load(strcat(getShellEnvVar("MGC_HOME") "/shared/pkgs/icv.x86/tools/queryskl/calibre.skl"))
-mgc_rve_init_socket(9189)
