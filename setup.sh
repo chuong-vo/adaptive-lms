@@ -67,20 +67,55 @@ path_exists_any() {
   return 1
 }
 
+resolve_command_path() {
+  local cmd="$1"
+  if [[ -n "${DIR:-}" && -x "$DIR/dependencies/bin/$cmd" ]]; then
+    printf '%s\n' "$DIR/dependencies/bin/$cmd"
+    return 0
+  fi
+  command -v "$cmd" 2>/dev/null || return 1
+}
+
+command_available() {
+  resolve_command_path "$1" >/dev/null 2>&1
+}
+
+warn_if_windows_mount() {
+  case "$DIR" in
+    /mnt/[A-Za-z]/*)
+      cat >&2 <<EOF
+Warning: repo is under a Windows-mounted filesystem: $DIR
+Dependency setup and local builds are slower and more failure-prone there.
+Prefer moving the repo under the Linux filesystem, for example ~/adaptive-lms.
+EOF
+      ;;
+  esac
+}
+
+print_ubuntu_hint() {
+  cat >&2 <<'EOF'
+Ubuntu fallback for common prerequisites:
+  sudo apt-get update
+  sudo apt-get install -y git ca-certificates make gcc g++ bison flex cmake swig pkg-config python3 python3-pip curl
+EOF
+}
+
 base_dependencies_ready() {
   local missing=()
   local cmd
   for cmd in git make cmake gcc g++ bison flex swig pkg-config python3 pip3 curl; do
-    if ! command -v "$cmd" >/dev/null 2>&1; then
+    if ! command_available "$cmd"; then
       append_if_missing "$cmd" missing
     fi
   done
 
-  if ! command -v klayout >/dev/null 2>&1; then
+  local klayout_bin
+  klayout_bin="$(resolve_command_path klayout || true)"
+  if [[ -z "$klayout_bin" ]]; then
     append_if_missing "klayout>=${KLAYOUT_MIN_VERSION}" missing
   else
     local klayout_version
-    klayout_version="$(klayout -v 2>/dev/null | sed -n 's/.*KLayout \([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/p' | head -n1)"
+    klayout_version="$("$klayout_bin" -v 2>/dev/null | sed -n 's/.*KLayout \([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\).*/\1/p' | head -n1)"
     if [[ -z "$klayout_version" ]] || ! version_ge "$klayout_version" "$KLAYOUT_MIN_VERSION"; then
       append_if_missing "klayout>=${KLAYOUT_MIN_VERSION}" missing
     fi
@@ -89,6 +124,7 @@ base_dependencies_ready() {
   if ((${#missing[@]})); then
     echo "Base dependency check is incomplete. Missing:"
     printf '  - %s\n' "${missing[@]}"
+    print_ubuntu_hint
     return 1
   fi
 }
@@ -200,6 +236,7 @@ fi
 # allow this script to be invoked from any folder
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$DIR"
+warn_if_windows_mount
 
 if [ "${EUID}" -ne 0 ]; then
   echo "This script must be run with sudo"

@@ -108,6 +108,14 @@ detect_exe() {
   for candidate in "${checked[@]}"; do
     echo "  - $candidate" >&2
   done
+  case "$tool_name" in
+    OpenROAD|Yosys)
+      echo "Hint: run $SCRIPT_DIR/setup_tools.sh --build, or pass an explicit --${tool_name,,} path." >&2
+      ;;
+    KLayout)
+      echo "Hint: run $SCRIPT_DIR/setup_tools.sh --deps, or install KLayout manually and pass --klayout /path/to/klayout." >&2
+      ;;
+  esac
   return 1
 }
 
@@ -135,7 +143,7 @@ validate_openroad() {
 }
 
 validate_yosys() {
-  local out
+  local out tmpdir test_sv
   if ! out="$("$YOSYS_BIN" -V 2>&1)"; then
     echo "$out" >&2
     echo "Yosys executable exists but failed to run: $YOSYS_BIN" >&2
@@ -145,6 +153,22 @@ validate_yosys() {
     echo "Yosys executable exists but failed to report its version: $YOSYS_BIN" >&2
     return 1
   fi
+
+  tmpdir="$(mktemp -d)"
+  test_sv="${tmpdir}/yosys_smoke.sv"
+  cat > "$test_sv" <<'EOF'
+module yosys_smoke(input logic a, input logic b, output logic y);
+  assign y = a & b;
+endmodule
+EOF
+
+  if ! "$YOSYS_BIN" -Q -p "read_verilog -sv ${test_sv}; hierarchy -top yosys_smoke; proc; opt; stat" >/dev/null 2>&1; then
+    rm -rf "$tmpdir"
+    echo "Yosys runs but failed a basic SystemVerilog smoke test: $YOSYS_BIN" >&2
+    return 1
+  fi
+
+  rm -rf "$tmpdir"
 }
 
 validate_klayout() {
@@ -170,8 +194,31 @@ warn_yosys_slang() {
     cat >&2 <<'EOF'
 Warning: yosys-slang plugin is not available in the resolved Yosys install.
 Designs that set SYNTH_HDL_FRONTEND=slang will fail until yosys-slang is built and installed.
+The tf_lms_sv flow can still run as long as plain Yosys passes the basic check.
 EOF
   fi
+}
+
+design_requires_yosys_slang() {
+  local config="$REPO_ROOT/flow/designs/nangate45/tf_lms_sv/config.mk"
+  [[ -f "$config" ]] || return 1
+  grep -Eq '^[[:space:]]*export[[:space:]]+SYNTH_HDL_FRONTEND[[:space:]]*[:?+]?=[[:space:]]*slang([[:space:]]|$)' "$config"
+}
+
+enforce_yosys_frontend_support() {
+  if design_requires_yosys_slang; then
+    if ! "$YOSYS_BIN" -m slang -p 'help read_slang' >/dev/null 2>&1; then
+      cat >&2 <<EOF
+Design config requires SYNTH_HDL_FRONTEND=slang, but yosys-slang is unavailable.
+Fix: rerun $SCRIPT_DIR/setup_tools.sh --build after installing a supported compiler,
+or pass --yosys with a Yosys install that already has the slang plugin.
+EOF
+      return 1
+    fi
+    return 0
+  fi
+
+  warn_yosys_slang
 }
 
 shell_quote() {
@@ -272,7 +319,7 @@ done
 validate_openroad
 validate_yosys
 validate_klayout
-warn_yosys_slang
+enforce_yosys_frontend_support
 
 print_detected
 

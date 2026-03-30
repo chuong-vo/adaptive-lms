@@ -31,6 +31,7 @@ EOF
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
+DEPENDENCY_BIN_DIR="$REPO_ROOT/dependencies/bin"
 CONFIGURE_FLOW_ALIAS="$SCRIPT_DIR/configure_flow.sh"
 FLOW_ALIAS="$SCRIPT_DIR/flow.sh"
 SETUP_TOOLS_ALIAS="$SCRIPT_DIR/setup_tools.sh"
@@ -81,6 +82,39 @@ path_exists_any() {
   return 1
 }
 
+resolve_command_path() {
+  local cmd="$1"
+  if [[ -x "$DEPENDENCY_BIN_DIR/$cmd" ]]; then
+    printf '%s\n' "$DEPENDENCY_BIN_DIR/$cmd"
+    return 0
+  fi
+  command -v "$cmd" 2>/dev/null || return 1
+}
+
+command_available() {
+  resolve_command_path "$1" >/dev/null 2>&1
+}
+
+warn_if_windows_mount() {
+  case "$REPO_ROOT" in
+    /mnt/[A-Za-z]/*)
+      cat >&2 <<EOF
+Warning: repo is under a Windows-mounted filesystem: $REPO_ROOT
+Builds on /mnt/<drive> under WSL are slower and more failure-prone.
+Prefer moving the repo under the Linux filesystem, for example ~/adaptive-lms.
+EOF
+      ;;
+  esac
+}
+
+print_ubuntu_hint() {
+  cat >&2 <<'EOF'
+Ubuntu fallback for common prerequisites:
+  sudo apt-get update
+  sudo apt-get install -y git ca-certificates make gcc g++ bison flex cmake swig pkg-config python3 python3-pip curl
+EOF
+}
+
 python_module_ok() {
   local module="$1"
   python3 - "$module" >/dev/null 2>&1 <<'PY'
@@ -95,18 +129,20 @@ collect_base_dependency_gaps() {
   local -n gaps_ref="$1"
   local cmd
   for cmd in git make cmake gcc g++ bison flex swig pkg-config python3 pip3 curl; do
-    if ! command -v "$cmd" >/dev/null 2>&1; then
+    if ! command_available "$cmd"; then
       append_gap gaps_ref "$cmd"
     fi
   done
 
-  if ! command -v klayout >/dev/null 2>&1; then
+  local klayout_bin
+  klayout_bin="$(resolve_command_path klayout || true)"
+  if [[ -z "$klayout_bin" ]]; then
     append_gap gaps_ref "klayout>=${KLAYOUT_MIN_VERSION}"
     return
   fi
 
   local version
-  version="$(extract_semver "$(klayout -v 2>/dev/null || true)")"
+  version="$(extract_semver "$("$klayout_bin" -v 2>/dev/null || true)")"
   if [[ -z "$version" ]] || ! version_ge "$version" "$KLAYOUT_MIN_VERSION"; then
     append_gap gaps_ref "klayout>=${KLAYOUT_MIN_VERSION}"
   fi
@@ -185,7 +221,24 @@ validate_local_openroad() {
 
 validate_local_yosys() {
   local bin="$REPO_ROOT/tools/install/yosys/bin/yosys"
-  [[ -x "$bin" ]] && "$bin" -V >/dev/null 2>&1
+  local tmpdir test_sv
+  [[ -x "$bin" ]] || return 1
+  "$bin" -V >/dev/null 2>&1 || return 1
+
+  tmpdir="$(mktemp -d)"
+  test_sv="${tmpdir}/yosys_smoke.sv"
+  cat > "$test_sv" <<'EOF'
+module yosys_smoke(input logic a, input logic b, output logic y);
+  assign y = a & b;
+endmodule
+EOF
+
+  if ! "$bin" -Q -p "read_verilog -sv ${test_sv}; hierarchy -top yosys_smoke; proc; opt; stat" >/dev/null 2>&1; then
+    rm -rf "$tmpdir"
+    return 1
+  fi
+
+  rm -rf "$tmpdir"
 }
 
 validate_local_yosys_slang() {
@@ -204,8 +257,12 @@ collect_build_gaps() {
   local -n gaps_ref="$1"
   validate_local_openroad || append_gap gaps_ref "OpenROAD local install"
   validate_local_yosys || append_gap gaps_ref "Yosys local install"
-  validate_local_yosys_slang || append_gap gaps_ref "yosys-slang local install"
   validate_local_kepler || append_gap gaps_ref "kepler-formal local install"
+}
+
+collect_optional_build_gaps() {
+  local -n gaps_ref="$1"
+  validate_local_yosys_slang || append_gap gaps_ref "yosys-slang local install (optional for tf_lms_sv)"
 }
 
 print_gap_report() {
@@ -344,16 +401,18 @@ assert_tool_sources() {
 }
 
 run_deps() {
-  local dep_gaps=()
-  collect_base_dependency_gaps dep_gaps
-  collect_common_dependency_gaps dep_gaps
-  if ((${#dep_gaps[@]} == 0)); then
+  local base_gaps=()
+  local common_gaps=()
+  collect_base_dependency_gaps base_gaps
+  collect_common_dependency_gaps common_gaps
+  if ((${#base_gaps[@]} == 0 && ${#common_gaps[@]} == 0)); then
     echo "[1/4] Dependency preflight already passes. Skipping setup.sh"
     return 0
   fi
 
   echo "[1/4] Running ORFS dependency installer with sudo"
-  print_gap_report "[deps] Setup prerequisites before install" "${dep_gaps[@]}"
+  print_gap_report "[deps] System prerequisites before install" "${base_gaps[@]}"
+  print_gap_report "[deps] Common dependency status before install" "${common_gaps[@]}"
   command -v sudo >/dev/null 2>&1 || {
     echo "Missing required command: sudo" >&2
     exit 1
@@ -366,20 +425,32 @@ run_deps() {
   fi
   (cd "$REPO_ROOT" && sudo ./setup.sh "${setup_args[@]}")
 
-  dep_gaps=()
-  collect_base_dependency_gaps dep_gaps
-  collect_common_dependency_gaps dep_gaps
-  if ((${#dep_gaps[@]} != 0)); then
-    print_gap_report "[deps] Remaining issues after setup" "${dep_gaps[@]}"
+  base_gaps=()
+  common_gaps=()
+  collect_base_dependency_gaps base_gaps
+  collect_common_dependency_gaps common_gaps
+  if ((${#base_gaps[@]} != 0 || ${#common_gaps[@]} != 0)); then
+    print_gap_report "[deps] Remaining system prerequisite issues after setup" "${base_gaps[@]}"
+    print_gap_report "[deps] Remaining common dependency issues after setup" "${common_gaps[@]}"
+    print_ubuntu_hint
+    if [[ "$DO_BUILD" -eq 1 ]]; then
+      echo "[deps] Build was not started because dependency preflight still fails." >&2
+      echo "[deps] Fix the remaining gaps above, then rerun: $SETUP_TOOLS_ALIAS --build --threads $THREADS" >&2
+    fi
     exit 1
   fi
 }
 
 run_build() {
   local build_gaps=()
+  local optional_gaps=()
   collect_build_gaps build_gaps
   if ((${#build_gaps[@]} == 0)); then
     echo "[2/4] Local toolchain already passes sanity checks. Skipping build_openroad.sh"
+    collect_optional_build_gaps optional_gaps
+    if ((${#optional_gaps[@]} != 0)); then
+      print_gap_report "[build] Optional components not available" "${optional_gaps[@]}"
+    fi
     return 0
   fi
 
@@ -394,29 +465,45 @@ run_build() {
   (cd "$REPO_ROOT" && ./build_openroad.sh "${args[@]}")
 
   build_gaps=()
+  optional_gaps=()
   collect_build_gaps build_gaps
+  collect_optional_build_gaps optional_gaps
   if ((${#build_gaps[@]} != 0)); then
     print_gap_report "[build] Remaining issues after build" "${build_gaps[@]}"
     exit 1
+  fi
+  if ((${#optional_gaps[@]} != 0)); then
+    print_gap_report "[build] Optional components not available" "${optional_gaps[@]}"
   fi
 }
 
 assert_repo
 show_plan
+warn_if_windows_mount
 
 if [[ "$CHECK_ONLY" -eq 1 ]]; then
-  dep_gaps=()
+  base_gaps=()
+  common_gaps=()
   build_gaps=()
+  optional_gaps=()
   if submodules_need_init; then
     echo "Warning: some recursive submodules are not initialized or out of sync." >&2
     echo "They will be initialized automatically during --deps/--build." >&2
   fi
   assert_tool_sources
-  collect_base_dependency_gaps dep_gaps
-  collect_common_dependency_gaps dep_gaps
+  collect_base_dependency_gaps base_gaps
+  collect_common_dependency_gaps common_gaps
   collect_build_gaps build_gaps
-  print_gap_report "Dependency status" "${dep_gaps[@]}"
+  collect_optional_build_gaps optional_gaps
+  print_gap_report "System prerequisite status" "${base_gaps[@]}"
+  print_gap_report "Common dependency status" "${common_gaps[@]}"
   print_gap_report "Local build status" "${build_gaps[@]}"
+  if ((${#optional_gaps[@]} != 0)); then
+    print_gap_report "Optional tool status" "${optional_gaps[@]}"
+  fi
+  if ((${#base_gaps[@]} != 0)); then
+    print_ubuntu_hint
+  fi
   echo "Setup preflight complete."
   echo "Typical command:"
   echo "  $SETUP_TOOLS_ALIAS --all"

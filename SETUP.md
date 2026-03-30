@@ -32,7 +32,18 @@ Nếu dùng WSL:
 - nên đặt repo trong Linux filesystem, ví dụ `~/adaptive-lms`
 - không nên build trong `/mnt/c/...` vì chậm và dễ lỗi hơn
 
-## 2. Clone repo
+## 2. Cài gói nền tảng trên Ubuntu
+
+Khuyến nghị cài sẵn các gói cơ bản này trước khi clone repo:
+
+```bash
+sudo apt-get update
+sudo apt-get install -y git ca-certificates cmake swig
+```
+
+Điều này giúp lần setup đầu tiên trên Ubuntu mượt hơn, nhất là khi bạn chỉ muốn kiểm tra nhanh môi trường trước khi build.
+
+## 3. Clone repo
 
 ```bash
 cd ~
@@ -48,7 +59,7 @@ git submodule sync --recursive
 git submodule update --init --recursive
 ```
 
-## 3. Vào đúng thư mục script
+## 4. Vào đúng thư mục script
 
 Toàn bộ script setup và chạy flow của `tf_lms_sv` nằm ở:
 
@@ -60,7 +71,7 @@ Di chuyển vào đó:
 cd handoff/tf_lms_sv/scripts/openroad
 ```
 
-## 4. Ý nghĩa từng script
+## 5. Ý nghĩa từng script
 
 ### `./setup_tools.sh`
 
@@ -104,7 +115,7 @@ Nó hỗ trợ:
 - `all`
 - `rerun`
 
-## 5. Trình tự chuẩn
+## 6. Trình tự chuẩn
 
 Tách bạch theo đúng vai trò:
 
@@ -115,11 +126,14 @@ Tách bạch theo đúng vai trò:
 3. `flow.sh`
    Chỉ chạy flow.
 
-## 6. Máy mới hoàn toàn
+## 7. Máy mới hoàn toàn
 
 ### Cách chuẩn nhất
 
 ```bash
+sudo apt-get update
+sudo apt-get install -y git ca-certificates cmake swig
+
 cd ~
 git clone --recursive https://github.com/chuong-vo/adaptive-lms.git
 cd adaptive-lms
@@ -162,7 +176,7 @@ Khi nào cần cấu hình và chạy flow:
 
 Nếu không muốn giới hạn số luồng, thay `8` bằng `auto`.
 
-## 7. Chạy lại sau khi đã setup xong
+## 8. Chạy lại sau khi đã setup xong
 
 Sau khi tool đã build xong, lần sau chỉ cần:
 
@@ -172,7 +186,7 @@ cd ~/adaptive-lms/handoff/tf_lms_sv/scripts/openroad
 ./flow.sh rerun
 ```
 
-## 8. Chạy từng bước
+## 9. Chạy từng bước
 
 ```bash
 ./flow.sh synth
@@ -200,7 +214,7 @@ Nếu muốn truyền thêm tham số cho `make`, ví dụ số luồng:
 ./flow.sh rerun -j 8
 ```
 
-## 9. Input của flow là gì
+## 10. Input của flow là gì
 
 Thiết kế `tf_lms_sv` dùng các input chính sau:
 
@@ -215,7 +229,7 @@ Thiết kế `tf_lms_sv` dùng các input chính sau:
 - DRC deck:
   [FreePDK45_beol_noant.lydrc](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/klayout/FreePDK45_beol_noant.lydrc)
 
-## 10. Output nằm ở đâu
+## 11. Output nằm ở đâu
 
 Output chính của flow nằm ở 4 thư mục:
 
@@ -248,7 +262,7 @@ File signoff quan trọng:
 - DRC count:
   [6_drc_count.rpt](/home/chuongvo/adaptive-lms/flow/reports/nangate45/tf_lms_sv/base/6_drc_count.rpt)
 
-## 11. Output trên terminal sẽ trông như thế nào
+## 12. Output trên terminal sẽ trông như thế nào
 
 `flow.sh` in ngắn gọn theo từng bước.
 
@@ -273,7 +287,7 @@ Nếu fail:
 Stopped at: Routing (4/6 steps passed)
 ```
 
-## 12. Xử lý lỗi thường gặp
+## 13. Xử lý lỗi thường gặp
 
 ### Thiếu submodule
 
@@ -353,7 +367,7 @@ Nếu muốn kiểm tra tool nào đang được dùng:
 ./flow.sh show-env
 ```
 
-## 13. Dọn output hoặc khôi phục patch
+## 14. Dọn output hoặc khôi phục patch
 
 Xóa artifact flow của `tf_lms_sv`:
 
@@ -367,7 +381,7 @@ Khôi phục các file repo đã bị `configure_flow.sh` patch:
 ./configure_flow.sh --restore
 ```
 
-## 14. Tài liệu liên quan
+## 15. Tài liệu liên quan
 
 - Hướng dẫn nhanh cho script:
   [handoff/tf_lms_sv/scripts/openroad/README.md](/home/chuongvo/adaptive-lms/handoff/tf_lms_sv/scripts/openroad/README.md)

@@ -109,18 +109,18 @@ ensure_supported_yosys_slang_compiler() {
         major="$(compiler_major_version "$cxx")"
         if [[ -z "$major" ]]; then
                 echo "[ERROR FLW-0036] Unable to determine compiler version for ${cxx}" >&2
-                exit 1
+                return 1
         fi
 
         if [[ "$cxx" == *clang* ]]; then
                 if (( major < 17 )); then
                         echo "[ERROR FLW-0037] yosys-slang requires clang 17+ but found ${cxx} (${major})." >&2
-                        exit 1
+                        return 1
                 fi
         else
                 if (( major < 11 )); then
                         echo "[ERROR FLW-0038] yosys-slang requires GCC 11+ but found ${cxx} (${major})." >&2
-                        exit 1
+                        return 1
                 fi
         fi
 }
@@ -230,10 +230,25 @@ validate_openroad_install() {
 }
 
 validate_yosys_install() {
-        local bin
+        local bin tmpdir test_sv
         bin="$(install_yosys_bin)"
         [[ -x "$bin" ]] || return 1
-        "$bin" -V >/dev/null 2>&1
+        "$bin" -V >/dev/null 2>&1 || return 1
+
+        tmpdir="$(mktemp -d)"
+        test_sv="${tmpdir}/yosys_smoke.sv"
+        cat > "$test_sv" <<'EOF'
+module yosys_smoke(input logic a, input logic b, output logic y);
+  assign y = a & b;
+endmodule
+EOF
+
+        if ! "$bin" -Q -p "read_verilog -sv ${test_sv}; hierarchy -top yosys_smoke; proc; opt; stat" >/dev/null 2>&1; then
+                rm -rf "$tmpdir"
+                return 1
+        fi
+
+        rm -rf "$tmpdir"
 }
 
 validate_yosys_slang_install() {
@@ -265,7 +280,7 @@ verify_component() {
                         echo "Check tools/OpenROAD/build/openroad_build.log for the failing CMake or compiler step." >&2
                         ;;
                 Yosys)
-                        echo "Check tools/yosys build output in build_openroad.log; common causes are missing flex/bison/libffi/readline/zlib headers." >&2
+                        echo "Check tools/yosys build output in build_openroad.log; common causes are missing flex/bison/libffi/readline/zlib headers or a binary that starts but cannot parse a simple SystemVerilog file." >&2
                         ;;
                 yosys-slang)
                         echo "Check build_openroad.log; common causes are a compiler older than GCC 11 / clang 17 or an unusable local Yosys install." >&2
@@ -317,9 +332,39 @@ build_yosys_component() {
 
 build_yosys_slang_component() {
         echo "[INFO FLW-0030] Compiling yosys-slang."
-        ensure_supported_yosys_slang_compiler "${CXX}"
-        ${NICE} make install -C tools/yosys-slang -j "${PROC}" YOSYS_PREFIX="${INSTALL_PATH}/yosys/bin/" CMAKE_FLAGS="-DYOSYS_SLANG_REVISION=unknown -DSLANG_REVISION=unknown"
-        verify_component "yosys-slang" validate_yosys_slang_install
+        ensure_supported_yosys_slang_compiler "${CXX}" || return 1
+        ${NICE} make install -C tools/yosys-slang -j "${PROC}" YOSYS_PREFIX="${INSTALL_PATH}/yosys/bin/" CMAKE_FLAGS="-DYOSYS_SLANG_REVISION=unknown -DSLANG_REVISION=unknown" || return 1
+        validate_yosys_slang_install
+}
+
+restore_err_trap() {
+        local trap_state="$1"
+        if [[ -n "${trap_state}" ]]; then
+                eval "${trap_state}"
+        else
+                trap - ERR
+        fi
+}
+
+try_optional_yosys_slang_build() {
+        local err_trap_state status
+        err_trap_state="$(trap -p ERR || true)"
+        trap - ERR
+        set +e
+        build_yosys_slang_component
+        status=$?
+        set -e
+        restore_err_trap "${err_trap_state}"
+        return "${status}"
+}
+
+warn_optional_yosys_slang_failure() {
+        cat >&2 << EOF
+[WARNING FLW-0046] yosys-slang could not be built or validated.
+Continuing without it because the tf_lms_sv flow uses plain Yosys.
+Designs that set SYNTH_HDL_FRONTEND=slang will still fail until yosys-slang is fixed.
+See ${DIR}/build_openroad.log for the failing compiler or linker step.
+EOF
 }
 
 build_kepler_component() {
@@ -630,8 +675,13 @@ __local_build()
                 echo "[INFO FLW-0044] yosys-slang already installed and passes sanity checks. Skipping rebuild."
                 STATE_WRITE_YOSYSSLANG_SRC="$(source_tree_fingerprint "${DIR}/tools/yosys-slang")"
         else
-                build_yosys_slang_component
-                STATE_WRITE_YOSYSSLANG_SRC="$(source_tree_fingerprint "${DIR}/tools/yosys-slang")"
+                if try_optional_yosys_slang_build; then
+                        echo "[INFO FLW-0047] Verified yosys-slang install."
+                        STATE_WRITE_YOSYSSLANG_SRC="$(source_tree_fingerprint "${DIR}/tools/yosys-slang")"
+                else
+                        warn_optional_yosys_slang_failure
+                        STATE_WRITE_YOSYSSLANG_SRC=""
+                fi
         fi
 
         if validate_kepler_install && [ -z "${CLEAN_BEFORE+x}" ] && kepler_build_state_matches; then
